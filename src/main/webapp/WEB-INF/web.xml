@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>jdbcConnection</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.jdbcConnection</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BoneCPConnection</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.BoneCPConnection</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>json</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.json</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jdbcConnection</servlet-name>
+        <url-pattern>/jdbc</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BoneCPConnection</servlet-name>
+        <url-pattern>/bone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>json</servlet-name>
+        <url-pattern>/json</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
