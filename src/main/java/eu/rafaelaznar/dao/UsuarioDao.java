@@ -196,11 +196,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                UsuarioBean oBean = new UsuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean = this.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
-                aloBean.add(oBean);
-                //aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id"))));                
+                aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id")), AppConfigurationHelper.getJsonMsgDepth()));
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
