@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * sissane-server: Helps you to develop easily AJAX web applications 
+ * carrito-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/carrito-server
