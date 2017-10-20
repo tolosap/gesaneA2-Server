@@ -73,7 +73,8 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
                 insert = false;
                 strSQL = "UPDATE " + strTable;
                 strSQL += " SET ";
-                strSQL += "descripcion=" + EncodingUtilHelper.quotate(oBean.getDescripcion());
+                strSQL += "descripcion=" + EncodingUtilHelper.quotate(oBean.getDescripcion())+ " ";                
+                strSQL += "WHERE id=" + oBean.getId();                
             }
             oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
             iResult = oPreparedStatement.executeUpdate();

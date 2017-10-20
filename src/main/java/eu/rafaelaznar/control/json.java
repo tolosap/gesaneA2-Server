@@ -7,6 +7,9 @@ package eu.rafaelaznar.control;
 
 import com.google.gson.Gson;
 import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.helper.EstadoHelper;
+import eu.rafaelaznar.helper.EstadoHelper.Tipo_estado;
+import eu.rafaelaznar.helper.Log4j;
 import static eu.rafaelaznar.helper.ParameterCook.prepareCamelCaseObject;
 import eu.rafaelaznar.service.EmptyServiceInterface;
 import eu.rafaelaznar.service.ViewServiceInterface;
@@ -17,7 +20,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 public class json extends HttpServlet {
 
@@ -66,9 +68,16 @@ public class json extends HttpServlet {
                 Method oMethodService = oService.getClass().getMethod(op);
                 oReplyBean = (ReplyBean) oMethodService.invoke(oService);
             } catch (Exception ex) {
+                if (EstadoHelper.getTipo_estado() == Tipo_estado.Debug) {                
+                    out.println(ex);
+                    ex.printStackTrace(out);
+                } else {
+                    oReplyBean = new ReplyBean(500, "carrito-server error. Please, contact your administrator.");
+                }
+                Log4j.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
                 oReplyBean = new ReplyBean(500, "Object or Operation not found : Please contact your administrator");
-            }            
-            out.print("{\"status\":"+ oReplyBean.getCode() + ", \"json\":"+ oReplyBean.getJson()+ "}");           
+            }
+            out.print("{\"status\":" + oReplyBean.getCode() + ", \"json\":" + oReplyBean.getJson() + "}");
         }
     }
 

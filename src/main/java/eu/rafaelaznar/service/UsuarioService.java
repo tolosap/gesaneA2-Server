@@ -3,9 +3,10 @@ package eu.rafaelaznar.service;
 import com.google.gson.Gson;
 import eu.rafaelaznar.bean.ReplyBean;
 import eu.rafaelaznar.bean.UsuarioBean;
-import eu.rafaelaznar.connection.BoneCPImpl;
+import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.dao.UsuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
+import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +36,11 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
     public ReplyBean get() throws Exception {
         int id = Integer.parseInt(oRequest.getParameter("id"));
         Connection oConnection = null;
-        BoneCPImpl oBone = null;
+        ConnectionInterface oPooledConnection = null;
         ReplyBean oReplyBean = null;
         try {
-            oBone = new BoneCPImpl();
-            oConnection = oBone.newConnection();
+            oPooledConnection = AppConfigurationHelper.getSourceConnection();
+            oConnection = oPooledConnection.newConnection();
             UsuarioBean oBean = new UsuarioBean(id);
             UsuarioDao oDao = new UsuarioDao(oConnection);
             oBean = oDao.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
@@ -47,13 +48,15 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
             String strJson = oGson.toJson(oBean);
             oReplyBean = new ReplyBean(200, strJson);
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (oBone != null) {
-                oBone.disposeConnection();
+            if (oPooledConnection != null) {
+                oPooledConnection.disposeConnection();
             }
         }
         return oReplyBean;
@@ -64,25 +67,27 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         int np = Integer.parseInt(oRequest.getParameter("np"));
         int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
         Connection oConnection = null;
-        BoneCPImpl oBone = null;
+        ConnectionInterface oPooledConnection = null;
         ReplyBean oReplyBean = null;
         ArrayList<UsuarioBean> aloBean = null;
         try {
-            oBone = new BoneCPImpl();
-            oConnection = oBone.newConnection();
+            oPooledConnection = AppConfigurationHelper.getSourceConnection();
+            oConnection = oPooledConnection.newConnection();
             UsuarioDao oDao = new UsuarioDao(oConnection);
             aloBean = oDao.getPage(rpp, np);
-            Gson oGson = new Gson();
+            Gson oGson = AppConfigurationHelper.getGson();
             String strJson = oGson.toJson(aloBean);
             oReplyBean = new ReplyBean(200, strJson);
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (oBone != null) {
-                oBone.disposeConnection();
+            if (oPooledConnection != null) {
+                oPooledConnection.disposeConnection();
             }
         }
         return oReplyBean;
@@ -93,24 +98,26 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         if (this.checkPermission("getcount")) {
             Long lResult;
             Connection oConnection = null;
-            BoneCPImpl oBone = null;
+            ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
             try {
-                oBone = new BoneCPImpl();
-                oConnection = oBone.newConnection();
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
                 lResult = oDao.getCount();
-                Gson oGson = new Gson();
+                Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
-                throw new Exception();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
                     oConnection.close();
                 }
-                if (oBone != null) {
-                    oBone.disposeConnection();
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
                 }
             }
             return oReplyBean;
@@ -123,30 +130,32 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
     public ReplyBean set() throws Exception {
         String jason = oRequest.getParameter("jason");
         Connection oConnection = null;
-        BoneCPImpl oBone = null;
+        ConnectionInterface oPooledConnection = null;
         ReplyBean oReplyBean = null;
         UsuarioBean oBean = new UsuarioBean();
-        Gson oGson = new Gson();
+        Gson oGson = AppConfigurationHelper.getGson();
         oBean = oGson.fromJson(jason, oBean.getClass());
         if (oBean == null) {
             throw new Exception("Bean null en service set");
         }
         int iResult = 0;
         try {
-            oBone = new BoneCPImpl();
-            oConnection = oBone.newConnection();
+            oPooledConnection = AppConfigurationHelper.getSourceConnection();
+            oConnection = oPooledConnection.newConnection();
             UsuarioDao oDao = new UsuarioDao(oConnection);
             iResult = oDao.set(oBean);
             String strJson = oGson.toJson(iResult);
             oReplyBean = new ReplyBean(200, strJson);
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (oBone != null) {
-                oBone.disposeConnection();
+            if (oPooledConnection != null) {
+                oPooledConnection.disposeConnection();
             }
         }
         return oReplyBean;
@@ -157,24 +166,26 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         int id = Integer.parseInt(oRequest.getParameter("id"));
         Boolean iResult = false;
         Connection oConnection = null;
-        BoneCPImpl oBone = null;
+        ConnectionInterface oPooledConnection = null;
         ReplyBean oReplyBean = null;
         try {
-            oBone = new BoneCPImpl();
-            oConnection = oBone.newConnection();
+            oPooledConnection = AppConfigurationHelper.getSourceConnection();
+            oConnection = oPooledConnection.newConnection();
             UsuarioDao oDao = new UsuarioDao(oConnection);
             iResult = oDao.remove(id);
-            Gson oGson = new Gson();
+            Gson oGson = AppConfigurationHelper.getGson();
             String strJson = oGson.toJson(iResult);
             oReplyBean = new ReplyBean(200, strJson);
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (oBone != null) {
-                oBone.disposeConnection();
+            if (oPooledConnection != null) {
+                oPooledConnection.disposeConnection();
             }
         }
         return oReplyBean;
@@ -182,15 +193,15 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
 
     public ReplyBean login() throws Exception {
         Connection oConnection = null;
-        BoneCPImpl oBone = null;
+        ConnectionInterface oPooledConnection = null;
         ReplyBean oReplyBean = null;
         UsuarioBean oUsuarioBean = new UsuarioBean();
         oUsuarioBean.setLogin(oRequest.getParameter("user"));
         oUsuarioBean.setPass(oRequest.getParameter("pass"));
         if (!oUsuarioBean.getLogin().equalsIgnoreCase("") || !oUsuarioBean.getPass().equalsIgnoreCase("")) {
             try {
-                oBone = new BoneCPImpl();
-                oConnection = oBone.newConnection();
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
                 oUsuarioBean = oDao.getFromLoginAndPass(oUsuarioBean);
                 HttpSession oSession = oRequest.getSession();
@@ -199,13 +210,15 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
                 String strJson = oGson.toJson(oUsuarioBean);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
-                throw new Exception();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
                     oConnection.close();
                 }
-                if (oBone != null) {
-                    oBone.disposeConnection();
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
                 }
             }
         }
@@ -229,9 +242,10 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
             String strJson = oGson.toJson(oUsuarioBean);
             oReplyBean = new ReplyBean(200, strJson);
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
-
         return oReplyBean;
     }
 }

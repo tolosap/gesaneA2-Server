@@ -7,6 +7,8 @@ package eu.rafaelaznar.helper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import eu.rafaelaznar.connection.BoneCPImpl;
+import eu.rafaelaznar.connection.ConnectionInterface;
 
 
 
@@ -15,10 +17,10 @@ public class AppConfigurationHelper {
         return 1;
     }
 
-//    public static ConnectionInterface getSourceConnection() throws Exception {
-//        ConnectionInterface oDataConnectionSource = new BoneConnectionPoolImpl();
-//        return oDataConnectionSource;
-//    }
+    public static ConnectionInterface getSourceConnection() throws Exception {
+        ConnectionInterface oDataConnectionSource = new BoneCPImpl();
+        return oDataConnectionSource;
+    }
 
     public static Gson getGson() throws Exception {
         GsonBuilder gsonBuilder = new GsonBuilder();

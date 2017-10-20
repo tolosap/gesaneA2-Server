@@ -12,6 +12,17 @@
         <servlet-name>json</servlet-name>
         <servlet-class>eu.rafaelaznar.control.json</servlet-class>
     </servlet>
+        
+    <servlet> 
+        <servlet-name>log4j-init</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.Log4jInit</servlet-class> 
+        <init-param>
+            <param-name>log4j-carrito-server</param-name>
+            <param-value>WEB-INF/log4j.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet> 
+        
     <servlet-mapping>
         <servlet-name>jdbcConnection</servlet-name>
         <url-pattern>/jdbc</url-pattern>
@@ -24,6 +35,7 @@
         <servlet-name>json</servlet-name>
         <url-pattern>/json</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30
