@@ -40,6 +40,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterface<UsuarioBean> {
 
@@ -78,7 +80,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                     oBean.setObj_tipousuario(oTipousuario);
                 }
             } else {
-                throw new Exception("UsuarioDao get id not found");
+                oBean = null;
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
@@ -185,7 +187,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     public Long getCount() throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL = "SELECT COUNTa(*) FROM " + strTable;
+        strSQL = "SELECT COUNT(*) FROM " + strTable;
         Long iResult = 0L;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -211,9 +213,11 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage) throws Exception {
-        String strSQL1 = strSQL + SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
-        ArrayList<UsuarioBean> aloBean = new ArrayList<>();
+    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage,LinkedHashMap<String,String> hmOrder) throws Exception {
+        String strSQL1 = strSQL;
+        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        ArrayList<UsuarioBean> aloBean = new ArrayList<>();        
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {

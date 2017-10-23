@@ -30,12 +30,14 @@
 package eu.rafaelaznar.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public interface DaoViewInterface<GenericBeanImplementation> {
 
     public Long getCount() throws Exception;
 
-    public ArrayList<GenericBeanImplementation> getPage(int intRegsPerPag, int intPage) throws Exception;
+    public ArrayList<GenericBeanImplementation> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String,String> hmOrder) throws Exception;
 
 }

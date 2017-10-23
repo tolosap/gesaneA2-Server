@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.service;
 
 import com.google.gson.Gson;
@@ -36,8 +35,11 @@ import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.dao.UsuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.ParameterCook;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -103,6 +105,8 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         if (this.checkPermission("getpage")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            String strOrder = oRequest.getParameter("order");
+            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
@@ -111,7 +115,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
-                aloBean = oDao.getPage(rpp, np);
+                aloBean = oDao.getPage(rpp, np, hmOrder);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -171,7 +175,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
 
     /*
     * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=set (datos aparte)
-     */    
+     */
     @Override
     public ReplyBean set() throws Exception {
         if (this.checkPermission("set")) {
@@ -213,7 +217,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
 
     /*
     * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=remove&id=1
-     */        
+     */
     @Override
     public ReplyBean remove() throws Exception {
         if (this.checkPermission("remove")) {

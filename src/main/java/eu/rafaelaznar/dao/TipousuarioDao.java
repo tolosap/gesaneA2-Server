@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.dao;
 
 import eu.rafaelaznar.bean.TipousuarioBean;
@@ -38,6 +37,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoViewInterface<TipousuarioBean> {
 
@@ -61,7 +62,7 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
             if (oResultSet.next()) {
                 oBean.setDescripcion(oResultSet.getString("descripcion"));
             } else {
-                throw new Exception();
+                oBean = null;
             }
         } catch (Exception ex) {
             //log4j 
@@ -97,8 +98,8 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
                 insert = false;
                 strSQL = "UPDATE " + strTable;
                 strSQL += " SET ";
-                strSQL += "descripcion=" + EncodingUtilHelper.quotate(oBean.getDescripcion())+ " ";                
-                strSQL += "WHERE id=" + oBean.getId();                
+                strSQL += "descripcion=" + EncodingUtilHelper.quotate(oBean.getDescripcion()) + " ";
+                strSQL += "WHERE id=" + oBean.getId();
             }
             oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
             iResult = oPreparedStatement.executeUpdate();
@@ -168,7 +169,7 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
     }
 
     @Override
-    public ArrayList<TipousuarioBean> getPage(int intRegsPerPag, int intPage) throws Exception {
+    public ArrayList<TipousuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder) throws Exception {
         String strSQL1 = strSQL + SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
         ArrayList<TipousuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;

@@ -26,9 +26,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.helper;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 
 public class ParameterCook {
@@ -42,4 +43,27 @@ public class ParameterCook {
         }
         return result;
     }
+
+    public static LinkedHashMap<String, String> getOrderParams(String strOrder) {
+        LinkedHashMap<String, String> oHMOrder = new LinkedHashMap<String, String>();
+        if (strOrder != null && strOrder.length() > 0) {
+            String[] arrOrderSplit1 = strOrder.split(" ");
+            for (String s : arrOrderSplit1) {
+                String[] arrOrderSplit2 = s.split(",");
+                if (s.contains(",")) {
+                    if ("asc".equalsIgnoreCase(arrOrderSplit2[1])) {
+                        oHMOrder.put(arrOrderSplit2[0], "ASC");
+                    } else {
+                        oHMOrder.put(arrOrderSplit2[0], "DESC");
+                    }
+                } else {
+                    oHMOrder.put(arrOrderSplit2[0], "ASC");
+                }
+            }
+        } else {
+            oHMOrder = null;
+        }
+        return oHMOrder;
+    }
+
 }
