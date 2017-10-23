@@ -1,20 +1,47 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * 
+ * carrito-server: Helps you to develop easily AJAX web applications 
+ *               by copying and modifying this Java Server.
+ *
+ * Sources at https://github.com/rafaelaznar/carrito-server
+ * 
+ * carrito-server is distributed under the MIT License (MIT)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
+
 package eu.rafaelaznar.dao;
 
 import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EncodingUtilHelper;
+import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterface<UsuarioBean> {
 
@@ -44,7 +71,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                 oBean.setLogin(oResultSet.getString("login"));
                 oBean.setPass(oResultSet.getString("pass"));
                 oBean.setEmail(oResultSet.getString("email"));
-                oBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));                
+                oBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
                 if (intExpand > 0) {
                     TipousuarioBean oTipousuario = new TipousuarioBean();
                     TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection);
@@ -53,11 +80,12 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                     oBean.setObj_tipousuario(oTipousuario);
                 }
             } else {
-                throw new Exception();
+                oBean = null;
             }
         } catch (Exception ex) {
-            //log4j 
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
@@ -65,7 +93,6 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
             }
-
         }
         return oBean;
     }
@@ -76,7 +103,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
         Integer iResult = 0;
         Boolean insert = true;
         try {
-            if (oBean.getId() == null || oBean.getId() == 0) {
+            if (oBean.getId() == null || oBean.getId() <= 0) {
                 strSQL = "INSERT INTO " + strTable;
                 strSQL += "(";
                 strSQL += "dni,";
@@ -110,21 +137,23 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                 strSQL += "login=" + EncodingUtilHelper.quotate(oBean.getLogin()) + ",";
                 strSQL += "pass=" + EncodingUtilHelper.quotate(oBean.getPass()) + ",";
                 strSQL += "email=" + oBean.getEmail() + ",";
-                strSQL += "id_tipousuario=" + oBean.getId_tipousuario();
+                strSQL += "id_tipousuario=" + oBean.getId_tipousuario() + " ";
+                strSQL += "WHERE id=" + oBean.getId();
             }
             oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
             iResult = oPreparedStatement.executeUpdate();
             if (iResult < 1) {
-                throw new Exception();
+                throw new Exception("UsuarioDao set error");
             }
             if (insert) {
                 ResultSet oResultSet = oPreparedStatement.getGeneratedKeys();
                 oResultSet.next();
                 iResult = oResultSet.getInt(1);
             }
-
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
@@ -143,7 +172,9 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             oPreparedStatement.setInt(1, id);
             iResult = oPreparedStatement.execute();
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
@@ -164,10 +195,12 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             if (oResultSet.next()) {
                 iResult = oResultSet.getLong("COUNT(*)");
             } else {
-                throw new Exception();
+                throw new Exception("UsuarioDao getCount error");
             }
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
@@ -180,23 +213,23 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage) throws Exception {
-        String strSQL1 = strSQL + SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
-        ArrayList<UsuarioBean> aloBean = new ArrayList<>();
+    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage,LinkedHashMap<String,String> hmOrder) throws Exception {
+        String strSQL1 = strSQL;
+        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        ArrayList<UsuarioBean> aloBean = new ArrayList<>();        
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                UsuarioBean oBean = new UsuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean = this.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
-                aloBean.add(oBean);
-                //aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id"))));                
+                aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id")), AppConfigurationHelper.getJsonMsgDepth()));
             }
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
@@ -209,13 +242,11 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     public UsuarioBean getFromLoginAndPass(UsuarioBean oUsuarioBean) throws Exception {
-
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "select * from " + strTable + " WHERE 1=1 ";
         strSQL += " AND login='" + oUsuarioBean.getLogin() + "'";
         strSQL += " AND pass='" + oUsuarioBean.getPass() + "'";
-
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery();
@@ -231,11 +262,12 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                 oUsuarioBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
                 //pendiente la expansión ************************* %%%%%%
             } else {
-                throw new Exception();
+                throw new Exception("UsuarioDao getFromLoginAndPass error");
             }
         } catch (Exception ex) {
-            //log4j 
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();

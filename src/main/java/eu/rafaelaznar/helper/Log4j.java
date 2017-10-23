@@ -27,9 +27,25 @@
  * THE SOFTWARE.
  */
 
-package eu.rafaelaznar.service;
+package eu.rafaelaznar.helper;
 
+import org.apache.log4j.Logger;
 
-public interface EmptyServiceInterface {
-    
+public class Log4j {
+
+    public static void infoLog(String strMessage) {
+        Logger log = Logger.getLogger("carrito-server");
+        log.info(strMessage);
+    }
+
+    public static void errorLog(String strMessage, Exception e) {
+        Logger log = Logger.getLogger("carrito-server");
+        log.error(strMessage, e);
+    }
+
+    public static void errorLog(String strMessage) {
+        Logger log = Logger.getLogger("carrito-server");
+        log.error(strMessage);
+    }
+
 }
