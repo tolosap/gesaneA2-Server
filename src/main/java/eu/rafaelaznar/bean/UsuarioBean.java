@@ -8,6 +8,7 @@ package eu.rafaelaznar.bean;
 import com.google.gson.annotations.Expose;
 
 public class UsuarioBean {
+
     @Expose
     private Integer id;
     @Expose
@@ -21,13 +22,14 @@ public class UsuarioBean {
     @Expose
     private String login;
     @Expose(serialize = false)
-    private String pass;    
+    private String pass;
     @Expose
     private String email;
-    @Expose
-    private Integer id_tipousuario;
-    @Expose
-    private TipousuarioBean obj_tipousuario;
+    
+    @Expose(serialize = false)
+    private Integer id_tipousuario = 0;
+    @Expose(deserialize = false)
+    private TipousuarioBean obj_tipousuario = null;
 
     public UsuarioBean() {
 
