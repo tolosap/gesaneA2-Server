@@ -26,11 +26,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.bean;
 
 import com.google.gson.annotations.Expose;
-
 
 public class TipousuarioBean {
 
@@ -38,6 +36,14 @@ public class TipousuarioBean {
     private Integer id;
     @Expose
     private String descripcion;
+
+    public TipousuarioBean() {
+
+    }
+
+    public TipousuarioBean(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.helper;
 
 import com.google.gson.Gson;
@@ -34,10 +33,8 @@ import com.google.gson.GsonBuilder;
 import eu.rafaelaznar.connection.BoneCPImpl;
 import eu.rafaelaznar.connection.ConnectionInterface;
 
-
-
 public class AppConfigurationHelper {
-     public static int getJsonMsgDepth() {
+    public static int getJsonMsgDepth() {
         return 1;
     }
 

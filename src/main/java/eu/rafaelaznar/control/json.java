@@ -118,7 +118,6 @@ public class json extends HttpServlet {
                 response.setHeader("Access-Control-Max-Age", "86400");
                 response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
-
                 try {
                     String strClassName = "eu.rafaelaznar.service." + ob + "Service";
                     ViewServiceInterface oService = (ViewServiceInterface) Class.forName(strClassName).getDeclaredConstructor(HttpServletRequest.class).newInstance(request);
