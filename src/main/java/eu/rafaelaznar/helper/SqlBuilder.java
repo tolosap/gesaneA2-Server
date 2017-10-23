@@ -29,7 +29,6 @@
 package eu.rafaelaznar.helper;
 
 import static java.lang.Math.ceil;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

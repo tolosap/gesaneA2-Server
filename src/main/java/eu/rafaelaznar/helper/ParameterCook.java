@@ -28,7 +28,6 @@
  */
 package eu.rafaelaznar.helper;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 

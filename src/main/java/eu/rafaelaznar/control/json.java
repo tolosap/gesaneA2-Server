@@ -28,7 +28,6 @@
  */
 package eu.rafaelaznar.control;
 
-import com.google.gson.Gson;
 import eu.rafaelaznar.bean.ReplyBean;
 import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
@@ -36,7 +35,6 @@ import eu.rafaelaznar.helper.EstadoHelper;
 import eu.rafaelaznar.helper.EstadoHelper.Tipo_estado;
 import eu.rafaelaznar.helper.Log4j;
 import static eu.rafaelaznar.helper.ParameterCook.prepareCamelCaseObject;
-import eu.rafaelaznar.service.EmptyServiceInterface;
 import eu.rafaelaznar.service.ViewServiceInterface;
 import java.io.IOException;
 import java.io.PrintWriter;

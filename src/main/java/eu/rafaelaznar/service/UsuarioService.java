@@ -38,7 +38,6 @@ import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.ParameterCook;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
