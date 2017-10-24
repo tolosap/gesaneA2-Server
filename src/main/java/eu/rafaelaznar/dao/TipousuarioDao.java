@@ -31,6 +31,7 @@ package eu.rafaelaznar.dao;
 import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EncodingUtilHelper;
+import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -168,8 +169,11 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
     }
 
     @Override
-    public ArrayList<TipousuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder) throws Exception {
-        String strSQL1 = strSQL + SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+    public ArrayList<TipousuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter) throws Exception {
+        String strSQL1 = strSQL;
+        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
+        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
         ArrayList<TipousuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;

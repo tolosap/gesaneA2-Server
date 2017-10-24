@@ -34,6 +34,7 @@ import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.dao.TipousuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
+import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.ParameterCook;
 import java.sql.Connection;
@@ -104,7 +105,9 @@ public class TipousuarioService implements EmptyServiceInterface, ViewServiceInt
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
             String strOrder = oRequest.getParameter("order");
+            String strFilter = oRequest.getParameter("filter");
             LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
@@ -113,7 +116,7 @@ public class TipousuarioService implements EmptyServiceInterface, ViewServiceInt
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 TipousuarioDao oDao = new TipousuarioDao(oConnection);
-                aloBean = oDao.getPage(rpp, np, hmOrder);
+                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -248,6 +251,5 @@ public class TipousuarioService implements EmptyServiceInterface, ViewServiceInt
         } else {
             return new ReplyBean(401, "Unauthorized");
         }
-    }   
+    }
 }
-

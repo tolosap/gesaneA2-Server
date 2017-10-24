@@ -26,13 +26,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.dao;
 
 import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EncodingUtilHelper;
+import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
@@ -212,11 +212,12 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage,LinkedHashMap<String,String> hmOrder) throws Exception {
+    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter) throws Exception {
         String strSQL1 = strSQL;
+        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
         strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
-        ArrayList<UsuarioBean> aloBean = new ArrayList<>();        
+        ArrayList<UsuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {

@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * carrito-server: Helps you to develop easily AJAX web applications 
+ *
+ * carrito-server: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/carrito-server
- * 
+ *
  * carrito-server is distributed under the MIT License (MIT)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,6 +28,7 @@
  */
 package eu.rafaelaznar.helper;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,4 +66,22 @@ public class ParameterCook {
         return oHMOrder;
     }
 
+    public static ArrayList<FilterBeanHelper> getFilterParams(String strFilter) {
+        ArrayList<FilterBeanHelper> oFilterBean = new ArrayList<>();
+        if (strFilter != null && strFilter.length() > 0) {
+            String[] arrFilterSplit1 = strFilter.split(" ");
+            for (String s : arrFilterSplit1) {
+                String[] arrFilterSplit2 = s.split(",");
+                if (arrFilterSplit2.length == 4) {
+                    FilterBeanHelper oFilterBeanHelper = new FilterBeanHelper();
+                    oFilterBeanHelper.setLink(arrFilterSplit2[0]);
+                    oFilterBeanHelper.setField(arrFilterSplit2[1]);
+                    oFilterBeanHelper.setOperation(arrFilterSplit2[2]);
+                    oFilterBeanHelper.setValue(arrFilterSplit2[3]);
+                    oFilterBean.add(oFilterBeanHelper);
+                }
+            }
+        }
+        return oFilterBean;
+    }
 }
