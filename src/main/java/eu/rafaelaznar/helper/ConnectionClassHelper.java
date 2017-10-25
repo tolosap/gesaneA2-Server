@@ -31,7 +31,7 @@ package eu.rafaelaznar.helper;
 public class ConnectionClassHelper {
 
     public static String getDatabaseName() {
-        return "usuariodb";
+        return "carrito";
     }
 
     public static String getDatabaseLogin() {
