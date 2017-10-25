@@ -30,26 +30,25 @@ package eu.rafaelaznar.connection;
 
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
 
-public class BoneCPConnection implements ConnectionInterface {
+public class C3POConnection implements ConnectionInterface {
 
-    private BoneCP connectionPool = null;
+    private ComboPooledDataSource connectionPool = null;
 
     @Override
     public Connection newConnection() throws Exception {
         Connection c = null;
         try {
-            BoneCPConfig config = new BoneCPConfig();
-            config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
-            config.setUsername(ConnectionClassHelper.getDatabaseLogin());
-            config.setPassword(ConnectionClassHelper.getDatabasePassword());
-            config.setMinConnectionsPerPartition(1);
-            config.setMaxConnectionsPerPartition(3);
-            config.setPartitionCount(1);
-            connectionPool = new BoneCP(config);
+            connectionPool = new ComboPooledDataSource();
+            connectionPool.setDriverClass("com.mysql.jdbc.Driver");
+            connectionPool.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
+            connectionPool.setUser(ConnectionClassHelper.getDatabaseLogin());
+            connectionPool.setPassword(ConnectionClassHelper.getDatabasePassword());
+            connectionPool.setMaxStatements(180);
             c = connectionPool.getConnection();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
