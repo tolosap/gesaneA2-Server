@@ -31,6 +31,7 @@ package eu.rafaelaznar.service;
 import com.google.gson.Gson;
 import eu.rafaelaznar.bean.ReplyBean;
 import eu.rafaelaznar.bean.TipousuarioBean;
+import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.dao.TipousuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
@@ -51,8 +52,8 @@ public class TipousuarioService implements EmptyServiceInterface, ViewServiceInt
     }
 
     private Boolean checkPermission(String strMethodName) {
-        TipousuarioBean oTipousuarioBean = (TipousuarioBean) oRequest.getSession().getAttribute("user");
-        if (oTipousuarioBean != null) {
+        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+        if (oUsuarioBean != null) {
             return true;
         } else {
             return false;
