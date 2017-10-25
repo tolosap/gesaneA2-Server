@@ -38,10 +38,11 @@ import org.vibur.dbcp.ViburDBCPException;
 public class ViburConnection implements ConnectionInterface {
 
     private ViburDBCPDataSource dataSource = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection c = null;
+
         try {
 
             dataSource = new ViburDBCPDataSource();
@@ -60,23 +61,26 @@ public class ViburConnection implements ConnectionInterface {
             dataSource.setLogStackTraceForLongQueryExecution(true);
 
             dataSource.start();
-            c = dataSource.getConnection();
+            oConnection = dataSource.getConnection();
 
         } catch (SQLException | ViburDBCPException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return c;
+        return oConnection;
     }
 
     @Override
     public void disposeConnection() throws Exception {
         try {
+            if (oConnection != null) {
+                oConnection.close();
+            }
             if (dataSource != null) {
                 dataSource.close();
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
