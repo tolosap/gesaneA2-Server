@@ -142,7 +142,7 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
     }
 
     @Override
-    public Long getCount() throws Exception {
+    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "SELECT COUNT(*) FROM " + strTable;
@@ -173,7 +173,7 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
         String strSQL1 = strSQL;
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
         ArrayList<TipousuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;

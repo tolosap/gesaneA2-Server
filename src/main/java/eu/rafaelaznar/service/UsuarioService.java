@@ -117,7 +117,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
-                aloBean = oDao.getPage(rpp, np, hmOrder,alFilter);
+                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -149,11 +149,13 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
+            String strFilter = oRequest.getParameter("filter");
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
-                lResult = oDao.getCount();
+                lResult = oDao.getCount(alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -311,9 +313,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         }
         return oReplyBean;
     }
-    
-    
-    
+
     /*
     * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getpage&np=1&rpp=10
      */
@@ -334,7 +334,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
-                aloBean = oDao.getPagextipousuario(rpp, np, hmOrder,alFilter,id);
+                aloBean = oDao.getPagextipousuario(rpp, np, hmOrder, alFilter, id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -365,12 +365,14 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
+            String strFilter = oRequest.getParameter("filter");
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
             int id = Integer.parseInt(oRequest.getParameter("id"));
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioDao oDao = new UsuarioDao(oConnection);
-                lResult = oDao.getCountxtipousuario(id);
+                lResult = oDao.getCountxtipousuario(alFilter, id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -391,10 +393,5 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
             return new ReplyBean(401, "Unauthorized");
         }
     }
-    
-    
-    
-    
-    
-    
+
 }

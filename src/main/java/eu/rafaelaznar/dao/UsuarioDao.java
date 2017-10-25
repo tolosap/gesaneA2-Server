@@ -183,10 +183,11 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public Long getCount() throws Exception {
+    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "SELECT COUNT(*) FROM " + strTable;
+        strSQL += " WHERE 1=1 " + SqlBuilder.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -216,7 +217,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
         String strSQL1 = strSQL;
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
         ArrayList<UsuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
@@ -281,11 +282,12 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
 
     }
 
-    public Long getCountxtipousuario(int id_tipousuario) throws Exception {
+    public Long getCountxtipousuario(ArrayList<FilterBeanHelper> alFilter, int id_tipousuario) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "SELECT COUNT(*) FROM " + strTable;
         strSQL += " WHERE id_tipousuario=" + id_tipousuario;
+        strSQL += SqlBuilder.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -315,7 +317,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
         strSQL1 += " and id_tipousuario=" + id_tipousuario + " ";
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
         ArrayList<UsuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;

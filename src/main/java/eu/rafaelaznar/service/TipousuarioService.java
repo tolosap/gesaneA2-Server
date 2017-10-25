@@ -148,11 +148,13 @@ public class TipousuarioService implements EmptyServiceInterface, ViewServiceInt
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
+            String strFilter = oRequest.getParameter("filter");
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 TipousuarioDao oDao = new TipousuarioDao(oConnection);
-                lResult = oDao.getCount();
+                lResult = oDao.getCount(alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
