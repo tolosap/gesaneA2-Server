@@ -33,7 +33,9 @@ import com.jolbox.bonecp.BoneCPConfig;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4j;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class C3POConnection implements ConnectionInterface {
 
@@ -50,7 +52,7 @@ public class C3POConnection implements ConnectionInterface {
             connectionPool.setPassword(ConnectionClassHelper.getDatabasePassword());
             connectionPool.setMaxStatements(180);
             c = connectionPool.getConnection();
-        } catch (Exception ex) {
+        } catch (PropertyVetoException | SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);

@@ -35,16 +35,16 @@ import java.sql.SQLException;
 
 public class DriverManagerConnection implements ConnectionInterface {
 
-    private Connection con;
+    private Connection oConnection;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection con = null;
+        oConnection = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             String urlOdbc = ConnectionClassHelper.getConnectionChain();
-            con = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionClassHelper.getDatabaseLogin(), ConnectionClassHelper.getDatabasePassword()));
-            return con;
+            oConnection = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionClassHelper.getDatabaseLogin(), ConnectionClassHelper.getDatabasePassword()));
+            return oConnection;
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
@@ -55,8 +55,8 @@ public class DriverManagerConnection implements ConnectionInterface {
     @Override
     public void disposeConnection() throws Exception {
         try {
-            if (con != null) {
-                con.close();
+            if (oConnection != null) {
+                oConnection.close();
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

@@ -33,6 +33,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class HikariConnection implements ConnectionInterface {
 
@@ -51,7 +52,7 @@ public class HikariConnection implements ConnectionInterface {
         try {
             HikariDataSource connectionPool = new HikariDataSource(config);
             c = connectionPool.getConnection();
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);

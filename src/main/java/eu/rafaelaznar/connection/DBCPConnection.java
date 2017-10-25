@@ -36,21 +36,21 @@ import org.apache.commons.dbcp.BasicDataSource;
 
 public class DBCPConnection implements ConnectionInterface {
 
-    private BasicDataSource basicDataSource = null;
+    private BasicDataSource dataSource = null;
 
     @Override
     public Connection newConnection() throws Exception {
         Connection c = null;
         try {
-            basicDataSource = new BasicDataSource();
-            basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            basicDataSource.setUsername(ConnectionClassHelper.getDatabaseLogin());
-            basicDataSource.setPassword(ConnectionClassHelper.getDatabasePassword());
-            basicDataSource.setUrl(ConnectionClassHelper.getConnectionChain());
-            basicDataSource.setValidationQuery("select 1");
-            basicDataSource.setMaxActive(100);
-            basicDataSource.setMaxWait(10000);
-            basicDataSource.setMaxIdle(10);
+            dataSource = new BasicDataSource();
+            dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+            dataSource.setUsername(ConnectionClassHelper.getDatabaseLogin());
+            dataSource.setPassword(ConnectionClassHelper.getDatabasePassword());
+            dataSource.setUrl(ConnectionClassHelper.getConnectionChain());
+            dataSource.setValidationQuery("select 1");
+            dataSource.setMaxActive(100);
+            dataSource.setMaxWait(10000);
+            dataSource.setMaxIdle(10);
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
@@ -62,8 +62,8 @@ public class DBCPConnection implements ConnectionInterface {
     @Override
     public void disposeConnection() throws Exception {
         try {
-            if (basicDataSource != null) {
-                basicDataSource.close();
+            if (dataSource != null) {
+                dataSource.close();
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

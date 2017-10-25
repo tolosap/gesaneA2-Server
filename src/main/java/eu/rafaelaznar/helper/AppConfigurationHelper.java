@@ -33,7 +33,10 @@ import com.google.gson.GsonBuilder;
 import eu.rafaelaznar.connection.BoneCPConnection;
 import eu.rafaelaznar.connection.C3POConnection;
 import eu.rafaelaznar.connection.ConnectionInterface;
+import eu.rafaelaznar.connection.DBCPConnection;
+import eu.rafaelaznar.connection.DriverManagerConnection;
 import eu.rafaelaznar.connection.HikariConnection;
+import eu.rafaelaznar.connection.ViburConnection;
 
 public class AppConfigurationHelper {
 
