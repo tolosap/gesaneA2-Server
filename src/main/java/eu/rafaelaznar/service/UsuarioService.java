@@ -311,4 +311,90 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
         }
         return oReplyBean;
     }
+    
+    
+    
+    /*
+    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getpage&np=1&rpp=10
+     */
+    public ReplyBean getpagextipousuario() throws Exception {
+        if (this.checkPermission("getpage")) {
+            int np = Integer.parseInt(oRequest.getParameter("np"));
+            int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            int id = Integer.parseInt(oRequest.getParameter("id"));
+            String strOrder = oRequest.getParameter("order");
+            String strFilter = oRequest.getParameter("filter");
+            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            Connection oConnection = null;
+            ConnectionInterface oPooledConnection = null;
+            ReplyBean oReplyBean = null;
+            ArrayList<UsuarioBean> aloBean = null;
+            try {
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
+                UsuarioDao oDao = new UsuarioDao(oConnection);
+                aloBean = oDao.getPagextipousuario(rpp, np, hmOrder,alFilter,id);
+                Gson oGson = AppConfigurationHelper.getGson();
+                String strJson = oGson.toJson(aloBean);
+                oReplyBean = new ReplyBean(200, strJson);
+            } catch (Exception ex) {
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
+            } finally {
+                if (oConnection != null) {
+                    oConnection.close();
+                }
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
+                }
+            }
+            return oReplyBean;
+        } else {
+            return new ReplyBean(401, "Unauthorized");
+        }
+    }
+
+    /*
+    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getcount
+     */
+    public ReplyBean getcountxtiposuario() throws Exception {
+        if (this.checkPermission("getcount")) {
+            Long lResult;
+            Connection oConnection = null;
+            ConnectionInterface oPooledConnection = null;
+            ReplyBean oReplyBean = null;
+            int id = Integer.parseInt(oRequest.getParameter("id"));
+            try {
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
+                UsuarioDao oDao = new UsuarioDao(oConnection);
+                lResult = oDao.getCountxtipousuario(id);
+                Gson oGson = AppConfigurationHelper.getGson();
+                String strJson = oGson.toJson(lResult);
+                oReplyBean = new ReplyBean(200, strJson);
+            } catch (Exception ex) {
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
+            } finally {
+                if (oConnection != null) {
+                    oConnection.close();
+                }
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
+                }
+            }
+            return oReplyBean;
+        } else {
+            return new ReplyBean(401, "Unauthorized");
+        }
+    }
+    
+    
+    
+    
+    
+    
 }

@@ -281,4 +281,63 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
 
     }
 
+    public Long getCountxtipousuario(int id_tipousuario) throws Exception {
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        strSQL = "SELECT COUNT(*) FROM " + strTable;
+        strSQL += " WHERE id_tipousuario=" + id_tipousuario;
+        Long iResult = 0L;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oResultSet = oPreparedStatement.executeQuery(strSQL);
+            if (oResultSet.next()) {
+                iResult = oResultSet.getLong("COUNT(*)");
+            } else {
+                throw new Exception("UsuarioDao getCount error");
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
+    }
+
+    public ArrayList<UsuarioBean> getPagextipousuario(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int id_tipousuario) throws Exception {
+        String strSQL1 = strSQL;
+        strSQL1 += " and id_tipousuario=" + id_tipousuario + " ";
+        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
+        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(), intRegsPerPag, intPage);
+        ArrayList<UsuarioBean> aloBean = new ArrayList<>();
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL1);
+            oResultSet = oPreparedStatement.executeQuery(strSQL1);
+            while (oResultSet.next()) {
+                aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id")), AppConfigurationHelper.getJsonMsgDepth()));
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return aloBean;
+    }
+
 }
