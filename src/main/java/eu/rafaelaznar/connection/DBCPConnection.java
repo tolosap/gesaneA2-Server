@@ -26,41 +26,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.connection;
 
+import eu.rafaelaznar.helper.ConnectionClassHelper;
+import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.apache.commons.dbcp.BasicDataSource;
 
+public class DBCPConnection implements ConnectionInterface {
 
-public class JdbcImpl implements ConnectionInterface {
-
-    private Connection con;
+    private BasicDataSource basicDataSource = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String urlOdbc = "jdbc:mysql://localhost:3306/usuariodb";
-            con = (java.sql.DriverManager.getConnection(urlOdbc, "root", "bitnami"));
-            return con;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("No se ha podido establecer la conexion" + e.getMessage());
-        }
+        Connection c = null;
+        basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        basicDataSource.setUsername(ConnectionClassHelper.getDatabaseLogin());
+        basicDataSource.setPassword(ConnectionClassHelper.getDatabasePassword());
+        basicDataSource.setUrl(ConnectionClassHelper.getConnectionChain());
+        basicDataSource.setValidationQuery("select 1");
+        basicDataSource.setMaxActive(100);
+        basicDataSource.setMaxWait(10000);
+        basicDataSource.setMaxIdle(10);
+
+        return c;
     }
 
     @Override
     public void disposeConnection() throws Exception {
         try {
-            if (con != null) {
-                con.close();
+            if (basicDataSource != null) {
+                basicDataSource.close();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("No se ha podido cerrar la conexion" + e.getMessage());
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
     }
-
 }

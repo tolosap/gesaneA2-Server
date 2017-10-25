@@ -30,7 +30,7 @@ package eu.rafaelaznar.helper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import eu.rafaelaznar.connection.BoneCPImpl;
+import eu.rafaelaznar.connection.BoneCPConnection;
 import eu.rafaelaznar.connection.ConnectionInterface;
 
 public class AppConfigurationHelper {
@@ -39,7 +39,7 @@ public class AppConfigurationHelper {
     }
 
     public static ConnectionInterface getSourceConnection() throws Exception {
-        ConnectionInterface oDataConnectionSource = new BoneCPImpl();
+        ConnectionInterface oDataConnectionSource = new BoneCPConnection();
         return oDataConnectionSource;
     }
 

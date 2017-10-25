@@ -26,44 +26,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.connection;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
+import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class BoneCPImpl implements ConnectionInterface {
+public class DriverManagerConnection implements ConnectionInterface {
 
-    private BoneCP connectionPool = null;
+    private Connection con;
 
     @Override
-    public Connection newConnection() {
-        Connection c = null;
-        BoneCPConfig config = new BoneCPConfig();
-        config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
-        config.setUsername(ConnectionClassHelper.getDatabaseLogin());
-        config.setPassword(ConnectionClassHelper.getDatabasePassword());
-        config.setMinConnectionsPerPartition(1);
-        config.setMaxConnectionsPerPartition(3);
-        config.setPartitionCount(1);
+    public Connection newConnection() throws Exception {
+        Connection con = null;
         try {
-            connectionPool = new BoneCP(config);
-        } catch (SQLException ex) {
+            //Class.forName("com.mysql.jdbc.Driver");
+            String urlOdbc = ConnectionClassHelper.getConnectionChain();
+            con = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionClassHelper.getDatabaseLogin(), ConnectionClassHelper.getDatabasePassword()));
+            return con;
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
-        try {
-            c = connectionPool.getConnection();
-        } catch (SQLException ex) {
-        }
-        return c;
     }
 
     @Override
-    public void disposeConnection() {
-        if (connectionPool != null) {
-            connectionPool.close();
+    public void disposeConnection() throws Exception {
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
     }
+
 }
