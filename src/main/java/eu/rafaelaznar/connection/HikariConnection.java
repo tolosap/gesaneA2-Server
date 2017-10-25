@@ -37,7 +37,7 @@ import java.sql.SQLException;
 
 public class HikariConnection implements ConnectionInterface {
 
-    private HikariDataSource connectionPool = null;
+    private HikariDataSource oConnectionPool = null;
     private Connection oConnection = null;
 
     @Override
@@ -46,12 +46,14 @@ public class HikariConnection implements ConnectionInterface {
         config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
         config.setUsername(ConnectionClassHelper.getDatabaseLogin());
         config.setPassword(ConnectionClassHelper.getDatabasePassword());
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(5);
+        config.setLeakDetectionThreshold(15000);
+        config.setConnectionTestQuery("SELECT 1");
+        config.setConnectionTimeout(2000);
         try {
-            HikariDataSource connectionPool = new HikariDataSource(config);
-            oConnection = connectionPool.getConnection();
+            oConnectionPool = new HikariDataSource(config);
+            oConnection = oConnectionPool.getConnection();
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
@@ -66,8 +68,8 @@ public class HikariConnection implements ConnectionInterface {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (connectionPool != null) {
-                connectionPool.close();
+            if (oConnectionPool != null) {
+                oConnectionPool.close();
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
