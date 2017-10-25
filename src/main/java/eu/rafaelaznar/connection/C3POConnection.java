@@ -28,8 +28,6 @@
  */
 package eu.rafaelaznar.connection;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4j;
@@ -40,10 +38,10 @@ import java.sql.SQLException;
 public class C3POConnection implements ConnectionInterface {
 
     private ComboPooledDataSource connectionPool = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection c = null;
         try {
             connectionPool = new ComboPooledDataSource();
             connectionPool.setDriverClass("com.mysql.jdbc.Driver");
@@ -51,19 +49,28 @@ public class C3POConnection implements ConnectionInterface {
             connectionPool.setUser(ConnectionClassHelper.getDatabaseLogin());
             connectionPool.setPassword(ConnectionClassHelper.getDatabasePassword());
             connectionPool.setMaxStatements(180);
-            c = connectionPool.getConnection();
+            oConnection = connectionPool.getConnection();
         } catch (PropertyVetoException | SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return c;
+        return oConnection;
     }
 
     @Override
-    public void disposeConnection() {
-        if (connectionPool != null) {
-            connectionPool.close();
+    public void disposeConnection() throws Exception {
+        try {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            if (connectionPool != null) {
+                connectionPool.close();
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
     }
 }

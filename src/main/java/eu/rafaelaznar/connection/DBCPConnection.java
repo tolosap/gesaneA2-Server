@@ -37,10 +37,10 @@ import org.apache.commons.dbcp.BasicDataSource;
 public class DBCPConnection implements ConnectionInterface {
 
     private BasicDataSource dataSource = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection c = null;
         try {
             dataSource = new BasicDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -51,17 +51,21 @@ public class DBCPConnection implements ConnectionInterface {
             dataSource.setMaxActive(100);
             dataSource.setMaxWait(10000);
             dataSource.setMaxIdle(10);
+            oConnection = dataSource.getConnection();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return c;
+        return oConnection;
     }
 
     @Override
     public void disposeConnection() throws Exception {
         try {
+            if (oConnection != null) {
+                oConnection.close();
+            }
             if (dataSource != null) {
                 dataSource.close();
             }
