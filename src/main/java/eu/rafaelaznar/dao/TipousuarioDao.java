@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * carrito-server: Helps you to develop easily AJAX web applications 
+ *
+ * carrito-server: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/carrito-server
- * 
+ *
  * carrito-server is distributed under the MIT License (MIT)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,6 +32,7 @@ import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EncodingUtilHelper;
 import eu.rafaelaznar.helper.FilterBeanHelper;
+import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,8 +66,9 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
                 oBean = null;
             }
         } catch (Exception ex) {
-            //log4j 
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
@@ -104,7 +106,9 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
             oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
             iResult = oPreparedStatement.executeUpdate();
             if (iResult < 1) {
-                throw new Exception();
+                String msg = this.getClass().getName() + ": set";
+                Log4j.errorLog(msg);
+                throw new Exception(msg);
             }
             if (insert) {
                 ResultSet oResultSet = oPreparedStatement.getGeneratedKeys();
@@ -132,7 +136,9 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
             oPreparedStatement.setInt(1, id);
             iResult = oPreparedStatement.execute();
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
@@ -153,10 +159,14 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
             if (oResultSet.next()) {
                 iResult = oResultSet.getLong("COUNT(*)");
             } else {
-                throw new Exception();
+                String msg = this.getClass().getName() + ": getcount";
+                Log4j.errorLog(msg);
+                throw new Exception(msg);
             }
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
@@ -185,10 +195,12 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
                 oBean.setId(oResultSet.getInt("id"));
                 oBean = this.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
                 aloBean.add(oBean);
-                //aloBean.add(this.get(new TipousuarioBean(oResultSet.getInt("id"))));                
+                //aloBean.add(this.get(new TipousuarioBean(oResultSet.getInt("id"))));
             }
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
                 oResultSet.close();
