@@ -32,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import eu.rafaelaznar.connection.BoneCPConnection;
 import eu.rafaelaznar.connection.ConnectionInterface;
+import eu.rafaelaznar.connection.HikariConnection;
 
 public class AppConfigurationHelper {
     public static int getJsonMsgDepth() {
@@ -39,7 +40,7 @@ public class AppConfigurationHelper {
     }
 
     public static ConnectionInterface getSourceConnection() throws Exception {
-        ConnectionInterface oDataConnectionSource = new BoneCPConnection();
+        ConnectionInterface oDataConnectionSource = new HikariConnection();
         return oDataConnectionSource;
     }
 

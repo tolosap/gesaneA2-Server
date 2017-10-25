@@ -41,16 +41,21 @@ public class DBCPConnection implements ConnectionInterface {
     @Override
     public Connection newConnection() throws Exception {
         Connection c = null;
-        basicDataSource = new BasicDataSource();
-        basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        basicDataSource.setUsername(ConnectionClassHelper.getDatabaseLogin());
-        basicDataSource.setPassword(ConnectionClassHelper.getDatabasePassword());
-        basicDataSource.setUrl(ConnectionClassHelper.getConnectionChain());
-        basicDataSource.setValidationQuery("select 1");
-        basicDataSource.setMaxActive(100);
-        basicDataSource.setMaxWait(10000);
-        basicDataSource.setMaxIdle(10);
-
+        try {
+            basicDataSource = new BasicDataSource();
+            basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+            basicDataSource.setUsername(ConnectionClassHelper.getDatabaseLogin());
+            basicDataSource.setPassword(ConnectionClassHelper.getDatabasePassword());
+            basicDataSource.setUrl(ConnectionClassHelper.getConnectionChain());
+            basicDataSource.setValidationQuery("select 1");
+            basicDataSource.setMaxActive(100);
+            basicDataSource.setMaxWait(10000);
+            basicDataSource.setMaxIdle(10);
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        }
         return c;
     }
 

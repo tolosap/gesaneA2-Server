@@ -28,29 +28,28 @@
  */
 package eu.rafaelaznar.connection;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
 import eu.rafaelaznar.helper.Log4j;
 import java.sql.Connection;
-import java.sql.SQLException;
 
-public class BoneCPConnection implements ConnectionInterface {
+public class HikariConnection implements ConnectionInterface {
 
-    private BoneCP connectionPool = null;
+    private HikariDataSource connectionPool = null;
 
     @Override
     public Connection newConnection() throws Exception {
         Connection c = null;
-        BoneCPConfig config = new BoneCPConfig();
+        HikariConfig config = new HikariConfig();
         config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
         config.setUsername(ConnectionClassHelper.getDatabaseLogin());
         config.setPassword(ConnectionClassHelper.getDatabasePassword());
-        config.setMinConnectionsPerPartition(1);
-        config.setMaxConnectionsPerPartition(3);
-        config.setPartitionCount(1);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         try {
-            connectionPool = new BoneCP(config);
+            HikariDataSource connectionPool = new HikariDataSource(config);
             c = connectionPool.getConnection();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
