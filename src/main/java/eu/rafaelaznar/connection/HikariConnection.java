@@ -38,10 +38,10 @@ import java.sql.SQLException;
 public class HikariConnection implements ConnectionInterface {
 
     private HikariDataSource connectionPool = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection c = null;
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
         config.setUsername(ConnectionClassHelper.getDatabaseLogin());
@@ -51,19 +51,28 @@ public class HikariConnection implements ConnectionInterface {
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         try {
             HikariDataSource connectionPool = new HikariDataSource(config);
-            c = connectionPool.getConnection();
+            oConnection = connectionPool.getConnection();
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return c;
+        return oConnection;
     }
 
     @Override
-    public void disposeConnection() {                        
-        if (connectionPool != null) {
-            connectionPool.close();
+    public void disposeConnection() throws Exception {
+        try {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            if (connectionPool != null) {
+                connectionPool.close();
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
     }
 }

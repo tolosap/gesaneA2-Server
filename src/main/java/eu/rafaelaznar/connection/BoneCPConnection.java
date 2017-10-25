@@ -38,10 +38,10 @@ import java.sql.SQLException;
 public class BoneCPConnection implements ConnectionInterface {
 
     private BoneCP connectionPool = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        Connection c = null;
         try {
             BoneCPConfig config = new BoneCPConfig();
             config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
@@ -51,19 +51,28 @@ public class BoneCPConnection implements ConnectionInterface {
             config.setMaxConnectionsPerPartition(3);
             config.setPartitionCount(1);
             connectionPool = new BoneCP(config);
-            c = connectionPool.getConnection();
+            oConnection = connectionPool.getConnection();
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4j.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return c;
+        return oConnection;
     }
 
     @Override
-    public void disposeConnection() {
-        if (connectionPool != null) {
-            connectionPool.close();
+    public void disposeConnection() throws Exception {
+        try {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            if (connectionPool != null) {
+                connectionPool.close();
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         }
     }
 }
