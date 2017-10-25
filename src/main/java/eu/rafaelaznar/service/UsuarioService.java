@@ -315,7 +315,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getpage&np=1&rpp=10
+    * http://127.0.0.1:8081/carrito-server/json?ob=getpagextipousuario&op=getpage&np=1&rpp=10&id=1
      */
     public ReplyBean getpagextipousuario() throws Exception {
         if (this.checkPermission("getpage")) {
@@ -357,7 +357,7 @@ public class UsuarioService implements EmptyServiceInterface, ViewServiceInterfa
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getcount
+    * http://127.0.0.1:8081/carrito-server/json?ob=getcountxtiposuario&op=getcount&id=1
      */
     public ReplyBean getcountxtiposuario() throws Exception {
         if (this.checkPermission("getcount")) {
