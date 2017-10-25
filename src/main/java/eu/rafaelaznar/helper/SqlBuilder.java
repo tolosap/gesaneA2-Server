@@ -81,7 +81,7 @@ public class SqlBuilder {
     public static String buildSqlLimit(Long intTotalRegs, Integer intRegsPerPage, Integer intPageNumber) {
         String SQLLimit = "";
         if (intRegsPerPage > 0 && intRegsPerPage < 10000) {
-            if (intPageNumber > 0 && intPageNumber <= (ceil(intTotalRegs / intRegsPerPage))) {
+            if (intPageNumber > 0 && intPageNumber <= (ceil((intTotalRegs / intRegsPerPage) + 1))) {
                 SQLLimit = " LIMIT " + (intPageNumber - 1) * intRegsPerPage + " , " + intRegsPerPage;
             } else {
                 SQLLimit = " LIMIT 0 ";
