@@ -45,7 +45,7 @@ public class AppConfigurationHelper {
     }
 
     public static ConnectionInterface getSourceConnection() throws Exception {
-        ConnectionInterface oDataConnectionSource = new HikariConnection();
+        ConnectionInterface oDataConnectionSource = new BoneCPConnection();
         return oDataConnectionSource;
     }
 

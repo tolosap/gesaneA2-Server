@@ -61,7 +61,7 @@ public class HikariConnection implements ConnectionInterface {
     }
 
     @Override
-    public void disposeConnection() {
+    public void disposeConnection() {                        
         if (connectionPool != null) {
             connectionPool.close();
         }

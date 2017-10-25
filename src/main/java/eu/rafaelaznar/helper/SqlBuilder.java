@@ -83,6 +83,8 @@ public class SqlBuilder {
         if (intRegsPerPage > 0 && intRegsPerPage < 10000) {
             if (intPageNumber > 0 && intPageNumber <= (ceil(intTotalRegs / intRegsPerPage))) {
                 SQLLimit = " LIMIT " + (intPageNumber - 1) * intRegsPerPage + " , " + intRegsPerPage;
+            } else {
+                SQLLimit = " LIMIT 0 ";
             }
         }
         return SQLLimit;
