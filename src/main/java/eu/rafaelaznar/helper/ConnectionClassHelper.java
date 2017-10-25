@@ -26,44 +26,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package eu.rafaelaznar.helper;
 
-package eu.rafaelaznar.connection;
+public class ConnectionClassHelper {
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
-import eu.rafaelaznar.helper.ConnectionClassHelper;
-import java.sql.Connection;
-import java.sql.SQLException;
-
-public class BoneCPImpl implements ConnectionInterface {
-
-    private BoneCP connectionPool = null;
-
-    @Override
-    public Connection newConnection() {
-        Connection c = null;
-        BoneCPConfig config = new BoneCPConfig();
-        config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
-        config.setUsername(ConnectionClassHelper.getDatabaseLogin());
-        config.setPassword(ConnectionClassHelper.getDatabasePassword());
-        config.setMinConnectionsPerPartition(1);
-        config.setMaxConnectionsPerPartition(3);
-        config.setPartitionCount(1);
-        try {
-            connectionPool = new BoneCP(config);
-        } catch (SQLException ex) {
-        }
-        try {
-            c = connectionPool.getConnection();
-        } catch (SQLException ex) {
-        }
-        return c;
+    public static String getDatabaseName() {
+        return "usuariodb";
     }
 
-    @Override
-    public void disposeConnection() {
-        if (connectionPool != null) {
-            connectionPool.close();
-        }
+    public static String getDatabaseLogin() {
+        return "root";
     }
+
+    public static String getDatabasePassword() {
+        return "bitnami";
+    }
+
+    public static String getDatabasePort() {
+        return "3306";
+    }
+
+    public static String getDatabaseIP() {
+        return "127.0.0.1";
+    }
+
+    public static String getConnectionChain() {
+        return "jdbc:mysql://" + ConnectionClassHelper.getDatabaseIP() + ":" + ConnectionClassHelper.getDatabasePort() + "/" + ConnectionClassHelper.getDatabaseName();
+    }
+
 }
