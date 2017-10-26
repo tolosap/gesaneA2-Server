@@ -41,10 +41,10 @@ public class MappingDaoHelper {
 
         switch (ob) {
             case "usuario":
-                oDao = new UsuarioDao(oConnection, oPuserBean_security, strWhere);
+                oDao = (DaoViewInterface) new UsuarioDao(oConnection, oPuserBean_security, strWhere);
                 break;
             case "tipousuario":
-                oDao = new TipousuarioDao(oConnection, oPuserBean_security, strWhere);
+                oDao = (DaoViewInterface) new TipousuarioDao(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");

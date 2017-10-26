@@ -204,7 +204,7 @@ public class UsuarioBean extends GenericTableBean {
         if (expand > 0) {
             TipousuarioBean oTipousuarioBean = new TipousuarioBean();
             TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserBean_security, null);            
-            oTipousuarioBean = oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
+            oTipousuarioBean = (TipousuarioBean) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
             this.setObj_tipousuario(oTipousuarioBean);
         } else {
             this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));

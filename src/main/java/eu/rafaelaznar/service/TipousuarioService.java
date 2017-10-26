@@ -32,8 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class TipousuarioService extends GenericTableService {
 
-    HttpServletRequest oRequest = null;
-
     public TipousuarioService(HttpServletRequest request, String obj) {
         super(request, obj);
     }

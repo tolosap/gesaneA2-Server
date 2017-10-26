@@ -41,10 +41,6 @@ import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.dao.DaoTableInterface;
 
-/**
- *
- * @author raznara
- */
 public class GenericTableService extends GenericViewService implements TableServiceInterface {
 
     public GenericTableService(HttpServletRequest request, String obj) {

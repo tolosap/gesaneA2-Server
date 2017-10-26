@@ -32,10 +32,10 @@ import eu.rafaelaznar.helper.FilterBeanHelper;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public interface DaoViewInterface<GenericBeanInterface> {
+public interface DaoViewInterface<GenericViewBean> {
 
     public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception;
 
-    public ArrayList<GenericBeanInterface> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public ArrayList<GenericViewBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
 
 }

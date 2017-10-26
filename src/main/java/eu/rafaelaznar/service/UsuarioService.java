@@ -43,13 +43,14 @@ import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class UsuarioService implements ViewServiceInterface, TableServiceInterface {
+public class UsuarioService extends GenericTableService {
 
-    HttpServletRequest oRequest = null;
 
-    public UsuarioService(HttpServletRequest request) {
-        oRequest = request;
+
+    public UsuarioService(HttpServletRequest request, String obj) {
+        super(request, obj);
     }
+
 
     private Boolean checkPermission(String strMethodName) {
         UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
@@ -59,203 +60,7 @@ public class UsuarioService implements ViewServiceInterface, TableServiceInterfa
             return false;
         }
     }
-
-    /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=get&id=1
-     */
-    @Override
-    public ReplyBean get() throws Exception {
-        if (this.checkPermission("get")) {
-            int id = Integer.parseInt(oRequest.getParameter("id"));
-            Connection oConnection = null;
-            ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
-            try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
-                oConnection = oPooledConnection.newConnection();
-
-                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                UsuarioBean oBean = oDao.get(id, AppConfigurationHelper.getJsonMsgDepth());
-                Gson oGson = AppConfigurationHelper.getGson();
-                String strJson = oGson.toJson(oBean);
-                oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            } finally {
-                if (oConnection != null) {
-                    oConnection.close();
-                }
-                if (oPooledConnection != null) {
-                    oPooledConnection.disposeConnection();
-                }
-            }
-            return oReplyBean;
-        } else {
-            return new ReplyBean(401, "Unauthorized");
-        }
-    }
-
-    /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getpage&np=1&rpp=10
-     */
-    @Override
-    public ReplyBean getpage() throws Exception {
-        if (this.checkPermission("getpage")) {
-            int np = Integer.parseInt(oRequest.getParameter("np"));
-            int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            String strOrder = oRequest.getParameter("order");
-            String strFilter = oRequest.getParameter("filter");
-            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
-            Connection oConnection = null;
-            ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
-            ArrayList<UsuarioBean> aloBean = null;
-            try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
-                oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
-                Gson oGson = AppConfigurationHelper.getGson();
-                String strJson = oGson.toJson(aloBean);
-                oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            } finally {
-                if (oConnection != null) {
-                    oConnection.close();
-                }
-                if (oPooledConnection != null) {
-                    oPooledConnection.disposeConnection();
-                }
-            }
-            return oReplyBean;
-        } else {
-            return new ReplyBean(401, "Unauthorized");
-        }
-    }
-
-    /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getcount
-     */
-    @Override
-    public ReplyBean getcount() throws Exception {
-        if (this.checkPermission("getcount")) {
-            Long lResult;
-            Connection oConnection = null;
-            ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
-            String strFilter = oRequest.getParameter("filter");
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
-            try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
-                oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                lResult = oDao.getCount(alFilter);
-                Gson oGson = AppConfigurationHelper.getGson();
-                String strJson = oGson.toJson(lResult);
-                oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            } finally {
-                if (oConnection != null) {
-                    oConnection.close();
-                }
-                if (oPooledConnection != null) {
-                    oPooledConnection.disposeConnection();
-                }
-            }
-            return oReplyBean;
-        } else {
-            return new ReplyBean(401, "Unauthorized");
-        }
-    }
-
-    /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=set (datos aparte)
-     */
-    @Override
-    public ReplyBean set() throws Exception {
-        if (this.checkPermission("set")) {
-            String jason = oRequest.getParameter("jason");
-            Connection oConnection = null;
-            ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
-            UsuarioBean oBean = new UsuarioBean();
-            Gson oGson = AppConfigurationHelper.getGson();
-            oBean = oGson.fromJson(jason, oBean.getClass());
-            if (oBean == null) {
-                throw new Exception("Bean null en service set");
-            }
-            int iResult = 0;
-            try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
-                oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                iResult = oDao.set(oBean);
-                String strJson = oGson.toJson(iResult);
-                oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            } finally {
-                if (oConnection != null) {
-                    oConnection.close();
-                }
-                if (oPooledConnection != null) {
-                    oPooledConnection.disposeConnection();
-                }
-            }
-            return oReplyBean;
-        } else {
-            return new ReplyBean(401, "Unauthorized");
-        }
-    }
-
-    /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=remove&id=1
-     */
-    @Override
-    public ReplyBean remove() throws Exception {
-        if (this.checkPermission("remove")) {
-            int id = Integer.parseInt(oRequest.getParameter("id"));
-            Boolean iResult = false;
-            Connection oConnection = null;
-            ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
-            try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
-                oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                iResult = oDao.remove(id);
-                Gson oGson = AppConfigurationHelper.getGson();
-                String strJson = oGson.toJson(iResult);
-                oReplyBean = new ReplyBean(200, strJson);
-            } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
-                throw new Exception(msg, ex);
-            } finally {
-                if (oConnection != null) {
-                    oConnection.close();
-                }
-                if (oPooledConnection != null) {
-                    oPooledConnection.disposeConnection();
-                }
-            }
-            return oReplyBean;
-        } else {
-            return new ReplyBean(401, "Unauthorized");
-        }
-    }
-
+   
     public ReplyBean login() throws Exception {
         Connection oConnection = null;
         ConnectionInterface oPooledConnection = null;

@@ -28,7 +28,6 @@
  */
 package eu.rafaelaznar.dao;
 
-import eu.rafaelaznar.bean.GenericBeanInterface;
 import eu.rafaelaznar.bean.GenericTableBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.Log4j;
@@ -38,26 +37,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public abstract class GenericTableDao implements DaoTableInterface<GenericTableBean> {
+public abstract class GenericTableDao extends GenericViewDao implements DaoTableInterface<GenericTableBean> {
 
-    private String strTable = null;
-    private String strSQL = null;
 
-    private String strCountSQL = null;
-    private Connection oConnection = null;
-    private UsuarioBean oPuserSecurity = null;
 
     public GenericTableDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
-        oConnection = oPooledConnection;
-        oPuserSecurity = oPuserBean_security;
-        if (strWhere != null) {
-            strSQL += strWhere;
-            strCountSQL += strWhere;
-        }
-        strTable = ob;
-        strSQL = "select * from " + strTable + " WHERE 1=1 ";
-        strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
+        super(ob, oPooledConnection, oPuserBean_security, strWhere);
     }
+
+
 
     @Override
     public GenericTableBean get(int id, int intExpand) throws Exception {

@@ -28,238 +28,29 @@
  */
 package eu.rafaelaznar.dao;
 
-import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
 import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
 import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterface<UsuarioBean> {
+public class UsuarioDao extends GenericTableDao {
 
     private String strTable = "usuario";
-    private String strSQL = "select * from " + strTable + " WHERE 1=1 ";
-
-    private String strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
-    private Connection oConnection = null;
-    private UsuarioBean oPuserSecurity = null;
 
     public UsuarioDao(Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
-        oConnection = oPooledConnection;
-        oPuserSecurity = oPuserBean_security;
-        if (strWhere != null) {
-            strSQL += strWhere;
-            strCountSQL += strWhere;
-        }
-    }
-
-    @Override
-    public UsuarioBean get(int id, int intExpand) throws Exception {
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        UsuarioBean oBean = null;
-        strSQL += " AND id=" + id;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oResultSet = oPreparedStatement.executeQuery(strSQL);
-            if (oResultSet.next()) {
-                oBean = new UsuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean.setDni(oResultSet.getString("dni"));
-                oBean.setNombre(oResultSet.getString("nombre"));
-                oBean.setPrimer_apellido(oResultSet.getString("primer_apellido"));
-                oBean.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
-                oBean.setLogin(oResultSet.getString("login"));
-                oBean.setPass(oResultSet.getString("pass"));
-                oBean.setEmail(oResultSet.getString("email"));
-                oBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
-                if (intExpand > 0) {
-                    TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserSecurity, null);
-                    TipousuarioBean oTipousuario = oTipousuarioDao.get(oBean.getId_tipousuario(), --intExpand);
-                    oBean.setObj_tipousuario(oTipousuario);
-                }
-            } else {
-                oBean = null;
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return oBean;
-    }
-
-    @Override
-    public Integer set(UsuarioBean oBean) throws Exception {
-        PreparedStatement oPreparedStatement = null;
-        Integer iResult = 0;
-        Boolean insert = true;
-        try {
-            if (oBean.getId() == null || oBean.getId() <= 0) {
-                strSQL = "INSERT INTO " + strTable;
-                strSQL += "(";
-                strSQL += "dni,";
-                strSQL += "nombre,";
-                strSQL += "primer_apellido,";
-                strSQL += "segundo_apellido,";
-                strSQL += "login,";
-                strSQL += "pass,";
-                strSQL += "email,";
-                strSQL += "id_tipousuario";
-                strSQL += ")";
-                strSQL += " VALUES ";
-                strSQL += "(";
-                strSQL += EncodingUtilHelper.quotate(oBean.getDni()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getNombre()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getPrimer_apellido()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getSegundo_apellido()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getLogin()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getPass()) + ",";
-                strSQL += EncodingUtilHelper.quotate(oBean.getEmail()) + ",";
-                strSQL += oBean.getId_tipousuario();
-                strSQL += ")";
-            } else {
-                insert = false;
-                strSQL = "UPDATE " + strTable;
-                strSQL += " SET ";
-                strSQL += "dni=" + EncodingUtilHelper.quotate(oBean.getDni()) + ", ";
-                strSQL += "nombre=" + EncodingUtilHelper.quotate(oBean.getNombre()) + ",";
-                strSQL += "primer_apellido=" + EncodingUtilHelper.quotate(oBean.getPrimer_apellido()) + ",";
-                strSQL += "segundo_apellido=" + EncodingUtilHelper.quotate(oBean.getSegundo_apellido()) + ",";
-                strSQL += "login=" + EncodingUtilHelper.quotate(oBean.getLogin()) + ",";
-                strSQL += "pass=" + EncodingUtilHelper.quotate(oBean.getPass()) + ",";
-                strSQL += "email=" + oBean.getEmail() + ",";
-                strSQL += "id_tipousuario=" + oBean.getId_tipousuario() + " ";
-                strSQL += "WHERE id=" + oBean.getId();
-            }
-            oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
-            iResult = oPreparedStatement.executeUpdate();
-            if (iResult < 1) {
-                String msg = this.getClass().getName() + ": set";
-                Log4j.errorLog(msg);
-                throw new Exception(msg);
-            }
-            if (insert) {
-                ResultSet oResultSet = oPreparedStatement.getGeneratedKeys();
-                oResultSet.next();
-                iResult = oResultSet.getInt(1);
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return iResult;
-    }
-
-    @Override
-    public Boolean remove(Integer id) throws Exception {
-        boolean iResult = false;
-        strSQL = "DELETE FROM " + strTable + " WHERE id=?";
-        PreparedStatement oPreparedStatement = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, id);
-            iResult = oPreparedStatement.execute();
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return iResult;
-    }
-
-    @Override
-    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        strSQL = "SELECT COUNT(*) FROM " + strTable;
-        strSQL += " WHERE 1=1 " + SqlBuilder.buildSqlFilter(alFilter);
-        Long iResult = 0L;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oResultSet = oPreparedStatement.executeQuery(strSQL);
-            if (oResultSet.next()) {
-                iResult = oResultSet.getLong("COUNT(*)");
-            } else {
-                String msg = this.getClass().getName() + ": getcount";
-                Log4j.errorLog(msg);
-                throw new Exception(msg);
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return iResult;
-    }
-
-    @Override
-    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
-        String strSQL1 = strSQL;
-        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
-        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<UsuarioBean> aloBean = new ArrayList<>();
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL1);
-            oResultSet = oPreparedStatement.executeQuery(strSQL1);
-            while (oResultSet.next()) {
-                UsuarioBean oBean = new UsuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean = (UsuarioBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
-                aloBean.add(oBean);
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return aloBean;
+        super("usuario", oPooledConnection, oPuserBean_security, strWhere);
     }
 
     public UsuarioBean getFromLoginAndPass(UsuarioBean oUsuarioBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL = "select * from " + strTable + " WHERE 1=1 ";
+ 
         strSQL += " AND login='" + oUsuarioBean.getLogin() + "'";
         strSQL += " AND pass='" + oUsuarioBean.getPass() + "'";
         try {
@@ -333,7 +124,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
         strSQL1 += " and id_tipousuario=" + id_tipousuario + " ";
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
+        strSQL1 += SqlBuilder.buildSqlLimit(getCount(alFilter), intRegsPerPag, intPage);
         ArrayList<UsuarioBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
@@ -341,7 +132,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                aloBean.add(this.get(oResultSet.getInt("id"), AppConfigurationHelper.getJsonMsgDepth()));
+                aloBean.add((UsuarioBean) this.get(oResultSet.getInt("id"), AppConfigurationHelper.getJsonMsgDepth()));
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
@@ -357,5 +148,4 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
         }
         return aloBean;
     }
-
 }

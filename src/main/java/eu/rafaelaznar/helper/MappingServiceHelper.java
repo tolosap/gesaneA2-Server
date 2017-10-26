@@ -41,7 +41,7 @@ public class MappingServiceHelper {
         ReplyBean oReplyBean = null;
         switch (ob) {
             case "usuario":
-                UsuarioService oUsuarioService = new UsuarioService(oRequest);
+                UsuarioService oUsuarioService = new UsuarioService(oRequest, ob);
                 switch (op) {
                     case "get":
                         oReplyBean = oUsuarioService.get();

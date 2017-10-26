@@ -29,6 +29,7 @@
 package eu.rafaelaznar.dao;
 
 import eu.rafaelaznar.bean.GenericBeanInterface;
+import eu.rafaelaznar.bean.GenericViewBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
@@ -40,14 +41,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public class GenericViewDao implements DaoViewInterface<GenericBeanInterface> {
+public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
 
-    private String strTable = null;
-    private String strSQL = null;
+    protected String strTable = null;
+    protected String strSQL = null;
 
-    private String strCountSQL = null;
-    private Connection oConnection = null;
-    private UsuarioBean oPuserSecurity = null;
+    protected String strCountSQL = null;
+    protected Connection oConnection = null;
+    protected UsuarioBean oPuserSecurity = null;
 
     public GenericViewDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
@@ -93,12 +94,12 @@ public class GenericViewDao implements DaoViewInterface<GenericBeanInterface> {
     }
 
     @Override
-    public ArrayList<GenericBeanInterface> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
+    public ArrayList<GenericViewBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
         String strSQL1 = strSQL;
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
         strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<GenericBeanInterface> aloBean = new ArrayList<>();
+        ArrayList<GenericViewBean> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {
@@ -106,8 +107,8 @@ public class GenericViewDao implements DaoViewInterface<GenericBeanInterface> {
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
                 GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
-                oBean = (GenericBeanInterface) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand );
-                aloBean.add(oBean);
+                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand );
+                aloBean.add((GenericViewBean) oBean);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
