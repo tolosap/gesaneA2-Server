@@ -30,7 +30,7 @@ package eu.rafaelaznar.bean;
 
 import com.google.gson.annotations.Expose;
 
-public class TipousuarioBean {
+public class TipousuarioBean extends GenericTableBean {
 
     @Expose
     private Integer id;

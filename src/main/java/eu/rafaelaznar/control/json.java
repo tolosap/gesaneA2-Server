@@ -34,7 +34,7 @@ import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EstadoHelper;
 import eu.rafaelaznar.helper.EstadoHelper.Tipo_estado;
 import eu.rafaelaznar.helper.Log4j;
-import eu.rafaelaznar.helper.MappingHelper;
+import eu.rafaelaznar.helper.MappingServiceHelper;
 import static eu.rafaelaznar.helper.ParameterCook.prepareCamelCaseObject;
 import eu.rafaelaznar.service.ViewServiceInterface;
 import java.io.IOException;
@@ -120,7 +120,7 @@ public class json extends HttpServlet {
                 response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
                 try {
-                    oReplyBean = (ReplyBean) MappingHelper.executeMethodService(request);
+                    oReplyBean = (ReplyBean) MappingServiceHelper.executeMethodService(request);
 //                    String strClassName = "eu.rafaelaznar.service." + ob + "Service";
 //                    ViewServiceInterface oService = (ViewServiceInterface) Class.forName(strClassName).getDeclaredConstructor(HttpServletRequest.class).newInstance(request);
 //                    Method oMethodService = oService.getClass().getMethod(op);

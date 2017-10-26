@@ -33,7 +33,7 @@ import eu.rafaelaznar.service.TipousuarioService;
 import eu.rafaelaznar.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
 
-public class MappingHelper {
+public class MappingServiceHelper {
     
     public static ReplyBean executeMethodService(HttpServletRequest oRequest) throws Exception {
         String ob = oRequest.getParameter("ob");
@@ -79,7 +79,7 @@ public class MappingHelper {
                 }
                 break;
             case "tipousuario":
-                TipousuarioService oTipousuarioService = new TipousuarioService(oRequest);
+                TipousuarioService oTipousuarioService = new TipousuarioService(oRequest,ob);
                 switch (op) {
                     case "get":
                         oReplyBean = oTipousuarioService.get();

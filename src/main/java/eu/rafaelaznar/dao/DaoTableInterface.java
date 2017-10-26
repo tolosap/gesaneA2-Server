@@ -29,7 +29,7 @@
 
 package eu.rafaelaznar.dao;
 
-public interface DaoTableInterface<GenericBeanImplementation> {
+public interface DaoTableInterface<GenericBeanImplementation>  {
 
     public GenericBeanImplementation get(GenericBeanImplementation oBean, int intExpand) throws Exception;
 

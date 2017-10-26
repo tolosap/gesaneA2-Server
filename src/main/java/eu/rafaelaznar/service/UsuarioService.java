@@ -43,7 +43,7 @@ import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class UsuarioService implements EmptyServiceInterface, ViewServiceInterface, TableServiceInterface {
+public class UsuarioService implements  ViewServiceInterface, TableServiceInterface {
 
     HttpServletRequest oRequest = null;
 

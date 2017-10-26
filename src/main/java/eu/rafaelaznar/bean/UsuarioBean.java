@@ -26,12 +26,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.bean;
 
 import com.google.gson.annotations.Expose;
 
-public class UsuarioBean {
+public class UsuarioBean extends GenericTableBean {
 
     @Expose
     private Integer id;
@@ -49,7 +48,7 @@ public class UsuarioBean {
     private String pass;
     @Expose
     private String email;
-    
+
     @Expose(serialize = false)
     private Integer id_tipousuario = 0;
     @Expose(deserialize = false)
