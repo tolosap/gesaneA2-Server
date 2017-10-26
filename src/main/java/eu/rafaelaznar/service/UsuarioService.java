@@ -73,9 +73,9 @@ public class UsuarioService implements ViewServiceInterface, TableServiceInterfa
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioBean oBean = new UsuarioBean(id);
+
                 UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                oBean = oDao.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
+                UsuarioBean oBean = oDao.get(id, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(oBean);
                 oReplyBean = new ReplyBean(200, strJson);

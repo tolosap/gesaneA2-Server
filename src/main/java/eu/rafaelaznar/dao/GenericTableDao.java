@@ -28,49 +28,50 @@
  */
 package eu.rafaelaznar.dao;
 
-import eu.rafaelaznar.bean.TipousuarioBean;
+import eu.rafaelaznar.bean.GenericBeanInterface;
+import eu.rafaelaznar.bean.GenericTableBean;
 import eu.rafaelaznar.bean.UsuarioBean;
-import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
-import eu.rafaelaznar.helper.SqlBuilder;
+import eu.rafaelaznar.helper.MappingBeanHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
-public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoViewInterface<TipousuarioBean> {
+public abstract class GenericTableDao implements DaoTableInterface<GenericTableBean> {
 
-    private String strTable = "tipousuario";
-    private String strSQL = "select * from " + strTable + " WHERE 1=1 ";
+    private String strTable = null;
+    private String strSQL = null;
 
-    private String strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
+    private String strCountSQL = null;
     private Connection oConnection = null;
     private UsuarioBean oPuserSecurity = null;
 
-    public TipousuarioDao(Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
+    public GenericTableDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
         if (strWhere != null) {
             strSQL += strWhere;
             strCountSQL += strWhere;
         }
+        strTable = ob;
+        strSQL = "select * from " + strTable + " WHERE 1=1 ";
+        strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
     }
 
     @Override
-    public TipousuarioBean get(int id, int intExpand) throws Exception {
+    public GenericTableBean get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        TipousuarioBean oBean = null;
         strSQL += " AND id=" + id;
+        GenericTableBean oBean = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
             if (oResultSet.next()) {
-                oBean = new TipousuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean.setDescripcion(oResultSet.getString("descripcion"));
+                oBean = (GenericTableBean) MappingBeanHelper.getBean(strTable);
+                oBean = (GenericTableBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
+
             } else {
                 oBean = null;
             }
@@ -91,7 +92,7 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
     }
 
     @Override
-    public Integer set(TipousuarioBean oBean) throws Exception {
+    public Integer set(GenericTableBean oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
         Integer iResult = 0;
         Boolean insert = true;
@@ -150,71 +151,6 @@ public class TipousuarioDao implements DaoTableInterface<TipousuarioBean>, DaoVi
             }
         }
         return iResult;
-    }
-
-    @Override
-    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        strCountSQL += SqlBuilder.buildSqlFilter(alFilter);
-        Long iResult = 0L;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oResultSet = oPreparedStatement.executeQuery(strSQL);
-            if (oResultSet.next()) {
-                iResult = oResultSet.getLong("COUNT(*)");
-            } else {
-                String msg = this.getClass().getName() + ": getcount";
-                Log4j.errorLog(msg);
-                throw new Exception(msg);
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return iResult;
-    }
-
-    @Override
-    public ArrayList<TipousuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
-        String strSQL1 = strSQL;
-        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
-        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<TipousuarioBean> aloBean = new ArrayList<>();
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL1);
-            oResultSet = oPreparedStatement.executeQuery(strSQL1);
-            while (oResultSet.next()) {
-                TipousuarioBean oBean = new TipousuarioBean();
-                oBean.setId(oResultSet.getInt("id"));
-                oBean = (TipousuarioBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
-                aloBean.add(oBean);
-                //aloBean.add(this.get(new TipousuarioBean(oResultSet.getInt("id"))));
-            }
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
-        }
-        return aloBean;
     }
 
 }

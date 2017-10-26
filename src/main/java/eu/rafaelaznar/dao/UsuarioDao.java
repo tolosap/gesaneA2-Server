@@ -61,15 +61,16 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public UsuarioBean get(UsuarioBean oBean, int intExpand) throws Exception {
+    public UsuarioBean get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-
-        strSQL += " AND id=" + oBean.getId();
+        UsuarioBean oBean = null;
+        strSQL += " AND id=" + id;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
             if (oResultSet.next()) {
+                oBean = new UsuarioBean();
                 oBean.setId(oResultSet.getInt("id"));
                 oBean.setDni(oResultSet.getString("dni"));
                 oBean.setNombre(oResultSet.getString("nombre"));
@@ -80,10 +81,8 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                 oBean.setEmail(oResultSet.getString("email"));
                 oBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
                 if (intExpand > 0) {
-                    TipousuarioBean oTipousuario = new TipousuarioBean();
                     TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserSecurity, null);
-                    oTipousuario.setId(oBean.getId_tipousuario());
-                    oTipousuario = oTipousuarioDao.get(oTipousuario, --intExpand);
+                    TipousuarioBean oTipousuario = oTipousuarioDao.get(oBean.getId_tipousuario(), --intExpand);
                     oBean.setObj_tipousuario(oTipousuario);
                 }
             } else {
@@ -342,7 +341,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id")), AppConfigurationHelper.getJsonMsgDepth()));
+                aloBean.add(this.get(oResultSet.getInt("id"), AppConfigurationHelper.getJsonMsgDepth()));
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

@@ -71,12 +71,9 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
 
-                GenericTableBean oBean = (GenericTableBean) MappingBeanHelper.getBean(ob);
-                oBean.setId(id);
-
                 DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
 
-                oBean = (GenericTableBean) oDao.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
+                GenericTableBean oBean = (GenericTableBean) oDao.get(id, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(oBean);
                 oReplyBean = new ReplyBean(200, strJson);

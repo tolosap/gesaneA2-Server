@@ -29,7 +29,6 @@
 package eu.rafaelaznar.dao;
 
 import eu.rafaelaznar.bean.GenericBeanInterface;
-import eu.rafaelaznar.bean.TipousuarioBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
@@ -38,7 +37,6 @@ import eu.rafaelaznar.helper.SqlBuilder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -108,7 +106,7 @@ public class GenericViewDao implements DaoViewInterface<GenericBeanInterface> {
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
                 GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
-                oBean = (GenericBeanInterface) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
+                oBean = (GenericBeanInterface) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand );
                 aloBean.add(oBean);
             }
         } catch (Exception ex) {
