@@ -100,21 +100,16 @@ public class GenericViewDao implements DaoViewInterface<GenericBeanInterface> {
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
         strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<TipousuarioBean> aloBean = new ArrayList<>();
+        ArrayList<GenericBeanInterface> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                TipousuarioBean oBean = new TipousuarioBean();
-
                 GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
-
-                oBean.setId(oResultSet.getInt("id"));
                 oBean = (GenericBeanInterface) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add(oBean);
-                //aloBean.add(this.get(new TipousuarioBean(oResultSet.getInt("id"))));
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
