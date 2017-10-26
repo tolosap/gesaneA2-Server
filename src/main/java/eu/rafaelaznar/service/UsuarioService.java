@@ -43,7 +43,7 @@ import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class UsuarioService implements  ViewServiceInterface, TableServiceInterface {
+public class UsuarioService implements ViewServiceInterface, TableServiceInterface {
 
     HttpServletRequest oRequest = null;
 
@@ -74,7 +74,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
                 UsuarioBean oBean = new UsuarioBean(id);
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 oBean = oDao.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(oBean);
@@ -116,8 +116,8 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
-                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -154,7 +154,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 lResult = oDao.getCount(alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
@@ -197,7 +197,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 iResult = oDao.set(oBean);
                 String strJson = oGson.toJson(iResult);
                 oReplyBean = new ReplyBean(200, strJson);
@@ -233,7 +233,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 iResult = oDao.remove(id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(iResult);
@@ -267,7 +267,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 oUsuarioBean = oDao.getFromLoginAndPass(oUsuarioBean);
                 HttpSession oSession = oRequest.getSession();
                 oSession.setAttribute("user", oUsuarioBean);
@@ -315,7 +315,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=getpagextipousuario&op=getpage&np=1&rpp=10&id=1
+    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getpagextipousuario&np=1&rpp=10&id=1
      */
     public ReplyBean getpagextipousuario() throws Exception {
         if (this.checkPermission("getpage")) {
@@ -333,7 +333,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 aloBean = oDao.getPagextipousuario(rpp, np, hmOrder, alFilter, id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
@@ -357,7 +357,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=getcountxtiposuario&op=getcount&id=1
+    * http://127.0.0.1:8081/carrito-server/json?ob=usuario&op=getcountxtiposuario&id=1
      */
     public ReplyBean getcountxtiposuario() throws Exception {
         if (this.checkPermission("getcount")) {
@@ -371,7 +371,7 @@ public class UsuarioService implements  ViewServiceInterface, TableServiceInterf
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                UsuarioDao oDao = new UsuarioDao(oConnection);
+                UsuarioDao oDao = new UsuarioDao(oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 lResult = oDao.getCountxtipousuario(alFilter, id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);

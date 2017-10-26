@@ -46,17 +46,25 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
 
     private String strTable = "usuario";
     private String strSQL = "select * from " + strTable + " WHERE 1=1 ";
-    private Connection oConnection = null;
 
-    public UsuarioDao(Connection oPooledConnection) {
+    private String strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
+    private Connection oConnection = null;
+    private UsuarioBean oPuserSecurity = null;
+
+    public UsuarioDao(Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
+        oPuserSecurity = oPuserBean_security;
+        if (strWhere != null) {
+            strSQL += strWhere;
+            strCountSQL += strWhere;
+        }
     }
 
     @Override
     public UsuarioBean get(UsuarioBean oBean, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL = "select * from " + strTable + " WHERE 1=1 ";
+
         strSQL += " AND id=" + oBean.getId();
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -73,7 +81,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
                 oBean.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
                 if (intExpand > 0) {
                     TipousuarioBean oTipousuario = new TipousuarioBean();
-                    TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection);
+                    TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserSecurity, null);
                     oTipousuario.setId(oBean.getId_tipousuario());
                     oTipousuario = oTipousuarioDao.get(oTipousuario, --intExpand);
                     oBean.setObj_tipousuario(oTipousuario);
@@ -217,7 +225,7 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
     }
 
     @Override
-    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter) throws Exception {
+    public ArrayList<UsuarioBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
         String strSQL1 = strSQL;
         strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
         strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
@@ -229,7 +237,10 @@ public class UsuarioDao implements DaoTableInterface<UsuarioBean>, DaoViewInterf
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                aloBean.add(this.get(new UsuarioBean(oResultSet.getInt("id")), AppConfigurationHelper.getJsonMsgDepth()));
+                UsuarioBean oBean = new UsuarioBean();
+                oBean.setId(oResultSet.getInt("id"));
+                oBean = (UsuarioBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
+                aloBean.add(oBean);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

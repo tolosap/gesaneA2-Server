@@ -26,10 +26,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.bean;
 
 public class ReplyBean {
+
     private Integer code;
     private String json;
 
@@ -37,7 +37,7 @@ public class ReplyBean {
         this.code = code;
         this.json = json;
     }
-        
+
     public Integer getCode() {
         return code;
     }
@@ -53,5 +53,5 @@ public class ReplyBean {
     public void setJson(String json) {
         this.json = json;
     }
-           
+
 }

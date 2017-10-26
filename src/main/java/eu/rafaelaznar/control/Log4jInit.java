@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.control;
 
 import javax.servlet.http.HttpServlet;
@@ -36,10 +35,10 @@ public class Log4jInit extends HttpServlet {
 
     @Override
     public void init() {
- 
+
         String prefix = getServletContext().getRealPath("/");
         String file = getInitParameter("log4j-carrito-server");
- 
+
         if (file != null) {
             PropertyConfigurator.configure(prefix + file);
             System.out.println("Log4J Logging started: " + prefix + file);
@@ -48,7 +47,4 @@ public class Log4jInit extends HttpServlet {
         }
     }
 
-    
-    
-    
 }

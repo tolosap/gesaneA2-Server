@@ -34,7 +34,7 @@ import eu.rafaelaznar.service.UsuarioService;
 import javax.servlet.http.HttpServletRequest;
 
 public class MappingServiceHelper {
-    
+
     public static ReplyBean executeMethodService(HttpServletRequest oRequest) throws Exception {
         String ob = oRequest.getParameter("ob");
         String op = oRequest.getParameter("op");
@@ -72,14 +72,14 @@ public class MappingServiceHelper {
                         break;
                     case "getpagextipousuario":
                         oReplyBean = oUsuarioService.getpagextipousuario();
-                        break;                                                                                                
+                        break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation not found : Please contact your administrator");
                         break;
                 }
                 break;
             case "tipousuario":
-                TipousuarioService oTipousuarioService = new TipousuarioService(oRequest,ob);
+                TipousuarioService oTipousuarioService = new TipousuarioService(oRequest, ob);
                 switch (op) {
                     case "get":
                         oReplyBean = oTipousuarioService.get();

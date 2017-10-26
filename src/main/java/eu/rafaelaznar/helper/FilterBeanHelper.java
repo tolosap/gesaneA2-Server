@@ -5,7 +5,6 @@
  */
 package eu.rafaelaznar.helper;
 
-
 public class FilterBeanHelper {
 
     private String link;
@@ -21,7 +20,7 @@ public class FilterBeanHelper {
     }
 
     public FilterBeanHelper() {
-        
+
     }
 
     public String getLink() {
@@ -55,9 +54,5 @@ public class FilterBeanHelper {
     public void setValue(String value) {
         this.value = value;
     }
-    
-    
-    
-    
-    
+
 }

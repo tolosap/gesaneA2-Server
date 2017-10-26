@@ -1,7 +1,30 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * 
+ * carrito-server: Helps you to develop easily AJAX web applications 
+ *               by copying and modifying this Java Server.
+ *
+ * Sources at https://github.com/rafaelaznar/carrito-server
+ * 
+ * carrito-server is distributed under the MIT License (MIT)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package eu.rafaelaznar.service;
 
@@ -51,7 +74,7 @@ public class GenericTableService extends GenericViewService implements TableServ
                 GenericTableBean oBean = (GenericTableBean) MappingBeanHelper.getBean(ob);
                 oBean.setId(id);
 
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection);
+                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
 
                 oBean = (GenericTableBean) oDao.get(oBean, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
@@ -98,7 +121,7 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
 
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection);
+                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
 
                 iResult = oDao.set(oBean);
                 String strJson = oGson.toJson(iResult);
@@ -136,7 +159,7 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
 
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection);
+                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
 
                 iResult = oDao.remove(id);
                 Gson oGson = AppConfigurationHelper.getGson();

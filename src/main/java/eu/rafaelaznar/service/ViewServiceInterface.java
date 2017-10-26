@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.service;
 
 import eu.rafaelaznar.bean.ReplyBean;
@@ -36,5 +35,5 @@ public interface ViewServiceInterface {
     public ReplyBean getpage() throws Exception;
 
     public ReplyBean getcount() throws Exception;
-    
+
 }

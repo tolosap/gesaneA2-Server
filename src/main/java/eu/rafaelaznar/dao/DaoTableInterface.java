@@ -26,10 +26,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.dao;
 
-public interface DaoTableInterface<GenericBeanImplementation>  {
+public interface DaoTableInterface<GenericBeanImplementation> {
 
     public GenericBeanImplementation get(GenericBeanImplementation oBean, int intExpand) throws Exception;
 

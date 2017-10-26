@@ -29,6 +29,10 @@
 package eu.rafaelaznar.bean;
 
 import com.google.gson.annotations.Expose;
+import eu.rafaelaznar.helper.EncodingUtilHelper;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class TipousuarioBean extends GenericTableBean {
 
@@ -59,6 +63,37 @@ public class TipousuarioBean extends GenericTableBean {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id,";
+        strColumns += "descripcion";
+        return strColumns;
+    }
+
+    @Override
+    public String getValues() {
+        String strColumns = "";
+        strColumns += id + ",";
+        strColumns += EncodingUtilHelper.quotate(descripcion);
+        return strColumns;
+    }
+
+    @Override
+    public String toPairs() {
+        String strPairs = "";
+        //strPairs += "id=" + id + ",";
+        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion);
+        return strPairs;
+    }
+
+    @Override
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+        this.setId(oResultSet.getInt("id"));
+        this.setDescripcion(oResultSet.getString("descripcion"));
+        return this;
     }
 
 }

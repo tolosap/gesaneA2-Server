@@ -29,6 +29,11 @@
 package eu.rafaelaznar.bean;
 
 import com.google.gson.annotations.Expose;
+import eu.rafaelaznar.dao.TipousuarioDao;
+import eu.rafaelaznar.helper.EncodingUtilHelper;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UsuarioBean extends GenericTableBean {
 
@@ -140,6 +145,73 @@ public class UsuarioBean extends GenericTableBean {
 
     public void setObj_tipousuario(TipousuarioBean obj_tipousuario) {
         this.obj_tipousuario = obj_tipousuario;
+    }
+
+    @Override
+    public String getColumns() {
+        String strColumns = "";
+        strColumns += "id,";
+        strColumns += "dni,";
+        strColumns += "nombre,";
+        strColumns += "primer_apellido,";
+        strColumns += "segundo_apellido,";
+        strColumns += "login,";
+        strColumns += "pass,";
+        strColumns += "email,";
+        strColumns += "id_tipousuario";
+
+        return strColumns;
+    }
+
+    @Override
+    public String getValues() {
+        String strColumns = "";
+        strColumns += id + ",";
+        strColumns += EncodingUtilHelper.quotate(dni) + ",";
+        strColumns += EncodingUtilHelper.quotate(nombre) + ",";
+        strColumns += EncodingUtilHelper.quotate(primer_apellido) + ",";
+        strColumns += EncodingUtilHelper.quotate(segundo_apellido) + ",";
+        strColumns += EncodingUtilHelper.quotate(login) + ",";
+        strColumns += EncodingUtilHelper.quotate(pass) + ",";
+        strColumns += EncodingUtilHelper.quotate(email) + ",";
+        strColumns += id_tipousuario;
+        return strColumns;
+    }
+
+    @Override
+    public String toPairs() {
+        String strPairs = "";
+        strPairs += "dni=" + EncodingUtilHelper.quotate(dni);
+        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre);
+        strPairs += "primer_apellido=" + EncodingUtilHelper.quotate(primer_apellido);
+        strPairs += "segundo_apellido=" + EncodingUtilHelper.quotate(segundo_apellido);
+        strPairs += "login=" + EncodingUtilHelper.quotate(login);
+        strPairs += "pass=" + EncodingUtilHelper.quotate(pass);
+        strPairs += "email=" + EncodingUtilHelper.quotate(email);
+        strPairs += id_tipousuario;
+        return strPairs;
+    }
+
+    @Override
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+        this.setId(oResultSet.getInt("id"));
+        this.setNombre(oResultSet.getString("nombre"));
+        this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
+        this.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
+        this.setLogin(oResultSet.getString("login"));
+        this.setPass(oResultSet.getString("pass"));
+        this.setEmail(oResultSet.getString("email"));
+        if (expand > 0) {
+            TipousuarioBean oTipousuarioBean = new TipousuarioBean();
+            TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserBean_security, null);
+            oTipousuarioBean.setId(oResultSet.getInt("id_tipousuario"));
+            oTipousuarioBean = oTipousuarioDao.get(oTipousuarioBean, expand - 1);
+            this.setObj_tipousuario(oTipousuarioBean);
+        } else {
+            this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
+        }
+
+        return this;
     }
 
 }
