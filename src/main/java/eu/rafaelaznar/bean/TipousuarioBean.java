@@ -36,8 +36,7 @@ import java.sql.SQLException;
 
 public class TipousuarioBean extends GenericTableBean {
 
-    @Expose
-    private Integer id;
+
     @Expose
     private String descripcion;
 
@@ -45,16 +44,8 @@ public class TipousuarioBean extends GenericTableBean {
 
     }
 
-    public TipousuarioBean(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public TipousuarioBean(Integer intId) {
+        id = intId;
     }
 
     public String getDescripcion() {

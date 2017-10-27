@@ -59,7 +59,7 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
         }
         strTable = ob;
         strSQL = "select * from " + strTable + " WHERE 1=1 ";
-        strCountSQL = "select * from " + strTable + " WHERE 1=1 ";
+        strCountSQL = "select COUNT(*) from " + strTable + " WHERE 1=1 ";
     }
 
     @Override
@@ -69,8 +69,8 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
         strCountSQL += SqlBuilder.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oResultSet = oPreparedStatement.executeQuery(strSQL);
+            oPreparedStatement = oConnection.prepareStatement(strCountSQL);
+            oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 iResult = oResultSet.getLong("COUNT(*)");
             } else {

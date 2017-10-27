@@ -37,8 +37,7 @@ import java.sql.SQLException;
 
 public class UsuarioBean extends GenericTableBean {
 
-    @Expose
-    private Integer id;
+
     @Expose
     private String dni;
     @Expose

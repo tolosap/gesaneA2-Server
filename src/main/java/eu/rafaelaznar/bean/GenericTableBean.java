@@ -37,7 +37,7 @@ import java.sql.SQLException;
 public class GenericTableBean implements BeanInterface {
 
     @Expose
-    private Integer id;
+    protected Integer id;
 
     public GenericTableBean() {
 
