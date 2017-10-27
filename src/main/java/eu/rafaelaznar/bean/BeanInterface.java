@@ -32,7 +32,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public interface GenericBeanInterface {
+public interface BeanInterface {
 
     public String getColumns();
 
@@ -40,6 +40,6 @@ public interface GenericBeanInterface {
 
     public String toPairs();
 
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception;
+    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception;
 
 }

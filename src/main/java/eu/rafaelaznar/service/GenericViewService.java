@@ -44,10 +44,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 
-/**
- *
- * @author raznara
- */
 public class GenericViewService implements ViewServiceInterface {
 
     HttpServletRequest oRequest = null;

@@ -32,7 +32,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GenericViewBean implements GenericBeanInterface {
+public class GenericViewBean implements BeanInterface {
 
     public GenericViewBean() {
 
@@ -54,7 +54,7 @@ public class GenericViewBean implements GenericBeanInterface {
     }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

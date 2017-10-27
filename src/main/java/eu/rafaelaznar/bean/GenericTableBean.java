@@ -33,11 +33,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author raznara
- */
-public class GenericTableBean implements GenericBeanInterface {
+
+public class GenericTableBean implements BeanInterface {
 
     @Expose
     private Integer id;
@@ -74,7 +71,7 @@ public class GenericTableBean implements GenericBeanInterface {
     }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

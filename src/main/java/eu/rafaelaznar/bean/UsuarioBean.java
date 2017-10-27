@@ -193,7 +193,7 @@ public class UsuarioBean extends GenericTableBean {
     }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+    public BeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
         this.setNombre(oResultSet.getString("nombre"));
         this.setPrimer_apellido(oResultSet.getString("primer_apellido"));

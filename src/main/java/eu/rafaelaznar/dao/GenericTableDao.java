@@ -39,13 +39,9 @@ import java.sql.Statement;
 
 public abstract class GenericTableDao extends GenericViewDao implements DaoTableInterface<GenericTableBean> {
 
-
-
     public GenericTableDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         super(ob, oPooledConnection, oPuserBean_security, strWhere);
     }
-
-
 
     @Override
     public GenericTableBean get(int id, int intExpand) throws Exception {
