@@ -41,8 +41,6 @@ import java.util.LinkedHashMap;
 
 public class UsuarioDao extends GenericTableDao {
 
-    private String strTable = "usuario";
-
     public UsuarioDao(Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         super("usuario", oPooledConnection, oPuserBean_security, strWhere);
     }

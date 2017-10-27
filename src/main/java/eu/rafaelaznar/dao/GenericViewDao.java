@@ -53,13 +53,13 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
     public GenericViewDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
-        if (strWhere != null) {
-            strSQL += strWhere;
-            strCountSQL += strWhere;
-        }
         strTable = ob;
         strSQL = "select * from " + strTable + " WHERE 1=1 ";
         strCountSQL = "select COUNT(*) from " + strTable + " WHERE 1=1 ";
+        if (strWhere != null) {
+            strSQL += strWhere + " ";
+            strCountSQL += strWhere + " ";
+        }
     }
 
     @Override
@@ -107,7 +107,7 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
                 BeanInterface oBean = MappingBeanHelper.getBean(strTable);
-                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand );
+                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add((GenericViewBean) oBean);
             }
         } catch (Exception ex) {

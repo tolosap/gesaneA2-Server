@@ -33,8 +33,6 @@ import java.sql.Connection;
 
 public class TipousuarioDao extends GenericTableDao {
 
-    private String strTable = "tipousuario";
-
     public TipousuarioDao(Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
         super("tipousuario", oPooledConnection, oPuserBean_security, strWhere);
     }   
