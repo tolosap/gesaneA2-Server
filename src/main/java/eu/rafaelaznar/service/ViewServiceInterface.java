@@ -36,4 +36,8 @@ public interface ViewServiceInterface {
 
     public ReplyBean getcount() throws Exception;
 
+    public ReplyBean getpagex() throws Exception;
+
+    public ReplyBean getcountx() throws Exception;
+
 }

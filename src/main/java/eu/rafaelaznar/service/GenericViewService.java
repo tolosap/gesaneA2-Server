@@ -34,6 +34,7 @@ import eu.rafaelaznar.bean.ReplyBean;
 import eu.rafaelaznar.bean.UsuarioBean;
 import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.dao.DaoViewInterface;
+import eu.rafaelaznar.dao.UsuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.FilterBeanHelper;
 import eu.rafaelaznar.helper.Log4j;
@@ -122,6 +123,84 @@ public class GenericViewService implements ViewServiceInterface {
                 oConnection = oPooledConnection.newConnection();
                 DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
                 lResult = oDao.getCount(alFilter);
+                Gson oGson = AppConfigurationHelper.getGson();
+                String strJson = oGson.toJson(lResult);
+                oReplyBean = new ReplyBean(200, strJson);
+            } catch (Exception ex) {
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
+            } finally {
+                if (oConnection != null) {
+                    oConnection.close();
+                }
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
+                }
+            }
+            return oReplyBean;
+        } else {
+            return new ReplyBean(401, "Unauthorized");
+        }
+    }
+
+    public ReplyBean getpagex() throws Exception {
+        if (this.checkPermission(ob, "getpagex")) {
+            int np = Integer.parseInt(oRequest.getParameter("np"));
+            int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
+            int id = Integer.parseInt(oRequest.getParameter("id"));
+            int id_foreign = Integer.parseInt(oRequest.getParameter("id_foreign"));
+            String ob_foreign = oRequest.getParameter("ob_foreign");
+            String strOrder = oRequest.getParameter("order");
+            String strFilter = oRequest.getParameter("filter");
+            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            Connection oConnection = null;
+            ConnectionInterface oPooledConnection = null;
+            ReplyBean oReplyBean = null;
+            ArrayList<UsuarioBean> aloBean = null;
+            try {
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
+                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                aloBean = oDao.getPagex(id_foreign, ob_foreign, rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
+                Gson oGson = AppConfigurationHelper.getGson();
+                String strJson = oGson.toJson(aloBean);
+                oReplyBean = new ReplyBean(200, strJson);
+            } catch (Exception ex) {
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                Log4j.errorLog(msg, ex);
+                throw new Exception(msg, ex);
+            } finally {
+                if (oConnection != null) {
+                    oConnection.close();
+                }
+                if (oPooledConnection != null) {
+                    oPooledConnection.disposeConnection();
+                }
+            }
+            return oReplyBean;
+        } else {
+            return new ReplyBean(401, "Unauthorized");
+        }
+    }
+
+    @Override
+    public ReplyBean getcountx() throws Exception {
+        if (this.checkPermission(ob, "getcountx")) {
+            Long lResult;
+            Connection oConnection = null;
+            ConnectionInterface oPooledConnection = null;
+            ReplyBean oReplyBean = null;
+            int id_foreign = Integer.parseInt(oRequest.getParameter("id_foreign"));
+            String ob_foreign = oRequest.getParameter("ob_foreign");
+            String strFilter = oRequest.getParameter("filter");
+            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            try {
+                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oConnection = oPooledConnection.newConnection();
+                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                lResult = oDao.getCountx(id_foreign, ob_foreign, alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);

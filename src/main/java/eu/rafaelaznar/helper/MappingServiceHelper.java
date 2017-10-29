@@ -68,11 +68,11 @@ public class MappingServiceHelper {
                     case "check":
                         oReplyBean = oUsuarioService.check();
                         break;
-                    case "getcountxtipousuario":
-                        oReplyBean = oUsuarioService.getcountxtiposuario();
+                    case "getcountx":
+                        oReplyBean = oUsuarioService.getcountx();
                         break;
-                    case "getpagextipousuario":
-                        oReplyBean = oUsuarioService.getpagextipousuario();
+                    case "getpagex":
+                        oReplyBean = oUsuarioService.getpagex();
                         break;
                     default:
                         oReplyBean = new ReplyBean(500, "Operation not found : Please contact your administrator");

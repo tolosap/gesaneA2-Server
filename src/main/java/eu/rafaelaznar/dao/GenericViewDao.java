@@ -40,6 +40,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import eu.rafaelaznar.bean.BeanInterface;
+import eu.rafaelaznar.helper.AppConfigurationHelper;
 
 public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
 
@@ -123,6 +124,72 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
             }
         }
         return aloBean;
+    }
+
+    @Override
+    public ArrayList<GenericViewBean> getPagex(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
+        String strSQL1 = strSQL;
+        strSQL1 += " and id_" + ob_foreign + "=" + id_foreign + " ";
+        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
+        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilder.buildSqlLimit(getCount(alFilter), intRegsPerPag, intPage);
+        ArrayList<GenericViewBean> aloBean = new ArrayList<>();
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL1);
+            oResultSet = oPreparedStatement.executeQuery(strSQL1);
+            while (oResultSet.next()) {
+                BeanInterface oBean = MappingBeanHelper.getBean(strTable);
+                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
+                aloBean.add((GenericViewBean) oBean);
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return aloBean;
+    }
+
+    @Override
+    public Long getCountx(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception {
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        strSQL = "SELECT COUNT(*) FROM " + strTable;
+        strSQL += " WHERE id_tipousuario=" + id_foreign;
+        strSQL += SqlBuilder.buildSqlFilter(alFilter);
+        Long iResult = 0L;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oResultSet = oPreparedStatement.executeQuery(strSQL);
+            if (oResultSet.next()) {
+                iResult = oResultSet.getLong("COUNT(*)");
+            } else {
+                String msg = this.getClass().getName() + ": getCountxtipousuario";
+                Log4j.errorLog(msg);
+                throw new Exception(msg);
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4j.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
     }
 
 }
