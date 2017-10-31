@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * carrito-server: Helps you to develop easily AJAX web applications 
+ * generic-carrito-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/carrito-server
+ * Sources at https://github.com/rafaelaznar/generic-carrito-server
  * 
- * carrito-server is distributed under the MIT License (MIT)
+ * generic-carrito-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,7 @@ public class json extends HttpServlet {
                     out.println("<title>Carrito server</title>");
                     out.println("</head>");
                     out.println("<body>");
-                    out.print("<h1>Bienvenidos a carrito-server</h1>");
+                    out.print("<h1>Bienvenidos a generic-carrito-server</h1>");
                     out.println("<h2>Servlet json at " + request.getContextPath() + "</h2>");
                     out.print("<h3>Conexión OK</h3>");
                     out.println("</body>");
@@ -96,7 +96,7 @@ public class json extends HttpServlet {
                     out.println("<title>Carrito server</title>");
                     out.println("</head>");
                     out.println("<body>");
-                    out.print("<h1>Bienvenidos a carrito-server</h1>");
+                    out.print("<h1>Bienvenidos a generic-carrito-server</h1>");
                     out.println("<h2>Servlet json at " + request.getContextPath() + "</h2>");
                     out.print("<h3>Conexión KO</h3>");
                     out.println("</body>");
@@ -128,7 +128,7 @@ public class json extends HttpServlet {
                         out.println(ex);
                         ex.printStackTrace(out);
                     } else {
-                        oReplyBean = new ReplyBean(500, "carrito-server error. Please, contact your administrator.");
+                        oReplyBean = new ReplyBean(500, "generic-carrito-server error. Please, contact your administrator.");
                     }
                     Log4j.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
                     oReplyBean = new ReplyBean(500, "Object or Operation not found : Please contact your administrator");

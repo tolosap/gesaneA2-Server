@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * carrito-server: Helps you to develop easily AJAX web applications 
+ * generic-carrito-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/carrito-server
+ * Sources at https://github.com/rafaelaznar/generic-carrito-server
  * 
- * carrito-server is distributed under the MIT License (MIT)
+ * generic-carrito-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,7 @@ public class GenericViewService implements ViewServiceInterface {
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=xxxxxx&op=getpage&np=1&rpp=10
+    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=getpage&np=1&rpp=10
      */
     @Override
     public ReplyBean getpage() throws Exception {
@@ -107,7 +107,7 @@ public class GenericViewService implements ViewServiceInterface {
     }
 
     /*
-    * http://127.0.0.1:8081/carrito-server/json?ob=xxxxxxxx&op=getcount
+    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxxxx&op=getcount
      */
     @Override
     public ReplyBean getcount() throws Exception {

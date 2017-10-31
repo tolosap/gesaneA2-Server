@@ -1,2 +1,2 @@
-# carrito-server
+# generic-carrito-server
 Carrito server

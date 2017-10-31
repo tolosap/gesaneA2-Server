@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * carrito-server: Helps you to develop easily AJAX web applications 
+ * generic-carrito-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/carrito-server
+ * Sources at https://github.com/rafaelaznar/generic-carrito-server
  * 
- * carrito-server is distributed under the MIT License (MIT)
+ * generic-carrito-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,17 +33,17 @@ import org.apache.log4j.Logger;
 public class Log4j {
 
     public static void infoLog(String strMessage) {
-        Logger log = Logger.getLogger("carrito-server");
+        Logger log = Logger.getLogger("generic-carrito-server");
         log.info(strMessage);
     }
 
     public static void errorLog(String strMessage, Exception e) {
-        Logger log = Logger.getLogger("carrito-server");
+        Logger log = Logger.getLogger("generic-carrito-server");
         log.error(strMessage, e);
     }
 
     public static void errorLog(String strMessage) {
-        Logger log = Logger.getLogger("carrito-server");
+        Logger log = Logger.getLogger("generic-carrito-server");
         log.error(strMessage);
     }
 
