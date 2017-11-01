@@ -188,7 +188,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         strPairs += "login=" + EncodingUtilHelper.quotate(login) + ",";
         strPairs += "pass=" + EncodingUtilHelper.quotate(pass) + ",";
         strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
-        strPairs += id_tipousuario;
+        strPairs += "id_tipousuario=" + id_tipousuario;
         return strPairs;
     }
 
@@ -201,6 +201,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.setLogin(oResultSet.getString("login"));
         this.setPass(oResultSet.getString("pass"));
         this.setEmail(oResultSet.getString("email"));
+        this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
         if (expand > 0) {
             TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
             TipousuarioSpecificDaoImplementation oTipousuarioDao = new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);

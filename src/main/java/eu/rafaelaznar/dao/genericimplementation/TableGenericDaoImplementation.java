@@ -79,6 +79,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
     @Override
     public Integer set(TableGenericBeanImplementation oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
         Integer iResult = 0;
         Boolean insert = true;
         try {
@@ -102,14 +103,18 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
                 throw new Exception(msg);
             }
             if (insert) {
-                ResultSet oResultSet = oPreparedStatement.getGeneratedKeys();
+                oResultSet = oPreparedStatement.getGeneratedKeys();
                 oResultSet.next();
                 iResult = oResultSet.getInt(1);
             }
-
         } catch (Exception ex) {
             throw new Exception();
         } finally {
+            if (insert) {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+            }
             if (oPreparedStatement != null) {
                 oPreparedStatement.close();
             }
