@@ -124,7 +124,7 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
         return oReplyBean;
     }
 
-    public ReplyBean changePass() throws Exception {
+    public ReplyBean setPass() throws Exception {
         if (this.checkPermission("passchange")) {
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;

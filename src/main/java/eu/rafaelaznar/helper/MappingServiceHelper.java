@@ -73,8 +73,8 @@ public class MappingServiceHelper {
                     case "getpagex":
                         oReplyBean = oUsuarioService.getPageX();
                         break;
-                    case "changepass":
-                        oReplyBean = oUsuarioService.changePass();
+                    case "setpass":
+                        oReplyBean = oUsuarioService.setPass();
                         break;
                     case "getsessionuserlevel":
                         oReplyBean = oUsuarioService.getSessionUserLevel();
