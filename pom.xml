@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.rafaelaznar</groupId>
-    <artifactId>troleyes-server</artifactId>
+    <artifactId>trolleyes-server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>troleyes-server</name>
+    <name>trolleyes-server</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
