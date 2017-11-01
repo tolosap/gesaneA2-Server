@@ -78,9 +78,9 @@ public class JsonController extends HttpServlet {
                 response.setContentType("text/html;charset=UTF-8");
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
-                out.println("<head><title>Troleyes server</title></head>");
+                out.println("<head><title>Trolleyes server</title></head>");
                 out.println("<body style=\"background: url(trolleyes426.png) no-repeat center center fixed;\">");
-                out.println("<h1>Welcome to troleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
+                out.println("<h1>Welcome to trolleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
                 out.println("");
                 try {
                     oPooledConnection = AppConfigurationHelper.getSourceConnection();
