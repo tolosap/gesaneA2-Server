@@ -131,6 +131,7 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
             String oldPass = oRequest.getParameter("old");
             String newPass = oRequest.getParameter("new");
             ReplyBean oReplyBean = null;
+            Integer iResult = 0;
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
@@ -139,12 +140,14 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
                 UsuarioSpecificBeanImplementation oSessionUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
                 if (oSessionUsuarioBean.getPass().equalsIgnoreCase(oldPass)) {
                     oSessionUsuarioBean.setPass(newPass);
-                    Integer iResult = oUserDao.set(oSessionUsuarioBean);
+                    iResult = oUserDao.set(oSessionUsuarioBean);
                     if (iResult >= 1) {
                         oReplyBean = new ReplyBean(200, EncodingUtilHelper.quotate(iResult.toString()));
                     } else {
                         oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Server error during password change operation"));
                     }
+                } else {
+                    oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate(iResult.toString()));
                 }
                 oConnection.commit();
             } catch (Exception ex) {
