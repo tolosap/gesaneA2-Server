@@ -34,7 +34,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
-public class ViewGenericBeanImplementation implements GenericBeanInterface {
+public abstract class ViewGenericBeanImplementation implements GenericBeanInterface {
 
     public ViewGenericBeanImplementation() {
 

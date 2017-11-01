@@ -92,7 +92,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
                 strSQL = "UPDATE " + strTable;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-                strSQL += "WHERE id=" + oBean.getId();
+                strSQL += " WHERE id=" + oBean.getId();
             }
             oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
             iResult = oPreparedStatement.executeUpdate();

@@ -35,7 +35,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
-public class TableGenericBeanImplementation implements GenericBeanInterface {
+public abstract class TableGenericBeanImplementation implements GenericBeanInterface {
 
     @Expose
     protected Integer id;

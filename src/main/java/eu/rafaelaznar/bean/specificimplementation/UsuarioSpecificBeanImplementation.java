@@ -181,13 +181,13 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     @Override
     public String toPairs() {
         String strPairs = "";
-        strPairs += "dni=" + EncodingUtilHelper.quotate(dni);
-        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre);
-        strPairs += "primer_apellido=" + EncodingUtilHelper.quotate(primer_apellido);
-        strPairs += "segundo_apellido=" + EncodingUtilHelper.quotate(segundo_apellido);
-        strPairs += "login=" + EncodingUtilHelper.quotate(login);
-        strPairs += "pass=" + EncodingUtilHelper.quotate(pass);
-        strPairs += "email=" + EncodingUtilHelper.quotate(email);
+        strPairs += "dni=" + EncodingUtilHelper.quotate(dni) + ",";
+        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre) + ",";
+        strPairs += "primer_apellido=" + EncodingUtilHelper.quotate(primer_apellido) + ",";
+        strPairs += "segundo_apellido=" + EncodingUtilHelper.quotate(segundo_apellido) + ",";
+        strPairs += "login=" + EncodingUtilHelper.quotate(login) + ",";
+        strPairs += "pass=" + EncodingUtilHelper.quotate(pass) + ",";
+        strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
         strPairs += id_tipousuario;
         return strPairs;
     }
