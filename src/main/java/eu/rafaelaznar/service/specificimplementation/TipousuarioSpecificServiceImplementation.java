@@ -26,53 +26,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean;
+package eu.rafaelaznar.service.specificimplementation;
 
-import com.google.gson.annotations.Expose;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import eu.rafaelaznar.service.genericimplementation.GenericTableService;
+import javax.servlet.http.HttpServletRequest;
 
+public class TipousuarioSpecificServiceImplementation extends GenericTableService {
 
-public class GenericTableBean implements BeanInterface {
-
-    @Expose
-    protected Integer id;
-
-    public GenericTableBean() {
-
-    }
-
-    public GenericTableBean(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getColumns() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getValues() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String toPairs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public TipousuarioSpecificServiceImplementation(HttpServletRequest request, String obj) {
+        super(request, obj);
     }
 
 }

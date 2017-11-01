@@ -26,25 +26,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.dao.publicinterface;
 
-import org.apache.log4j.Logger;
+public interface TableDaoInterface<GenericTableBean> {
 
-public class Log4j {
+    public GenericTableBean get(int id, int intExpand) throws Exception;
 
-    public static void infoLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
-        log.info(strMessage);
-    }
+    public Integer set(GenericTableBean oBean) throws Exception;
 
-    public static void errorLog(String strMessage, Exception e) {
-        Logger log = Logger.getLogger("generic-carrito-server");
-        log.error(strMessage, e);
-    }
-
-    public static void errorLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
-        log.error(strMessage);
-    }
+    public Boolean remove(Integer id) throws Exception;
 
 }

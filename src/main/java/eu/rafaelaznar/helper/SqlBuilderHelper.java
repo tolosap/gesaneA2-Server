@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SqlBuilder {
+public class SqlBuilderHelper {
 
     public static String buildSqlFilter(ArrayList<FilterBeanHelper> alFilter) {
         String strSQLFilter = "";

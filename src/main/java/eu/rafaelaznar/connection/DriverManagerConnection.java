@@ -29,7 +29,7 @@
 package eu.rafaelaznar.connection;
 
 import eu.rafaelaznar.helper.ConnectionClassHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -47,7 +47,7 @@ public class DriverManagerConnection implements ConnectionInterface {
             return oConnection;
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }
@@ -60,7 +60,7 @@ public class DriverManagerConnection implements ConnectionInterface {
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }

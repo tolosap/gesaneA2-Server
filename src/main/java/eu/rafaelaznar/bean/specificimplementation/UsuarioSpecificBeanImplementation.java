@@ -26,17 +26,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean;
+package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
-import eu.rafaelaznar.dao.TipousuarioDao;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
 import eu.rafaelaznar.helper.EncodingUtilHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
-public class UsuarioBean extends GenericTableBean {
-
+public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
     private String dni;
@@ -56,13 +57,13 @@ public class UsuarioBean extends GenericTableBean {
     @Expose(serialize = false)
     private Integer id_tipousuario = 0;
     @Expose(deserialize = false)
-    private TipousuarioBean obj_tipousuario = null;
+    private TipousuarioSpecificBeanImplementation obj_tipousuario = null;
 
-    public UsuarioBean() {
+    public UsuarioSpecificBeanImplementation() {
 
     }
 
-    public UsuarioBean(Integer id) {
+    public UsuarioSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
@@ -138,11 +139,11 @@ public class UsuarioBean extends GenericTableBean {
         this.pass = pass;
     }
 
-    public TipousuarioBean getObj_tipousuario() {
+    public TipousuarioSpecificBeanImplementation getObj_tipousuario() {
         return obj_tipousuario;
     }
 
-    public void setObj_tipousuario(TipousuarioBean obj_tipousuario) {
+    public void setObj_tipousuario(TipousuarioSpecificBeanImplementation obj_tipousuario) {
         this.obj_tipousuario = obj_tipousuario;
     }
 
@@ -192,7 +193,7 @@ public class UsuarioBean extends GenericTableBean {
     }
 
     @Override
-    public BeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
         this.setNombre(oResultSet.getString("nombre"));
         this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
@@ -201,9 +202,9 @@ public class UsuarioBean extends GenericTableBean {
         this.setPass(oResultSet.getString("pass"));
         this.setEmail(oResultSet.getString("email"));
         if (expand > 0) {
-            TipousuarioBean oTipousuarioBean = new TipousuarioBean();
-            TipousuarioDao oTipousuarioDao = new TipousuarioDao(oConnection, oPuserBean_security, null);            
-            oTipousuarioBean = (TipousuarioBean) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
+            TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
+            TipousuarioSpecificDaoImplementation oTipousuarioDao = new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
+            oTipousuarioBean = (TipousuarioSpecificBeanImplementation) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
             this.setObj_tipousuario(oTipousuarioBean);
         } else {
             this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));

@@ -31,7 +31,7 @@ package eu.rafaelaznar.connection;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import eu.rafaelaznar.helper.ConnectionClassHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -56,7 +56,7 @@ public class HikariConnection implements ConnectionInterface {
             oConnection = oConnectionPool.getConnection();
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
         return oConnection;
@@ -73,7 +73,7 @@ public class HikariConnection implements ConnectionInterface {
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }

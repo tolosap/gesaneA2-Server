@@ -26,12 +26,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.helper;
 
-import eu.rafaelaznar.bean.TipousuarioBean;
-import eu.rafaelaznar.bean.UsuarioBean;
-import eu.rafaelaznar.bean.BeanInterface;
+import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
 /**
  *
@@ -39,15 +38,15 @@ import eu.rafaelaznar.bean.BeanInterface;
  */
 public class MappingBeanHelper {
 
-    public static BeanInterface getBean(String ob) {
-        BeanInterface oBean = null;
+    public static GenericBeanInterface getBean(String ob) {
+        GenericBeanInterface oBean = null;
 
         switch (ob) {
             case "usuario":
-                oBean = new UsuarioBean();
+                oBean = new UsuarioSpecificBeanImplementation();
                 break;
             case "tipousuario":
-                oBean = new TipousuarioBean();
+                oBean = new TipousuarioSpecificBeanImplementation();
                 break;
             default:
 

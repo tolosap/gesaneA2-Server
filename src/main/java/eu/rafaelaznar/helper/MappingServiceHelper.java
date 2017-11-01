@@ -26,12 +26,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.helper;
 
 import eu.rafaelaznar.bean.ReplyBean;
-import eu.rafaelaznar.service.TipousuarioService;
-import eu.rafaelaznar.service.UsuarioService;
+import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
 public class MappingServiceHelper {
@@ -42,7 +41,7 @@ public class MappingServiceHelper {
         ReplyBean oReplyBean = null;
         switch (ob) {
             case "usuario":
-                UsuarioService oUsuarioService = new UsuarioService(oRequest, ob);
+                UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest, ob);
                 switch (op) {
                     case "get":
                         oReplyBean = oUsuarioService.get();
@@ -54,10 +53,10 @@ public class MappingServiceHelper {
                         oReplyBean = oUsuarioService.remove();
                         break;
                     case "getpage":
-                        oReplyBean = oUsuarioService.getpage();
+                        oReplyBean = oUsuarioService.getPage();
                         break;
                     case "getcount":
-                        oReplyBean = oUsuarioService.getcount();
+                        oReplyBean = oUsuarioService.getCount();
                         break;
                     case "login":
                         oReplyBean = oUsuarioService.login();
@@ -65,22 +64,28 @@ public class MappingServiceHelper {
                     case "logout":
                         oReplyBean = oUsuarioService.logout();
                         break;
-                    case "check":
-                        oReplyBean = oUsuarioService.check();
+                    case "getsessionstatus":
+                        oReplyBean = oUsuarioService.getSessionStatus();
                         break;
                     case "getcountx":
-                        oReplyBean = oUsuarioService.getcountx();
+                        oReplyBean = oUsuarioService.getCountX();
                         break;
                     case "getpagex":
-                        oReplyBean = oUsuarioService.getpagex();
+                        oReplyBean = oUsuarioService.getPageX();
+                        break;
+                    case "changepass":
+                        oReplyBean = oUsuarioService.changePass();
+                        break;
+                    case "getsessionuserlevel":
+                        oReplyBean = oUsuarioService.getSessionUserLevel();
                         break;
                     default:
-                        oReplyBean = new ReplyBean(500, "Operation not found : Please contact your administrator");
+                        oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
             case "tipousuario":
-                TipousuarioService oTipousuarioService = new TipousuarioService(oRequest, ob);
+                TipousuarioSpecificServiceImplementation oTipousuarioService = new TipousuarioSpecificServiceImplementation(oRequest, ob);
                 switch (op) {
                     case "get":
                         oReplyBean = oTipousuarioService.get();
@@ -92,18 +97,18 @@ public class MappingServiceHelper {
                         oReplyBean = oTipousuarioService.remove();
                         break;
                     case "getpage":
-                        oReplyBean = oTipousuarioService.getpage();
+                        oReplyBean = oTipousuarioService.getPage();
                         break;
                     case "getcount":
-                        oReplyBean = oTipousuarioService.getcount();
+                        oReplyBean = oTipousuarioService.getCount();
                         break;
                     default:
-                        oReplyBean = new ReplyBean(500, "Operation not found : Please contact your administrator");
+                        oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
             default:
-                oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+                oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Object not found : Please contact your administrator"));
                 break;
         }
         return oReplyBean;

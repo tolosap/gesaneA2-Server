@@ -33,11 +33,12 @@ import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
 import eu.rafaelaznar.helper.EstadoHelper;
 import eu.rafaelaznar.helper.EstadoHelper.Tipo_estado;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import eu.rafaelaznar.helper.MappingServiceHelper;
-import static eu.rafaelaznar.helper.ParameterCook.prepareCamelCaseObject;
+import static eu.rafaelaznar.helper.ParameterCookHelper.prepareCamelCaseObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -47,11 +48,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class json extends HttpServlet {
+public class JsonController extends HttpServlet {
 
-    private void retardo(Integer iLast) {
+    private void Controllerdelay(Integer iLast) {
         try {
-            Thread.sleep(iLast);
+            if (iLast > 0) {
+                Thread.sleep(iLast);
+            }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -59,7 +62,6 @@ public class json extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
-        //response.setContentType("application/json;charset=UTF-8");
         ReplyBean oReplyBean = null;
         try (PrintWriter out = response.getWriter()) {
             try {
@@ -67,41 +69,28 @@ public class json extends HttpServlet {
             } catch (Exception ex) {
                 oReplyBean = new ReplyBean(500, "Database Connection Error: Please contact your administrator");
             }
-            retardo(0);
+            Controllerdelay(0);
             String ob = prepareCamelCaseObject(request);
             String op = request.getParameter("op");
             if (("".equalsIgnoreCase(ob) && "".equalsIgnoreCase(op)) || (ob == null && op == null)) {
                 Connection oConnection = null;
                 ConnectionInterface oPooledConnection = null;
+                response.setContentType("text/html;charset=UTF-8");
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head><title>Troleyes server</title></head>");
+                out.println("<body style=\"background: url(trolleyes426.png) no-repeat center center fixed;\">");
+                out.println("<h1>Welcome to troleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
+                out.println("");
                 try {
                     oPooledConnection = AppConfigurationHelper.getSourceConnection();
                     oConnection = oPooledConnection.newConnection();
-                    response.setContentType("text/html;charset=UTF-8");
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Carrito server</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.print("<h1>Bienvenidos a generic-carrito-server</h1>");
-                    out.println("<h2>Servlet json at " + request.getContextPath() + "</h2>");
-                    out.print("<h3>Conexión OK</h3>");
-                    out.println("</body>");
-                    out.println("</html>");
+                    out.print("<h3>Database Connection OK</h3>");
                 } catch (Exception ex) {
-                    response.setContentType("text/html;charset=UTF-8");
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Carrito server</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.print("<h1>Bienvenidos a generic-carrito-server</h1>");
-                    out.println("<h2>Servlet json at " + request.getContextPath() + "</h2>");
-                    out.print("<h3>Conexión KO</h3>");
+                    out.print("<h3>Database Conexión KO</h3>");
+                } finally {
                     out.println("</body>");
                     out.println("</html>");
-                } finally {
                     if (oConnection != null) {
                         oConnection.close();
                     }
@@ -112,17 +101,12 @@ public class json extends HttpServlet {
             } else {
                 response.setContentType("application/json;charset=UTF-8");
                 response.setHeader("Access-Control-Allow-Origin", request.getHeader("origin"));
-                //response.setHeader("Access-Control-Allow-Methods", "PATCH, POST, GET, PUT, OPTIONS, DELETE");
                 response.setHeader("Access-Control-Allow-Methods", "GET,POST");
                 response.setHeader("Access-Control-Max-Age", "86400");
                 response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
                 try {
                     oReplyBean = (ReplyBean) MappingServiceHelper.executeMethodService(request);
-//                    String strClassName = "eu.rafaelaznar.service." + ob + "Service";
-//                    ViewServiceInterface oService = (ViewServiceInterface) Class.forName(strClassName).getDeclaredConstructor(HttpServletRequest.class).newInstance(request);
-//                    Method oMethodService = oService.getClass().getMethod(op);
-//                    oReplyBean = (ReplyBean) oMethodService.invoke(oService);
                 } catch (Exception ex) {
                     if (EstadoHelper.getTipo_estado() == Tipo_estado.Debug) {
                         out.println(ex);
@@ -130,9 +114,10 @@ public class json extends HttpServlet {
                     } else {
                         oReplyBean = new ReplyBean(500, "generic-carrito-server error. Please, contact your administrator.");
                     }
-                    Log4j.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
+                    Log4jConfigurationHelper.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
                     oReplyBean = new ReplyBean(500, "Object or Operation not found : Please contact your administrator");
                 }
+                response.setStatus(oReplyBean.getCode());
                 out.print("{\"status\":" + oReplyBean.getCode() + ", \"json\":" + oReplyBean.getJson() + "}");
             }
         }
@@ -153,7 +138,7 @@ public class json extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(json.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -171,7 +156,7 @@ public class json extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(json.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JsonController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

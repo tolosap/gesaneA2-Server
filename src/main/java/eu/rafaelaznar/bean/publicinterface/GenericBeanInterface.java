@@ -26,14 +26,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service;
+package eu.rafaelaznar.bean.publicinterface;
 
-import javax.servlet.http.HttpServletRequest;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class TipousuarioService extends GenericTableService {
+public interface GenericBeanInterface {
 
-    public TipousuarioService(HttpServletRequest request, String obj) {
-        super(request, obj);
-    }
+    public String getColumns();
+
+    public String getValues();
+
+    public String toPairs();
+
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception;
 
 }

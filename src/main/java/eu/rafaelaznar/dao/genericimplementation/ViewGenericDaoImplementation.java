@@ -26,32 +26,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.dao;
+package eu.rafaelaznar.dao.genericimplementation;
 
-import eu.rafaelaznar.bean.GenericViewBean;
-import eu.rafaelaznar.bean.UsuarioBean;
+import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.helper.FilterBeanHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import eu.rafaelaznar.helper.MappingBeanHelper;
-import eu.rafaelaznar.helper.SqlBuilder;
+import eu.rafaelaznar.helper.SqlBuilderHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import eu.rafaelaznar.bean.BeanInterface;
-import eu.rafaelaznar.helper.AppConfigurationHelper;
+import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
 
-public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
+public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<ViewGenericBeanImplementation> {
 
     protected String strTable = null;
     protected String strSQL = null;
 
     protected String strCountSQL = null;
     protected Connection oConnection = null;
-    protected UsuarioBean oPuserSecurity = null;
+    protected UsuarioSpecificBeanImplementation oPuserSecurity = null;
 
-    public GenericViewDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
+    public ViewGenericDaoImplementation(String ob, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
         strTable = ob;
@@ -67,7 +67,7 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
     public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strCountSQL += SqlBuilder.buildSqlFilter(alFilter);
+        strCountSQL += SqlBuilderHelper.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
             oPreparedStatement = oConnection.prepareStatement(strCountSQL);
@@ -76,12 +76,12 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
                 iResult = oResultSet.getLong("COUNT(*)");
             } else {
                 String msg = this.getClass().getName() + ": getcount";
-                Log4j.errorLog(msg);
+                Log4jConfigurationHelper.errorLog(msg);
                 throw new Exception(msg);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
@@ -95,25 +95,25 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
     }
 
     @Override
-    public ArrayList<GenericViewBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
+    public ArrayList<ViewGenericBeanImplementation> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
         String strSQL1 = strSQL;
-        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
-        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<GenericViewBean> aloBean = new ArrayList<>();
+        strSQL1 += SqlBuilderHelper.buildSqlFilter(alFilter);
+        strSQL1 += SqlBuilderHelper.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilderHelper.buildSqlLimit(this.getCount(alFilter), intRegsPerPag, intPage);
+        ArrayList<ViewGenericBeanImplementation> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                BeanInterface oBean = MappingBeanHelper.getBean(strTable);
-                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
-                aloBean.add((GenericViewBean) oBean);
+                GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
+                oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
+                aloBean.add((ViewGenericBeanImplementation) oBean);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
@@ -127,26 +127,26 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
     }
 
     @Override
-    public ArrayList<GenericViewBean> getPagex(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
+    public ArrayList<ViewGenericBeanImplementation> getPageX(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception {
         String strSQL1 = strSQL;
         strSQL1 += " and id_" + ob_foreign + "=" + id_foreign + " ";
-        strSQL1 += SqlBuilder.buildSqlFilter(alFilter);
-        strSQL1 += SqlBuilder.buildSqlOrder(hmOrder);
-        strSQL1 += SqlBuilder.buildSqlLimit(getCount(alFilter), intRegsPerPag, intPage);
-        ArrayList<GenericViewBean> aloBean = new ArrayList<>();
+        strSQL1 += SqlBuilderHelper.buildSqlFilter(alFilter);
+        strSQL1 += SqlBuilderHelper.buildSqlOrder(hmOrder);
+        strSQL1 += SqlBuilderHelper.buildSqlLimit(getCount(alFilter), intRegsPerPag, intPage);
+        ArrayList<ViewGenericBeanImplementation> aloBean = new ArrayList<>();
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                BeanInterface oBean = MappingBeanHelper.getBean(strTable);
-                oBean = (GenericViewBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
-                aloBean.add((GenericViewBean) oBean);
+                GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
+                oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
+                aloBean.add((ViewGenericBeanImplementation) oBean);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
@@ -160,12 +160,12 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
     }
 
     @Override
-    public Long getCountx(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception {
+    public Long getCountX(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "SELECT COUNT(*) FROM " + strTable;
         strSQL += " WHERE id_tipousuario=" + id_foreign;
-        strSQL += SqlBuilder.buildSqlFilter(alFilter);
+        strSQL += SqlBuilderHelper.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
@@ -174,12 +174,12 @@ public class GenericViewDao implements DaoViewInterface<GenericViewBean> {
                 iResult = oResultSet.getLong("COUNT(*)");
             } else {
                 String msg = this.getClass().getName() + ": getCountxtipousuario";
-                Log4j.errorLog(msg);
+                Log4jConfigurationHelper.errorLog(msg);
                 throw new Exception(msg);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {

@@ -26,20 +26,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean;
+package eu.rafaelaznar.helper;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.apache.log4j.Logger;
 
-public interface BeanInterface {
+public class Log4jConfigurationHelper {
 
-    public String getColumns();
+    public static void infoLog(String strMessage) {
+        Logger log = Logger.getLogger("generic-carrito-server");
+        log.info(strMessage);
+    }
 
-    public String getValues();
+    public static void errorLog(String strMessage, Exception e) {
+        Logger log = Logger.getLogger("generic-carrito-server");
+        log.error(strMessage, e);
+    }
 
-    public String toPairs();
-
-    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception;
+    public static void errorLog(String strMessage) {
+        Logger log = Logger.getLogger("generic-carrito-server");
+        log.error(strMessage);
+    }
 
 }

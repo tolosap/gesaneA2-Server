@@ -26,65 +26,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean;
+package eu.rafaelaznar.bean.genericimplementation;
 
-import com.google.gson.annotations.Expose;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
-public class TipousuarioBean extends GenericTableBean {
+public class ViewGenericBeanImplementation implements GenericBeanInterface {
 
+    public ViewGenericBeanImplementation() {
 
-    @Expose
-    private String descripcion;
-
-    public TipousuarioBean() {
-
-    }
-
-    public TipousuarioBean(Integer intId) {
-        id = intId;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     @Override
     public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "descripcion";
-        return strColumns;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion);
-        return strColumns;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String toPairs() {
-        String strPairs = "";
-        //strPairs += "id=" + id + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion);
-        return strPairs;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public BeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioBean oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        return this;
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

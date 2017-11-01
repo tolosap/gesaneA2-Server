@@ -26,31 +26,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.bean.genericimplementation;
 
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
+import com.google.gson.annotations.Expose;
 import java.sql.Connection;
-import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
-public class MappingDaoHelper {
+public class TableGenericBeanImplementation implements GenericBeanInterface {
 
-    public static ViewDaoInterface getDao(String ob, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) throws Exception {
-        ViewDaoInterface oDao = null;
+    @Expose
+    protected Integer id;
 
-        switch (ob) {
-            case "usuario":
-                oDao = (ViewDaoInterface) new UsuarioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;
-            case "tipousuario":
-                oDao = (ViewDaoInterface) new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;
-            default:
-                //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
-                break;
-        }
-        return oDao;
+    public TableGenericBeanImplementation() {
+
+    }
+
+    public TableGenericBeanImplementation(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getColumns() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getValues() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toPairs() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

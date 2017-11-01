@@ -29,7 +29,7 @@
 package eu.rafaelaznar.connection;
 
 import eu.rafaelaznar.helper.ConnectionClassHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.vibur.dbcp.ViburDBCPDataSource;
@@ -65,7 +65,7 @@ public class ViburConnection implements ConnectionInterface {
 
         } catch (SQLException | ViburDBCPException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
         return oConnection;
@@ -82,7 +82,7 @@ public class ViburConnection implements ConnectionInterface {
             }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }

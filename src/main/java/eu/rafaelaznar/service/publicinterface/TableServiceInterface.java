@@ -26,20 +26,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.dao;
+package eu.rafaelaznar.service.publicinterface;
 
-import eu.rafaelaznar.helper.FilterBeanHelper;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import eu.rafaelaznar.bean.ReplyBean;
 
-public interface DaoViewInterface<GenericViewBean> {
+public interface TableServiceInterface {
 
-    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception;
+    public ReplyBean get() throws Exception;
 
-    public ArrayList<GenericViewBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public ReplyBean set() throws Exception;
 
-    public ArrayList<GenericViewBean> getPagex(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
-
-    public Long getCountx(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception;
+    public ReplyBean remove() throws Exception;
 
 }

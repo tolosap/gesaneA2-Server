@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>eu.rafaelaznar</groupId>
-    <artifactId>generic-carrito-server</artifactId>
+    <artifactId>troleyes-server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>generic-carrito-server</name>
+    <name>troleyes-server</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

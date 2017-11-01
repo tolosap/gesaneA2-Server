@@ -26,42 +26,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.dao;
+package eu.rafaelaznar.dao.genericimplementation;
 
-import eu.rafaelaznar.bean.GenericTableBean;
-import eu.rafaelaznar.bean.UsuarioBean;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import eu.rafaelaznar.helper.MappingBeanHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
 
-public abstract class GenericTableDao extends GenericViewDao implements DaoTableInterface<GenericTableBean> {
+public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplementation implements TableDaoInterface<TableGenericBeanImplementation> {
 
-    public GenericTableDao(String ob, Connection oPooledConnection, UsuarioBean oPuserBean_security, String strWhere) {
+    public TableGenericDaoImplementation(String ob, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
         super(ob, oPooledConnection, oPuserBean_security, strWhere);
     }
 
     @Override
-    public GenericTableBean get(int id, int intExpand) throws Exception {
+    public TableGenericBeanImplementation get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL += " AND id=" + id;
-        GenericTableBean oBean = null;
+        TableGenericBeanImplementation oBean = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
             if (oResultSet.next()) {
-                oBean = (GenericTableBean) MappingBeanHelper.getBean(strTable);
-                oBean = (GenericTableBean) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
+                oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(strTable);
+                oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
 
             } else {
                 oBean = null;
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
@@ -76,7 +77,7 @@ public abstract class GenericTableDao extends GenericViewDao implements DaoTable
     }
 
     @Override
-    public Integer set(GenericTableBean oBean) throws Exception {
+    public Integer set(TableGenericBeanImplementation oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
         Integer iResult = 0;
         Boolean insert = true;
@@ -97,7 +98,7 @@ public abstract class GenericTableDao extends GenericViewDao implements DaoTable
             iResult = oPreparedStatement.executeUpdate();
             if (iResult < 1) {
                 String msg = this.getClass().getName() + ": set";
-                Log4j.errorLog(msg);
+                Log4jConfigurationHelper.errorLog(msg);
                 throw new Exception(msg);
             }
             if (insert) {
@@ -127,7 +128,7 @@ public abstract class GenericTableDao extends GenericViewDao implements DaoTable
             iResult = oPreparedStatement.execute();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4j.errorLog(msg, ex);
+            Log4jConfigurationHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oPreparedStatement != null) {

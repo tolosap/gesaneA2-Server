@@ -26,37 +26,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package eu.rafaelaznar.service.genericimplementation;
 
-package eu.rafaelaznar.service;
-
+import eu.rafaelaznar.service.publicinterface.TableServiceInterface;
 import com.google.gson.Gson;
-import eu.rafaelaznar.bean.GenericTableBean;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.ReplyBean;
-import eu.rafaelaznar.bean.UsuarioBean;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.ConnectionInterface;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import eu.rafaelaznar.helper.MappingBeanHelper;
 import eu.rafaelaznar.helper.MappingDaoHelper;
 import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
-import eu.rafaelaznar.dao.DaoTableInterface;
+import eu.rafaelaznar.helper.EncodingUtilHelper;
+import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
 
-public class GenericTableService extends GenericViewService implements TableServiceInterface {
+public abstract class GenericTableService extends GenericViewService implements TableServiceInterface {
 
     public GenericTableService(HttpServletRequest request, String obj) {
         super(request, obj);
     }
 
-    private Boolean checkPermission(String strMethodName) {
-        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
-        if (oUsuarioBean != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    /*
+    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=get&id=n
+     */
     @Override
     public ReplyBean get() throws Exception {
         if (this.checkPermission("get")) {
@@ -68,15 +63,15 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
 
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                TableDaoInterface oDao = (TableDaoInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
 
-                GenericTableBean oBean = (GenericTableBean) oDao.get(id, AppConfigurationHelper.getJsonMsgDepth());
+                TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) oDao.get(id, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(oBean);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -88,12 +83,12 @@ public class GenericTableService extends GenericViewService implements TableServ
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
     /*
-    * http://127.0.0.1:8081/generic-carrito-server/json?ob=usuario&op=set (datos aparte)
+    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=set (datos aparte)
      */
     @Override
     public ReplyBean set() throws Exception {
@@ -102,9 +97,7 @@ public class GenericTableService extends GenericViewService implements TableServ
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
-
-            GenericTableBean oBean = (GenericTableBean) MappingBeanHelper.getBean(ob);
-
+            TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(ob);
             Gson oGson = AppConfigurationHelper.getGson();
             oBean = oGson.fromJson(jason, oBean.getClass());
             if (oBean == null) {
@@ -114,15 +107,13 @@ public class GenericTableService extends GenericViewService implements TableServ
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-
+                TableDaoInterface oDao = (TableDaoInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
                 iResult = oDao.set(oBean);
                 String strJson = oGson.toJson(iResult);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -134,12 +125,12 @@ public class GenericTableService extends GenericViewService implements TableServ
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
     /*
-    * http://127.0.0.1:8081/generic-carrito-server/json?ob=usuario&op=remove&id=1
+    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxxx&op=remove&id=1
      */
     @Override
     public ReplyBean remove() throws Exception {
@@ -153,7 +144,7 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
 
-                DaoTableInterface oDao = (DaoTableInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                TableDaoInterface oDao = (TableDaoInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
 
                 iResult = oDao.remove(id);
                 Gson oGson = AppConfigurationHelper.getGson();
@@ -161,7 +152,7 @@ public class GenericTableService extends GenericViewService implements TableServ
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -173,7 +164,7 @@ public class GenericTableService extends GenericViewService implements TableServ
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 

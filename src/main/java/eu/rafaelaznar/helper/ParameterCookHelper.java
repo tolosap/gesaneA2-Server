@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 
-public class ParameterCook {
+public class ParameterCookHelper {
 
     public static String prepareCamelCaseObject(HttpServletRequest request) {
         String result = null;

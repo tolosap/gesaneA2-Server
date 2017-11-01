@@ -26,37 +26,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service;
+package eu.rafaelaznar.service.genericimplementation;
 
+import eu.rafaelaznar.service.publicinterface.ViewServiceInterface;
 import com.google.gson.Gson;
-import eu.rafaelaznar.bean.GenericViewBean;
+import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
 import eu.rafaelaznar.bean.ReplyBean;
-import eu.rafaelaznar.bean.UsuarioBean;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.ConnectionInterface;
-import eu.rafaelaznar.dao.DaoViewInterface;
-import eu.rafaelaznar.dao.UsuarioDao;
 import eu.rafaelaznar.helper.AppConfigurationHelper;
+import eu.rafaelaznar.helper.EncodingUtilHelper;
 import eu.rafaelaznar.helper.FilterBeanHelper;
-import eu.rafaelaznar.helper.Log4j;
+import eu.rafaelaznar.helper.Log4jConfigurationHelper;
 import eu.rafaelaznar.helper.MappingDaoHelper;
-import eu.rafaelaznar.helper.ParameterCook;
+import eu.rafaelaznar.helper.ParameterCookHelper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
+import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
 
-public class GenericViewService implements ViewServiceInterface {
+public abstract class GenericViewService implements ViewServiceInterface {
 
-    HttpServletRequest oRequest = null;
-    String ob = null;
+    protected HttpServletRequest oRequest = null;
+    protected String ob = null;
 
     public GenericViewService(HttpServletRequest request, String obj) {
         oRequest = request;
         ob = obj;
     }
 
-    private Boolean checkPermission(String ob, String strMethodName) {
-        UsuarioBean oUsuarioBean = (UsuarioBean) oRequest.getSession().getAttribute("user");
+    protected Boolean checkPermission(String strMethodName) {
+        UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             return true;
         } else {
@@ -68,29 +69,29 @@ public class GenericViewService implements ViewServiceInterface {
     * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=getpage&np=1&rpp=10
      */
     @Override
-    public ReplyBean getpage() throws Exception {
-        if (this.checkPermission(ob, "getpage")) {
+    public ReplyBean getPage() throws Exception {
+        if (this.checkPermission("getpage")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
             String strOrder = oRequest.getParameter("order");
             String strFilter = oRequest.getParameter("filter");
-            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            LinkedHashMap<String, String> hmOrder = ParameterCookHelper.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
-            ArrayList<GenericViewBean> aloBean = null;
+            ArrayList<ViewGenericBeanImplementation> aloBean = null;
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
                 aloBean = oDao.getPage(rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -102,7 +103,7 @@ public class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
@@ -110,25 +111,25 @@ public class GenericViewService implements ViewServiceInterface {
     * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxxxx&op=getcount
      */
     @Override
-    public ReplyBean getcount() throws Exception {
-        if (this.checkPermission(ob, "getcount")) {
+    public ReplyBean getCount() throws Exception {
+        if (this.checkPermission("getcount")) {
             Long lResult;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
             String strFilter = oRequest.getParameter("filter");
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
+                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
                 lResult = oDao.getCount(alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -140,12 +141,12 @@ public class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
-    public ReplyBean getpagex() throws Exception {
-        if (this.checkPermission(ob, "getpagex")) {
+    public ReplyBean getPageX() throws Exception {
+        if (this.checkPermission("getpagex")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
             int id = Integer.parseInt(oRequest.getParameter("id"));
@@ -153,23 +154,23 @@ public class GenericViewService implements ViewServiceInterface {
             String ob_foreign = oRequest.getParameter("ob_foreign");
             String strOrder = oRequest.getParameter("order");
             String strFilter = oRequest.getParameter("filter");
-            LinkedHashMap<String, String> hmOrder = ParameterCook.getOrderParams(strOrder);
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            LinkedHashMap<String, String> hmOrder = ParameterCookHelper.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
-            ArrayList<UsuarioBean> aloBean = null;
+            ArrayList<UsuarioSpecificBeanImplementation> aloBean = null;
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                aloBean = oDao.getPagex(id_foreign, ob_foreign, rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
+                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
+                aloBean = oDao.getPageX(id_foreign, ob_foreign, rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -181,13 +182,13 @@ public class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
     @Override
-    public ReplyBean getcountx() throws Exception {
-        if (this.checkPermission(ob, "getcountx")) {
+    public ReplyBean getCountX() throws Exception {
+        if (this.checkPermission("getcountx")) {
             Long lResult;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
@@ -195,18 +196,18 @@ public class GenericViewService implements ViewServiceInterface {
             int id_foreign = Integer.parseInt(oRequest.getParameter("id_foreign"));
             String ob_foreign = oRequest.getParameter("ob_foreign");
             String strFilter = oRequest.getParameter("filter");
-            ArrayList<FilterBeanHelper> alFilter = ParameterCook.getFilterParams(strFilter);
+            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-                DaoViewInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioBean) oRequest.getSession().getAttribute("userBean"), null);
-                lResult = oDao.getCountx(id_foreign, ob_foreign, alFilter);
+                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
+                lResult = oDao.getCountX(id_foreign, ob_foreign, alFilter);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(lResult);
                 oReplyBean = new ReplyBean(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4j.errorLog(msg, ex);
+                Log4jConfigurationHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -218,7 +219,7 @@ public class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, "Unauthorized");
+            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
         }
     }
 
