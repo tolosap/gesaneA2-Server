@@ -51,9 +51,9 @@ public abstract class GenericViewService implements ViewServiceInterface {
     protected HttpServletRequest oRequest = null;
     protected String ob = null;
 
-    public GenericViewService(HttpServletRequest request, String obj) {
+    public GenericViewService(HttpServletRequest request) {
         oRequest = request;
-        ob = obj;
+        ob = oRequest.getParameter("ob");
     }
 
     protected Boolean checkPermission(String strMethodName) {

@@ -45,8 +45,8 @@ import javax.servlet.http.HttpSession;
 
 public class UsuarioSpecificServiceImplementation extends GenericTableService {
 
-    public UsuarioSpecificServiceImplementation(HttpServletRequest request, String obj) {
-        super(request, obj);
+    public UsuarioSpecificServiceImplementation(HttpServletRequest request) {
+        super(request);
     }
 
     public ReplyBean login() throws Exception {

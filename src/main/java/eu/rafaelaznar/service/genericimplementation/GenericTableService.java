@@ -45,8 +45,8 @@ import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
 
 public abstract class GenericTableService extends GenericViewService implements TableServiceInterface {
 
-    public GenericTableService(HttpServletRequest request, String obj) {
-        super(request, obj);
+    public GenericTableService(HttpServletRequest request) {
+        super(request);
     }
 
     /*

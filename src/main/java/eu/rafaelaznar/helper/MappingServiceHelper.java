@@ -41,7 +41,7 @@ public class MappingServiceHelper {
         ReplyBean oReplyBean = null;
         switch (ob) {
             case "usuario":
-                UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest, ob);
+                UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "get":
                         oReplyBean = oUsuarioService.get();
@@ -85,7 +85,7 @@ public class MappingServiceHelper {
                 }
                 break;
             case "tipousuario":
-                TipousuarioSpecificServiceImplementation oTipousuarioService = new TipousuarioSpecificServiceImplementation(oRequest, ob);
+                TipousuarioSpecificServiceImplementation oTipousuarioService = new TipousuarioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "get":
                         oReplyBean = oTipousuarioService.get();

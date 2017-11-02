@@ -33,8 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class TipousuarioSpecificServiceImplementation extends GenericTableService {
 
-    public TipousuarioSpecificServiceImplementation(HttpServletRequest request, String obj) {
-        super(request, obj);
+    public TipousuarioSpecificServiceImplementation(HttpServletRequest request) {
+        super(request);
     }
 
 }
