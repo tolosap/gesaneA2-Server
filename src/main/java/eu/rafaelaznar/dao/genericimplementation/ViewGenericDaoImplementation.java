@@ -44,19 +44,19 @@ import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
 
 public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<ViewGenericBeanImplementation> {
 
-    protected String strTable = null;
+    protected String ob = null;
     protected String strSQL = null;
 
     protected String strCountSQL = null;
     protected Connection oConnection = null;
     protected UsuarioSpecificBeanImplementation oPuserSecurity = null;
 
-    public ViewGenericDaoImplementation(String ob, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+    public ViewGenericDaoImplementation(String obj, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
-        strTable = ob;
-        strSQL = "select * from " + strTable + " WHERE 1=1 ";
-        strCountSQL = "select COUNT(*) from " + strTable + " WHERE 1=1 ";
+        ob = obj;
+        strSQL = "select * from " + ob + " WHERE 1=1 ";
+        strCountSQL = "select COUNT(*) from " + ob + " WHERE 1=1 ";
         if (strWhere != null) {
             strSQL += strWhere + " ";
             strCountSQL += strWhere + " ";
@@ -107,7 +107,7 @@ public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<V
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
+                GenericBeanInterface oBean = MappingBeanHelper.getBean(ob);
                 oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add((ViewGenericBeanImplementation) oBean);
             }
@@ -140,7 +140,7 @@ public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<V
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                GenericBeanInterface oBean = MappingBeanHelper.getBean(strTable);
+                GenericBeanInterface oBean = MappingBeanHelper.getBean(ob);
                 oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add((ViewGenericBeanImplementation) oBean);
             }
@@ -163,7 +163,7 @@ public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<V
     public Long getCountX(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL = "SELECT COUNT(*) FROM " + strTable;
+        strSQL = "SELECT COUNT(*) FROM " + ob;
         strSQL += " WHERE id_tipousuario=" + id_foreign;
         strSQL += SqlBuilderHelper.buildSqlFilter(alFilter);
         Long iResult = 0L;

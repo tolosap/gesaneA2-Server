@@ -54,7 +54,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
             if (oResultSet.next()) {
-                oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(strTable);
+                oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
 
             } else {
@@ -84,13 +84,13 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
         Boolean insert = true;
         try {
             if (oBean.getId() == null || oBean.getId() == 0) {
-                strSQL = "INSERT INTO " + strTable;
+                strSQL = "INSERT INTO " + ob;
                 strSQL += "(" + oBean.getColumns() + ")";
                 strSQL += " VALUES ";
                 strSQL += "(" + oBean.getValues() + ")";
             } else {
                 insert = false;
-                strSQL = "UPDATE " + strTable;
+                strSQL = "UPDATE " + ob;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
                 strSQL += " WHERE id=" + oBean.getId();
@@ -125,7 +125,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
     @Override
     public Boolean remove(Integer id) throws Exception {
         boolean iResult = false;
-        strSQL = "DELETE FROM " + strTable + " WHERE id=?";
+        strSQL = "DELETE FROM " + ob + " WHERE id=?";
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
