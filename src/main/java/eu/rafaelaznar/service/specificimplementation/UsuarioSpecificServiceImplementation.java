@@ -55,7 +55,7 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
         ReplyBean oReplyBean = null;
         UsuarioSpecificBeanImplementation oUsuarioBean = new UsuarioSpecificBeanImplementation();
         oUsuarioBean.setLogin(oRequest.getParameter("user"));
-        oUsuarioBean.setPassword(oRequest.getParameter("password"));
+        oUsuarioBean.setPassword(oRequest.getParameter("pass"));
         if (!oUsuarioBean.getLogin().equalsIgnoreCase("") || !oUsuarioBean.getPassword().equalsIgnoreCase("")) {
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
