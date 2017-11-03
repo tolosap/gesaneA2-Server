@@ -55,8 +55,8 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
         ReplyBean oReplyBean = null;
         UsuarioSpecificBeanImplementation oUsuarioBean = new UsuarioSpecificBeanImplementation();
         oUsuarioBean.setLogin(oRequest.getParameter("user"));
-        oUsuarioBean.setPass(oRequest.getParameter("pass"));
-        if (!oUsuarioBean.getLogin().equalsIgnoreCase("") || !oUsuarioBean.getPass().equalsIgnoreCase("")) {
+        oUsuarioBean.setPassword(oRequest.getParameter("password"));
+        if (!oUsuarioBean.getLogin().equalsIgnoreCase("") || !oUsuarioBean.getPassword().equalsIgnoreCase("")) {
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
@@ -138,8 +138,8 @@ public class UsuarioSpecificServiceImplementation extends GenericTableService {
                 oConnection.setAutoCommit(false);
                 UsuarioSpecificDaoImplementation oUserDao = new UsuarioSpecificDaoImplementation(oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("userBean"), null);
                 UsuarioSpecificBeanImplementation oSessionUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
-                if (oSessionUsuarioBean.getPass().equalsIgnoreCase(oldPass)) {
-                    oSessionUsuarioBean.setPass(newPass);
+                if (oSessionUsuarioBean.getPassword().equalsIgnoreCase(oldPass)) {
+                    oSessionUsuarioBean.setPassword(newPass);
                     iResult = oUserDao.set(oSessionUsuarioBean);
                     if (iResult >= 1) {
                         oReplyBean = new ReplyBean(200, EncodingUtilHelper.quotate(iResult.toString()));

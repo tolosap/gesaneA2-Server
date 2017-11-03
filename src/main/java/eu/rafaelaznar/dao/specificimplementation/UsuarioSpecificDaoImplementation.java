@@ -47,7 +47,7 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
         ResultSet oResultSet = null;
 
         strSQL += " AND login='" + oUsuarioBean.getLogin() + "'";
-        strSQL += " AND pass='" + oUsuarioBean.getPass() + "'";
+        strSQL += " AND password='" + oUsuarioBean.getPassword() + "'";
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery();
