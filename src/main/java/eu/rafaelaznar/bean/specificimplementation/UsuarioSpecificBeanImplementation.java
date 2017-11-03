@@ -171,8 +171,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         strColumns += "login,";
         strColumns += "password,";
         strColumns += "email,";
+        strColumns += "fecha_nacimiento,";
         strColumns += "id_tipousuario";
-
         return strColumns;
     }
 
@@ -187,6 +187,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         strColumns += EncodingUtilHelper.quotate(login) + ",";
         strColumns += EncodingUtilHelper.quotate(password) + ",";
         strColumns += EncodingUtilHelper.quotate(email) + ",";
+        strColumns += EncodingUtilHelper.stringifyAndQuotate(fecha_nacimiento) + ",";
         strColumns += id_tipousuario;
         return strColumns;
     }
@@ -201,6 +202,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         strPairs += "login=" + EncodingUtilHelper.quotate(login) + ",";
         strPairs += "password=" + EncodingUtilHelper.quotate(password) + ",";
         strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
+        strPairs += "fecha_nacimiento=" + EncodingUtilHelper.stringifyAndQuotate(fecha_nacimiento) + ",";
         strPairs += "id_tipousuario=" + id_tipousuario;
         return strPairs;
     }
@@ -208,12 +210,14 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
+        this.setDni(oResultSet.getString("dni"));        
         this.setNombre(oResultSet.getString("nombre"));
         this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
         this.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
         this.setLogin(oResultSet.getString("login"));
         this.setPassword(oResultSet.getString("password"));
         this.setEmail(oResultSet.getString("email"));
+        this.setFecha_nacimiento(oResultSet.getDate("fecha_nacimiento"));        
         this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
         if (expand > 0) {
             TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
