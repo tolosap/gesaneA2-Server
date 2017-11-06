@@ -149,7 +149,6 @@ public abstract class GenericViewService implements ViewServiceInterface {
         if (this.checkPermission("getpagex")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
-            int id = Integer.parseInt(oRequest.getParameter("id"));
             int id_foreign = Integer.parseInt(oRequest.getParameter("id_foreign"));
             String ob_foreign = oRequest.getParameter("ob_foreign");
             String strOrder = oRequest.getParameter("order");
