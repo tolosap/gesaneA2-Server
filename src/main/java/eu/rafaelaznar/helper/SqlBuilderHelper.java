@@ -49,6 +49,16 @@ public class SqlBuilderHelper {
     private static String getFilterExpression(FilterBeanHelper temp) {
 
         switch (temp.getOperation()) {
+
+            case "sequa": //equal for strings
+                return temp.getLink() + " " + temp.getField() + " = '" + temp.getValue() + "' ";
+            case "snequ": //not equal for strings
+                return temp.getLink() + " " + temp.getField() + " != '" + temp.getValue() + "' ";
+            case "nequa": //equal for numbers
+                return temp.getLink() + " " + temp.getField() + " = " + temp.getValue() + " ";
+            case "nnequ": //not equal for numbers
+                return temp.getLink() + " " + temp.getField() + " != " + temp.getValue() + " ";
+                //-------------------------------------------------------
             case "like": //like
                 return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "%' ";
             case "nlik": //not like
@@ -61,10 +71,7 @@ public class SqlBuilderHelper {
                 return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "' ";
             case "nend": //not ends with
                 return temp.getLink() + " " + temp.getField() + " NOT LIKE '%" + temp.getValue() + "' ";
-            case "equa": //equal
-                return temp.getLink() + " " + temp.getField() + " = " + temp.getValue() + " ";
-            case "nequ": //not equal
-                return temp.getLink() + " " + temp.getField() + " != " + temp.getValue() + " ";
+
             case "lowe": //lower than
                 return temp.getLink() + " " + temp.getField() + " < " + temp.getValue() + " ";
             case "lequ": //lower or equal than
