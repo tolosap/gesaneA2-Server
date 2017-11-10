@@ -93,7 +93,7 @@ public abstract class GenericTableService extends GenericViewService implements 
     @Override
     public ReplyBean set() throws Exception {
         if (this.checkPermission("set")) {
-            String jason = oRequest.getParameter("jason");
+            String jason = oRequest.getParameter("json");
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
