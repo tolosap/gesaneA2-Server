@@ -26,18 +26,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.publicinterface;
+package eu.rafaelaznar.bean.specificimplementation;
 
-import eu.rafaelaznar.bean.ReplyBean;
+import com.google.gson.annotations.Expose;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 
-public interface ViewServiceInterface {
+public class CarritoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
-    public ReplyBean getPage() throws Exception;
+    @Expose
+    private Integer cantidad;
+    //--
+    @Expose(serialize = false)
+    private Integer id_producto = 0;
+    @Expose(deserialize = false)
+    private ProductoSpecificBeanImplementation obj_producto = null;
 
-    public ReplyBean getCount() throws Exception;
+    public CarritoSpecificBeanImplementation() {
+    }
 
-    public ReplyBean getPageX() throws Exception;
+    public Integer getCantidad() {
+        return cantidad;
+    }
 
-    public ReplyBean getCountX() throws Exception;
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Integer getId_producto() {
+        return id_producto;
+    }
+
+    public void setId_producto(Integer id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    public ProductoSpecificBeanImplementation getObj_producto() {
+        return obj_producto;
+    }
+
+    public void setObj_producto(ProductoSpecificBeanImplementation obj_producto) {
+        this.obj_producto = obj_producto;
+    }
 
 }

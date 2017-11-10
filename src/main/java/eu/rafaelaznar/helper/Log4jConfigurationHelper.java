@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * generic-carrito-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/generic-carrito-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server
  * 
- * generic-carrito-server is distributed under the MIT License (MIT)
+ * trolleyes-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,32 +33,32 @@ import org.apache.log4j.Logger;
 public class Log4jConfigurationHelper {
 
     public static void infoLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.info(strMessage);
     }
 
     public static void errorLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.error(strMessage);
     }
 
     public static void errorLog(String strMessage, Exception ex) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.error(strMessage, ex);
     }
 
     public static void fatalLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.fatal(strMessage);
     }
 
     public static void debugLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.debug(strMessage);
     }
 
     public static void warnLog(String strMessage) {
-        Logger log = Logger.getLogger("generic-carrito-server");
+        Logger log = Logger.getLogger("trolleyes-server");
         log.warn(strMessage);
     }
 

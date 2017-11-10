@@ -1,2 +1,2 @@
-# generic-carrito-server
+# trolleyes-server
 Carrito server

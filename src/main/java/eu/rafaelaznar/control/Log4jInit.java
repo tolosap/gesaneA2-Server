@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * generic-carrito-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/generic-carrito-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server
  * 
- * generic-carrito-server is distributed under the MIT License (MIT)
+ * trolleyes-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ public class Log4jInit extends HttpServlet {
     public void init() {
 
         String prefix = getServletContext().getRealPath("/");
-        String file = getInitParameter("log4j-generic-carrito-server");
+        String file = getInitParameter("log4j-trolleyes-server");
 
         if (file != null) {
             PropertyConfigurator.configure(prefix + file);

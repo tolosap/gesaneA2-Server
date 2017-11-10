@@ -26,18 +26,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.publicinterface;
+package eu.rafaelaznar.service.specificimplementation;
 
-import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.service.genericimplementation.GenericTableService;
+import javax.servlet.http.HttpServletRequest;
 
-public interface ViewServiceInterface {
+public class PedidoSpecificServiceImplementation extends GenericTableService {
 
-    public ReplyBean getPage() throws Exception;
-
-    public ReplyBean getCount() throws Exception;
-
-    public ReplyBean getPageX() throws Exception;
-
-    public ReplyBean getCountX() throws Exception;
+    public PedidoSpecificServiceImplementation(HttpServletRequest request) {
+        super(request);
+    }
 
 }

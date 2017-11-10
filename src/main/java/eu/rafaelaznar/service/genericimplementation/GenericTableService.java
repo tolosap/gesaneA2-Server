@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * generic-carrito-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/generic-carrito-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server
  * 
- * generic-carrito-server is distributed under the MIT License (MIT)
+ * trolleyes-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +50,7 @@ public abstract class GenericTableService extends GenericViewService implements 
     }
 
     /*
-    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=get&id=n
+    * http://127.0.0.1:8081/trolleyes-server/json?ob=xxxxxx&op=get&id=n
      */
     @Override
     public ReplyBean get() throws Exception {
@@ -88,7 +88,7 @@ public abstract class GenericTableService extends GenericViewService implements 
     }
 
     /*
-    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxx&op=set (datos aparte)
+    * http://127.0.0.1:8081/trolleyes-server/json?ob=xxxxxx&op=set (datos aparte)
      */
     @Override
     public ReplyBean set() throws Exception {
@@ -130,7 +130,7 @@ public abstract class GenericTableService extends GenericViewService implements 
     }
 
     /*
-    * http://127.0.0.1:8081/generic-carrito-server/json?ob=xxxxxxx&op=remove&id=1
+    * http://127.0.0.1:8081/trolleyes-server/json?ob=xxxxxxx&op=remove&id=1
      */
     @Override
     public ReplyBean remove() throws Exception {

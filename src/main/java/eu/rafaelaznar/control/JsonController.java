@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * generic-carrito-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/generic-carrito-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server
  * 
- * generic-carrito-server is distributed under the MIT License (MIT)
+ * trolleyes-server is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,7 @@ public class JsonController extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head><title>Trolleyes server</title></head>");
-                out.println("<body style=\"background: url(trolleyes426.png) no-repeat center center fixed;\">");
+                out.println("<body style=\"background: url(trolleyes400.png) no-repeat center center fixed;\">");
                 out.println("<h1>Welcome to trolleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
                 out.println("");
                 try {
@@ -112,7 +112,7 @@ public class JsonController extends HttpServlet {
                         out.println(ex);
                         ex.printStackTrace(out);
                     } else {
-                        oReplyBean = new ReplyBean(500, "generic-carrito-server error. Please, contact your administrator.");
+                        oReplyBean = new ReplyBean(500, "trolleyes-server error. Please, contact your administrator.");
                     }
                     Log4jConfigurationHelper.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
                     oReplyBean = new ReplyBean(500, "Object or Operation not found : Please contact your administrator");

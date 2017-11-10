@@ -26,18 +26,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.publicinterface;
+package eu.rafaelaznar.dao.specificimplementation;
 
-import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import java.sql.Connection;
 
-public interface ViewServiceInterface {
+public class PedidoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public ReplyBean getPage() throws Exception;
-
-    public ReplyBean getCount() throws Exception;
-
-    public ReplyBean getPageX() throws Exception;
-
-    public ReplyBean getCountX() throws Exception;
+    public PedidoSpecificDaoImplementation(Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+        super("pedido", oPooledConnection, oPuserBean_security, strWhere);
+    }
 
 }
