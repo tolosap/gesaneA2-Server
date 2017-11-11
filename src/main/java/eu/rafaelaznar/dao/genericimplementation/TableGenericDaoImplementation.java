@@ -108,7 +108,9 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
                 iResult = oResultSet.getInt(1);
             }
         } catch (Exception ex) {
-            throw new Exception();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            Log4jConfigurationHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
         } finally {
             if (insert) {
                 if (oResultSet != null) {
