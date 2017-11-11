@@ -33,7 +33,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -58,10 +57,10 @@ public class SqlBuilderHelper {
     private static String getFilterExpression(FilterBeanHelper temp) throws ParseException {
 
         switch (temp.getOperation()) {
-            //operations for date
-            case "dequa": //equal for strings
+            //operations for date ----------------------------------------------
+            case "dequa": //equal 
                 return temp.getLink() + " " + temp.getField() + " = '" + getFormatDate(temp.getValue()) + "' ";
-            case "dnequ": //not equal for strings
+            case "dnequ": //not equal
                 return temp.getLink() + " " + temp.getField() + " != '" + getFormatDate(temp.getValue()) + "' ";
             case "dlowe": //lower than
                 return temp.getLink() + " " + temp.getField() + " < " + getFormatDate(temp.getValue()) + " ";
@@ -71,38 +70,37 @@ public class SqlBuilderHelper {
                 return temp.getLink() + " " + temp.getField() + " > " + getFormatDate(temp.getValue()) + " ";
             case "dgequ": //greater or equal than
                 return temp.getLink() + " " + temp.getField() + " >= " + getFormatDate(temp.getValue()) + " ";
-            //operations for strings
+            //operations for strings -------------------------------------------
             case "sequa": //equal for strings
                 return temp.getLink() + " " + temp.getField() + " = '" + temp.getValue() + "' ";
             case "snequ": //not equal for strings
                 return temp.getLink() + " " + temp.getField() + " != '" + temp.getValue() + "' ";
-            //operations for numbers
+            case "slike": //like
+                return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "%' ";
+            case "snlik": //not like
+                return temp.getLink() + " " + temp.getField() + " NOT LIKE '%" + temp.getValue() + "%' ";
+            case "sstar": //starts with
+                return temp.getLink() + " " + temp.getField() + " LIKE '" + temp.getValue() + "%' ";
+            case "snsta": //not starts with
+                return temp.getLink() + " " + temp.getField() + " NOT LIKE '" + temp.getValue() + "%' ";
+            case "sends": //ends with
+                return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "' ";
+            case "snend": //not ends with
+                return temp.getLink() + " " + temp.getField() + " NOT LIKE '%" + temp.getValue() + "' ";
+            //operations for numbers -------------------------------------------
             case "nequa": //equal for numbers
                 return temp.getLink() + " " + temp.getField() + " = " + temp.getValue() + " ";
             case "nnequ": //not equal for numbers
                 return temp.getLink() + " " + temp.getField() + " != " + temp.getValue() + " ";
-            //-------------------------------------------------------
-            case "like": //like
-                return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "%' ";
-            case "nlik": //not like
-                return temp.getLink() + " " + temp.getField() + " NOT LIKE '%" + temp.getValue() + "%' ";
-            case "star": //starts with
-                return temp.getLink() + " " + temp.getField() + " LIKE '" + temp.getValue() + "%' ";
-            case "nsta": //not starts with
-                return temp.getLink() + " " + temp.getField() + " NOT LIKE '" + temp.getValue() + "%' ";
-            case "ends": //ends with
-                return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "' ";
-            case "nend": //not ends with
-                return temp.getLink() + " " + temp.getField() + " NOT LIKE '%" + temp.getValue() + "' ";
-
-            case "lowe": //lower than
+            case "nlowe": //lower than
                 return temp.getLink() + " " + temp.getField() + " < " + temp.getValue() + " ";
-            case "lequ": //lower or equal than
+            case "nlequ": //lower or equal than
                 return temp.getLink() + " " + temp.getField() + " <= " + temp.getValue() + " ";
-            case "grea": //greater than
+            case "ngrea": //greater than
                 return temp.getLink() + " " + temp.getField() + " > " + temp.getValue() + " ";
-            case "gequ": //greater or equal than
+            case "ngequ": //greater or equal than
                 return temp.getLink() + " " + temp.getField() + " >= " + temp.getValue() + " ";
+            //------------------------------------------------------------------
             default:
                 throw new Error("Filter expression malformed. Operator not valid.");
         }
