@@ -123,14 +123,14 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
     }
 
     @Override
-    public Boolean remove(Integer id) throws Exception {
-        boolean iResult = false;
+    public int remove(Integer id) throws Exception {
+        int iResult = 0;
         strSQL = "DELETE FROM " + ob + " WHERE id=?";
         PreparedStatement oPreparedStatement = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
-            iResult = oPreparedStatement.execute();
+            iResult = oPreparedStatement.executeUpdate();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4jConfigurationHelper.errorLog(msg, ex);

@@ -34,6 +34,6 @@ public interface TableDaoInterface<GenericTableBean> {
 
     public Integer set(GenericTableBean oBean) throws Exception;
 
-    public Boolean remove(Integer id) throws Exception;
+    public int remove(Integer id) throws Exception;
 
 }

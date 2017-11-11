@@ -136,16 +136,14 @@ public abstract class GenericTableService extends GenericViewService implements 
     public ReplyBean remove() throws Exception {
         if (this.checkPermission("remove")) {
             int id = Integer.parseInt(oRequest.getParameter("id"));
-            Boolean iResult = false;
+            int iResult = 0;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             ReplyBean oReplyBean = null;
             try {
                 oPooledConnection = AppConfigurationHelper.getSourceConnection();
                 oConnection = oPooledConnection.newConnection();
-
                 TableDaoInterface oDao = (TableDaoInterface) MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-
                 iResult = oDao.remove(id);
                 Gson oGson = AppConfigurationHelper.getGson();
                 String strJson = oGson.toJson(iResult);
