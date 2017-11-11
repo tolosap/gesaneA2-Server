@@ -29,36 +29,59 @@
 package eu.rafaelaznar.helper;
 
 import static java.lang.Math.ceil;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SqlBuilderHelper {
 
-    public static String buildSqlFilter(ArrayList<FilterBeanHelper> alFilter) {
+    public static String buildSqlFilter(ArrayList<FilterBeanHelper> alFilter) throws ParseException {
         String strSQLFilter = "";
-        Iterator it = alFilter.iterator();
-        while (it.hasNext()) {
-            FilterBeanHelper oFilterBean = (FilterBeanHelper) it.next();
+        for (FilterBeanHelper oFilterBean : alFilter) {
             strSQLFilter += getFilterExpression(oFilterBean);
         }
         return strSQLFilter;
     }
 
-    private static String getFilterExpression(FilterBeanHelper temp) {
+    private static String getFormatDate(String dateIn) throws ParseException {
+        SimpleDateFormat parseador = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = parseador.parse(dateIn);
+        SimpleDateFormat formateador = new SimpleDateFormat("yyy/MM/dd");
+        String fecha = formateador.format(date);
+        return fecha;
+    }
+
+    private static String getFilterExpression(FilterBeanHelper temp) throws ParseException {
 
         switch (temp.getOperation()) {
-
+            //operations for date
+            case "dequa": //equal for strings
+                return temp.getLink() + " " + temp.getField() + " = '" + getFormatDate(temp.getValue()) + "' ";
+            case "dnequ": //not equal for strings
+                return temp.getLink() + " " + temp.getField() + " != '" + getFormatDate(temp.getValue()) + "' ";
+            case "dlowe": //lower than
+                return temp.getLink() + " " + temp.getField() + " < " + getFormatDate(temp.getValue()) + " ";
+            case "dlequ": //lower or equal than
+                return temp.getLink() + " " + temp.getField() + " <= " + getFormatDate(temp.getValue()) + " ";
+            case "dgrea": //greater than
+                return temp.getLink() + " " + temp.getField() + " > " + getFormatDate(temp.getValue()) + " ";
+            case "dgequ": //greater or equal than
+                return temp.getLink() + " " + temp.getField() + " >= " + getFormatDate(temp.getValue()) + " ";
+            //operations for strings
             case "sequa": //equal for strings
                 return temp.getLink() + " " + temp.getField() + " = '" + temp.getValue() + "' ";
             case "snequ": //not equal for strings
                 return temp.getLink() + " " + temp.getField() + " != '" + temp.getValue() + "' ";
+            //operations for numbers
             case "nequa": //equal for numbers
                 return temp.getLink() + " " + temp.getField() + " = " + temp.getValue() + " ";
             case "nnequ": //not equal for numbers
                 return temp.getLink() + " " + temp.getField() + " != " + temp.getValue() + " ";
-                //-------------------------------------------------------
+            //-------------------------------------------------------
             case "like": //like
                 return temp.getLink() + " " + temp.getField() + " LIKE '%" + temp.getValue() + "%' ";
             case "nlik": //not like
