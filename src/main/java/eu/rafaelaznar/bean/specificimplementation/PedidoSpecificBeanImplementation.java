@@ -45,6 +45,9 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
     private Date fecha;
     @Expose
     private int iva;
+    @Expose
+    private int tiene_iva;
+
     //---
     @Expose(serialize = false)
     private Integer id_usuario = 0;
@@ -101,12 +104,20 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
         this.obj_usuario = obj_usuario;
     }
 
+    public int getTiene_iva() {
+        return tiene_iva;
+    }
+
+    public void setTiene_iva(int tiene_iva) {
+        this.tiene_iva = tiene_iva;
+    }
     @Override
     public String getColumns() {
         String strColumns = "";
         strColumns += "id,";
         strColumns += "fecha,";
         strColumns += "iva,";
+        strColumns += "tiene_iva,";
         strColumns += "id_usuario";
         return strColumns;
     }
@@ -117,6 +128,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
         strColumns += id + ",";
         strColumns += EncodingUtilHelper.stringifyAndQuotate(fecha) + ",";
         strColumns += iva + ",";
+        strColumns += tiene_iva + ",";
         strColumns += id_usuario;
         return strColumns;
     }
@@ -126,6 +138,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
         String strPairs = "";
         strPairs += "fecha=" + EncodingUtilHelper.stringifyAndQuotate(fecha) + ",";
         strPairs += "iva=" + iva + ",";
+        strPairs += "tiene_iva=" + tiene_iva + ",";
         strPairs += "id_usuario=" + id_usuario;
         return strPairs;
     }
@@ -135,6 +148,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
         this.setIva(oResultSet.getInt("iva"));
+        this.setIva(oResultSet.getInt("tiene_iva"));
         this.setId_usuario(oResultSet.getInt("id_usuario"));
         if (expand > 0) {
             UsuarioSpecificDaoImplementation oUsuarioDao = new UsuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);

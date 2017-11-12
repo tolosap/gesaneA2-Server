@@ -164,7 +164,8 @@ public abstract class ViewGenericDaoImplementation implements ViewDaoInterface<V
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL = "SELECT COUNT(*) FROM " + ob;
-        strSQL += " WHERE id_tipousuario=" + id_foreign;
+        strSQL += " WHERE 1=1 ";
+        strSQL += " and id_" + ob_foreign + "=" + id_foreign + " ";
         strSQL += SqlBuilderHelper.buildSqlFilter(alFilter);
         Long iResult = 0L;
         try {
