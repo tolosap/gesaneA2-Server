@@ -33,6 +33,9 @@ import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplement
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import java.sql.Connection;
 import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
+import eu.rafaelaznar.dao.specificimplementation.LineadepedidoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.PedidoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementation;
 
 public class MappingDaoHelper {
 
@@ -45,6 +48,15 @@ public class MappingDaoHelper {
                 break;
             case "tipousuario":
                 oDao = (ViewDaoInterface) new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "pedido":
+                oDao = (ViewDaoInterface) new PedidoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "producto":
+                oDao = (ViewDaoInterface) new ProductoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "liena_pedido":
+                oDao = (ViewDaoInterface) new LineadepedidoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
