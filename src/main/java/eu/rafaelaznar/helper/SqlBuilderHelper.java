@@ -100,6 +100,9 @@ public class SqlBuilderHelper {
                 return temp.getLink() + " " + temp.getField() + " > " + temp.getValue() + " ";
             case "ngequ": //greater or equal than
                 return temp.getLink() + " " + temp.getField() + " >= " + temp.getValue() + " ";
+            //operations for boolean -------------------------------------------
+            case "bequa": //equal for boolean
+                return temp.getLink() + " " + temp.getField() + " = " + temp.getValue() + " ";
             //------------------------------------------------------------------
             default:
                 throw new Error("Filter expression malformed. Operator not valid.");
