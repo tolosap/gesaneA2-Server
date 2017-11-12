@@ -148,7 +148,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
         this.setId(oResultSet.getInt("id"));
         this.setFecha(oResultSet.getDate("fecha"));
         this.setIva(oResultSet.getInt("iva"));
-        this.setIva(oResultSet.getInt("tiene_iva"));
+        this.setTiene_iva(oResultSet.getInt("tiene_iva"));
         this.setId_usuario(oResultSet.getInt("id_usuario"));
         if (expand > 0) {
             UsuarioSpecificDaoImplementation oUsuarioDao = new UsuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
