@@ -63,13 +63,13 @@ public class SqlBuilderHelper {
             case "dnequ": //not equal
                 return temp.getLink() + " " + temp.getField() + " != '" + getFormatDate(temp.getValue()) + "' ";
             case "dlowe": //lower than
-                return temp.getLink() + " " + temp.getField() + " < " + getFormatDate(temp.getValue()) + " ";
+                return temp.getLink() + " " + temp.getField() + " < '" + getFormatDate(temp.getValue()) + "' ";
             case "dlequ": //lower or equal than
-                return temp.getLink() + " " + temp.getField() + " <= " + getFormatDate(temp.getValue()) + " ";
+                return temp.getLink() + " " + temp.getField() + " <= '" + getFormatDate(temp.getValue()) + "' ";
             case "dgrea": //greater than
-                return temp.getLink() + " " + temp.getField() + " > " + getFormatDate(temp.getValue()) + " ";
+                return temp.getLink() + " " + temp.getField() + " > '" + getFormatDate(temp.getValue()) + "' ";
             case "dgequ": //greater or equal than
-                return temp.getLink() + " " + temp.getField() + " >= " + getFormatDate(temp.getValue()) + " ";
+                return temp.getLink() + " " + temp.getField() + " >= '" + getFormatDate(temp.getValue()) + "' ";
             //operations for strings -------------------------------------------
             case "sequa": //equal for strings
                 return temp.getLink() + " " + temp.getField() + " = '" + temp.getValue() + "' ";
