@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
@@ -37,122 +36,102 @@ import eu.rafaelaznar.helper.EncodingUtilHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class ProductoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
-    private Date fecha;
+    private String codigo;
     @Expose
-    private Integer iva;
+    private String descripcion;
     @Expose
-    private Integer existencias;
-    //---
-    @Expose(serialize = false)
-    private Integer id_usuario = 0;
-    @Expose(deserialize = false)
-    private UsuarioSpecificBeanImplementation obj_usuario = null;
+    private int existencias;
+    @Expose
+    private double precio;
 
     public ProductoSpecificBeanImplementation() {
-
     }
 
     public ProductoSpecificBeanImplementation(Integer id) {
         super(id);
     }
-
-    @Override
+        
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public int getIva() {
-        return iva;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setIva(int iva) {
-        this.iva = iva;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Integer getExistencias() {
+    public int getExistencias() {
         return existencias;
     }
 
-    public void setExistencias(Integer existencias) {
+    public void setExistencias(int existencias) {
         this.existencias = existencias;
     }
 
-    public Integer getId_usuario() {
-        return id_usuario;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public UsuarioSpecificBeanImplementation getObj_usuario() {
-        return obj_usuario;
-    }
-
-    public void setObj_usuario(UsuarioSpecificBeanImplementation obj_usuario) {
-        this.obj_usuario = obj_usuario;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     @Override
     public String getColumns() {
         String strColumns = "";
-        strColumns += "id,";
-        strColumns += "fecha,";
-        strColumns += "iva,";
-        strColumns += "id_usuario";
+        strColumns += "codigo,";
+        strColumns += "descripcion,";
+        strColumns += "existencias,";
+        strColumns += "precio";
         return strColumns;
     }
 
     @Override
     public String getValues() {
         String strColumns = "";
-        strColumns += id + ",";
-        strColumns += EncodingUtilHelper.stringifyAndQuotate(fecha) + ",";
-        strColumns += iva + ",";
-        strColumns += id_usuario;
+        strColumns += id + ",";        
+        strColumns += EncodingUtilHelper.quotate(codigo) + ",";
+        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
+        strColumns += existencias + ",";
+        strColumns += precio;
         return strColumns;
     }
 
     @Override
     public String toPairs() {
         String strPairs = "";
-        strPairs += "fecha=" + EncodingUtilHelper.stringifyAndQuotate(fecha) + ",";
-        strPairs += "iva=" + iva + ",";
-        strPairs += "id_usuario=" + id_usuario;
+        strPairs += "codigo=" + EncodingUtilHelper.quotate(codigo) + ",";
+        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";
+        strPairs += "existencias=" + existencias + ",";
+        strPairs += "precio=" + precio;
         return strPairs;
     }
 
     @Override
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setFecha(oResultSet.getDate("fecha"));
-        this.setIva(oResultSet.getInt("iva"));
-        this.setId_usuario(oResultSet.getInt("id_usuario"));
-        if (expand > 0) {
-            UsuarioSpecificDaoImplementation oUsuarioDao = new UsuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-            UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oUsuarioDao.get(oResultSet.getInt("id_usuario"), expand - 1);
-            this.setObj_usuario(oUsuarioBean);
-        } else {
-            this.setId_usuario(oResultSet.getInt("id_usuario"));
-        }
+        this.setCodigo(oResultSet.getString("codigo"));
+        this.setDescripcion(oResultSet.getString("descripcion"));
+        this.setExistencias(oResultSet.getInt("existencias"));
+        this.setPrecio(oResultSet.getInt("precio"));
         return this;
     }
 
