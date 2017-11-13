@@ -51,10 +51,10 @@ public class MappingBeanHelper {
             case "tipousuario":
                 oBean = new TipousuarioSpecificBeanImplementation();
                 break;
-            case "liena_pedido":
+            case "linea_pedido":
                 oBean = new LineadepedidoSpecificBeanImplementation();
                 break;
-            case "prducto":
+            case "producto":
                 oBean = new ProductoSpecificBeanImplementation();
                 break;
             case "pedido":
