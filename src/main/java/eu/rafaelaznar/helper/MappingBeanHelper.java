@@ -31,6 +31,7 @@ package eu.rafaelaznar.helper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.bean.specificimplementation.CarritoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.LineadepedidoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.PedidoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ProductoSpecificBeanImplementation;
@@ -59,6 +60,9 @@ public class MappingBeanHelper {
                 break;
             case "pedido":
                 oBean = new PedidoSpecificBeanImplementation();
+                break;
+            case "carrito":
+                oBean = new CarritoSpecificBeanImplementation();
                 break;
             default:
 
