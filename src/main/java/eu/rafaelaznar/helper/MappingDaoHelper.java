@@ -55,7 +55,7 @@ public class MappingDaoHelper {
             case "producto":
                 oDao = (ViewDaoInterface) new ProductoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
-            case "liena_pedido":
+            case "linea_pedido":
                 oDao = (ViewDaoInterface) new LineadepedidoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
