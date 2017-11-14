@@ -89,15 +89,18 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
                 strSQL += "(" + oBean.getColumns() + ")";
                 strSQL += " VALUES ";
                 strSQL += "(" + oBean.getValues() + ")";
+                oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
+                iResult = oPreparedStatement.executeUpdate();
             } else {
                 insert = false;
                 strSQL = "UPDATE " + ob;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-                strSQL += " WHERE id=" + oBean.getId();
+                strSQL += " WHERE id=? ";
+                oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
+                oPreparedStatement.setInt(1, oBean.getId());
+                iResult = oPreparedStatement.executeUpdate();
             }
-            oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
-            iResult = oPreparedStatement.executeUpdate();
             if (iResult < 1) {
                 String msg = this.getClass().getName() + ": set";
                 Log4jConfigurationHelper.errorLog(msg);
