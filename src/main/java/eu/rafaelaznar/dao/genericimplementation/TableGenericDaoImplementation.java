@@ -53,7 +53,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
-            oResultSet = oPreparedStatement.executeQuery(strSQL);
+            oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
