@@ -48,10 +48,11 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
     public TableGenericBeanImplementation get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL += " AND id=" + id;
+        strSQL += " AND id=? ";
         TableGenericBeanImplementation oBean = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery(strSQL);
             if (oResultSet.next()) {
                 oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(ob);
