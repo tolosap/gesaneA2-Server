@@ -35,9 +35,9 @@ import java.sql.SQLException;
 
 public interface GenericBeanInterface {
 
-    public String getColumns();
+    public String getColumns() throws Exception;
 
-    public String getValues();
+    public String getValues() throws Exception;
 
     public String toPairs();
 

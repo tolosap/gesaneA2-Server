@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ *
+ * trolleyes-server: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/trolleyes-server
- * 
+ *
  * trolleyes-server is distributed under the MIT License (MIT)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,7 +36,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
-import java.sql.Date;
+import java.util.Date;
 
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
@@ -159,38 +159,6 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     }
 
     @Override
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "dni,";
-        strColumns += "nombre,";
-        strColumns += "primer_apellido,";
-        strColumns += "segundo_apellido,";
-        strColumns += "password,";
-        strColumns += "login,";
-        strColumns += "email,";
-        strColumns += "fecha_nacimiento,";
-        strColumns += "id_tipousuario";
-        return strColumns;
-    }
-
-    @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";
-        strColumns += EncodingUtilHelper.quotate(dni) + ",";
-        strColumns += EncodingUtilHelper.quotate(nombre) + ",";
-        strColumns += EncodingUtilHelper.quotate(primer_apellido) + ",";
-        strColumns += EncodingUtilHelper.quotate(segundo_apellido) + ",";
-        strColumns += EncodingUtilHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ", ";
-        strColumns += EncodingUtilHelper.quotate(login) + ",";
-        strColumns += EncodingUtilHelper.quotate(email) + ",";
-        strColumns += EncodingUtilHelper.stringifyAndQuotate(fecha_nacimiento) + ",";
-        strColumns += id_tipousuario;
-        return strColumns;
-    }
-
-    @Override
     public String toPairs() {
         String strPairs = "";
         strPairs += "dni=" + EncodingUtilHelper.quotate(dni) + ",";
@@ -205,7 +173,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection,
+             UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
         this.setId(oResultSet.getInt("id"));
         this.setDni(oResultSet.getString("dni"));
         this.setNombre(oResultSet.getString("nombre"));
