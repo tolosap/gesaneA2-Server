@@ -139,6 +139,7 @@ public class MappingServiceHelper {
                         oReplyBean = new ReplyBean(500, EncodingUtilHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
+                break;
             case "producto":
                 ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
                 switch (op) {
