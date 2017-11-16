@@ -26,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
@@ -59,7 +58,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
     }
 
     public PedidoSpecificBeanImplementation(Integer id) {
-        super(id);
+        this.id = id;
     }
 
     @Override
@@ -111,6 +110,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
     public void setTiene_iva(int tiene_iva) {
         this.tiene_iva = tiene_iva;
     }
+
     @Override
     public String getColumns() {
         String strColumns = "";

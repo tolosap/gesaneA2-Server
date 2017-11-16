@@ -59,7 +59,7 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     }
 
     public LineadepedidoSpecificBeanImplementation(Integer id) {
-        super(id);
+         this.id = id;
     }
 
     @Override
