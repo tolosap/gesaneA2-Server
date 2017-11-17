@@ -28,11 +28,7 @@
  */
 package eu.rafaelaznar.bean.genericimplementation;
 
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import com.google.gson.annotations.Expose;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
 public abstract class TableGenericBeanImplementation extends ViewGenericBeanImplementation implements GenericBeanInterface {

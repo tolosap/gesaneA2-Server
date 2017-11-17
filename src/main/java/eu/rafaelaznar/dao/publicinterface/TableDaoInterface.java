@@ -28,11 +28,11 @@
  */
 package eu.rafaelaznar.dao.publicinterface;
 
-public interface TableDaoInterface<GenericTableBean> {
+public interface TableDaoInterface<TableGenericBeanImplementation> {
 
-    public GenericTableBean get(int id, int intExpand) throws Exception;
+    public TableGenericBeanImplementation get(int id, int intExpand) throws Exception;
 
-    public Integer set(GenericTableBean oBean) throws Exception;
+    public Integer set(TableGenericBeanImplementation oBean) throws Exception;
 
     public int remove(Integer id) throws Exception;
 
