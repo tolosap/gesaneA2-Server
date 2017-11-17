@@ -224,5 +224,17 @@ public class CarritoSpecificServiceImplementation {
             return new ReplyBean(401, "Unauthorized operation");
         }
     }
+        public ReplyBean count() throws Exception {
+        if (this.checkPermission("count")) {
+            ArrayList<CarritoSpecificBeanImplementation> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
+            ReplyBean oReplyBean = null;            
+            Gson oGson = AppConfigurationHelper.getGson();           
+            String strJson = oGson.toJson(alCarrito.size());
+            oReplyBean = new ReplyBean(200, strJson);
+            return oReplyBean;
+        } else {
+            return new ReplyBean(401, "Unauthorized operation");
+        }
+    }
 
 }
