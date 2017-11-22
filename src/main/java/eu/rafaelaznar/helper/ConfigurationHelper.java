@@ -26,15 +26,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.specificimplementation;
+package eu.rafaelaznar.helper;
 
-import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
-import javax.servlet.http.HttpServletRequest;
+import eu.rafaelaznar.helper.EnumHelper.Environment;
 
-public class ProductoSpecificServiceImplementation extends TableGenericServiceImplementation {
+public class ConfigurationHelper {
 
-    public ProductoSpecificServiceImplementation(HttpServletRequest request) {
-        super(request);
+    public static int getJsonMsgDepth() {
+        return 1;
     }
 
+    public static Environment getEnvironment() {
+        return Environment.Debug;
+    }
+
+    public static String getVersion() {
+        return "03.01";
+    }
+
+    public static String getDate() {
+        return "22/11/2017";
+    }
+
+    public static String getAuthor() {
+        return "Rafael Aznar";
+    }
+
+    public static String getSources() {
+        return "https://github.com/rafaelaznar/trolleyes-server3";
+    }
+
+    public static String getAuthorMail() {
+        return "rafaaznar{at}gmail{dot}com";
+    }
+
+    public static String getLinkLicense() {
+        return "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
+    }
+
+    public static int getDelay() {
+        return 0;
+    }
 }

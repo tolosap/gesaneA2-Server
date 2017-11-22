@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,13 @@
  */
 package eu.rafaelaznar.dao.publicinterface;
 
-public interface TableDaoInterface<GenericTableBean> {
+import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
 
-    public GenericTableBean get(int id, int intExpand) throws Exception;
+public interface TableDaoInterface<TableGenericBeanImplementation> extends ViewDaoInterface<ViewGenericBeanImplementation> {
 
-    public Integer set(GenericTableBean oBean) throws Exception;
+    public TableGenericBeanImplementation get(int id, int intExpand) throws Exception;
+
+    public Integer set(TableGenericBeanImplementation oBean) throws Exception;
 
     public int remove(Integer id) throws Exception;
 

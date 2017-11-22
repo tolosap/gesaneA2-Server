@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,17 @@
  */
 package eu.rafaelaznar.dao.publicinterface;
 
-import eu.rafaelaznar.helper.FilterBeanHelper;
+import eu.rafaelaznar.bean.helper.FilterBeanHelper;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public interface ViewDaoInterface<GenericViewBean> {
+public interface ViewDaoInterface<ViewGenericBeanImplementation> extends MetaDaoInterface {
 
     public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception;
 
-    public ArrayList<GenericViewBean> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public ArrayList<ViewGenericBeanImplementation> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
 
-    public ArrayList<GenericViewBean> getPageX(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public ArrayList<ViewGenericBeanImplementation> getPageX(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
 
     public Long getCountX(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception;
 

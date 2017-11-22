@@ -8,7 +8,7 @@
         <servlet-name>log4j-init</servlet-name>
         <servlet-class>eu.rafaelaznar.control.Log4jInit</servlet-class>
         <init-param>
-            <param-name>log4j-trolleyes-server</param-name>
+            <param-name>log4j-trolleyes-server3</param-name>
             <param-value>WEB-INF/log4j.properties</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

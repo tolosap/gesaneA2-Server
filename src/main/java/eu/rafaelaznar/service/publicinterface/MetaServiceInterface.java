@@ -1,12 +1,10 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2015 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
- *               by copying and modifying this Java Server.
- *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
- * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * traxmol: The stunning micro-library that helps you to develop easily 
+ *             AJAX web applications by using Java and jQuery
+ * traxmol is distributed under the MIT License (MIT)
+ * Sources at https://github.com/rafaelaznar/traxmol
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +24,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.connection;
+package eu.rafaelaznar.service.publicinterface;
 
-import java.sql.Connection;
+import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 
-public interface ConnectionInterface {
+public interface MetaServiceInterface {
 
-    public Connection newConnection() throws Exception;
+    public ReplyBeanHelper getObjectMetaData() throws Exception;
 
-    public void disposeConnection() throws Exception;
+    public ReplyBeanHelper getPropertiesMetaData() throws Exception;
+
 }

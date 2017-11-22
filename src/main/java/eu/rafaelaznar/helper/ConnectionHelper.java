@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,46 +28,33 @@
  */
 package eu.rafaelaznar.helper;
 
-public class EstadoHelper {
+public class ConnectionHelper {
 
-    public static enum Tipo_estado {
-        Debug,
-        Production
-    };
-
-    public static Tipo_estado getTipo_estado() {
-        return Tipo_estado.Debug;
+    public static String getSourceConnectionName() {
+        return "hikari";
+    }
+    public static String getDatabaseName() {
+        return "trolleyes";
     }
 
-    public static String getVersion() {
-        return "03";
+    public static String getDatabaseLogin() {
+        return "root";
     }
 
-    public static String getFecha() {
-        return "17/10/2017";
+    public static String getDatabasePassword() {
+        return "bitnami";
     }
 
-    public static String getAnyo() {
-        return "2017";
+    public static String getDatabasePort() {
+        return "3306";
     }
 
-    public static String getCurso() {
-        return "2017-2018";
+    public static String getDatabaseIP() {
+        return "127.0.0.1";
     }
 
-    public static String getAutor() {
-        return "Rafael Aznar";
+    public static String getConnectionChain() {
+        return "jdbc:mysql://" + ConnectionHelper.getDatabaseIP() + ":" + ConnectionHelper.getDatabasePort() + "/" + ConnectionHelper.getDatabaseName();
     }
 
-    public static String getMailAutor() {
-        return "rafaaznar{at}gmail{dot}com";
-    }
-
-    public static String getLicenciaLink() {
-        return "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
-    }
-
-    public static int getDelay() {
-        return 0;
-    }
 }

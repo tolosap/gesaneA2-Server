@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  *
- * trolleyes-server: Helps you to develop easily AJAX web applications
+ * trolleyes-server3: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  *
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +30,8 @@ package eu.rafaelaznar.dao.specificimplementation;
 
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.helper.AppConfigurationHelper;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
+import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,13 +52,13 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oUsuarioBean.fill(oResultSet, oConnection, oPuserSecurity, AppConfigurationHelper.getJsonMsgDepth());
+                oUsuarioBean.fill(oResultSet, oConnection, oPuserSecurity, ConfigurationHelper.getJsonMsgDepth());
             } else {
                 throw new Exception("UsuarioDao getFromLoginAndPass error");
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {

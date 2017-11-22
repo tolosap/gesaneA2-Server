@@ -26,15 +26,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.specificimplementation;
+package eu.rafaelaznar.bean.helper;
 
-import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
-import javax.servlet.http.HttpServletRequest;
+public class ReplyBeanHelper {
 
-public class ProductoSpecificServiceImplementation extends TableGenericServiceImplementation {
+    private Integer code;
+    private String json;
 
-    public ProductoSpecificServiceImplementation(HttpServletRequest request) {
-        super(request);
+    public ReplyBeanHelper(Integer code, String json) {
+        this.code = code;
+        this.json = json;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
     }
 
 }

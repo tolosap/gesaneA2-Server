@@ -26,15 +26,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.specificimplementation;
+package eu.rafaelaznar.factory;
 
-import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
-import javax.servlet.http.HttpServletRequest;
+import eu.rafaelaznar.connection.specificimplementation.C3POConnection;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.connection.specificimplementation.DBCPConnection;
+import eu.rafaelaznar.connection.specificimplementation.DriverManagerConnection;
+import eu.rafaelaznar.connection.specificimplementation.HikariConnection;
+import eu.rafaelaznar.connection.specificimplementation.ViburConnection;
 
-public class ProductoSpecificServiceImplementation extends TableGenericServiceImplementation {
+public class ConnectionFactory {
 
-    public ProductoSpecificServiceImplementation(HttpServletRequest request) {
-        super(request);
+    public static ConnectionInterface getSourceConnection(String strConnection) throws Exception {
+        ConnectionInterface oDataConnectionSource = null;
+        switch (strConnection) {
+            case "hikari":
+                oDataConnectionSource = new HikariConnection();
+                break;
+            case "vibur":
+                oDataConnectionSource = new ViburConnection();
+                break;
+            case "c3po":
+                oDataConnectionSource = new C3POConnection();
+                break;
+            case "dbcp":
+                oDataConnectionSource = new DBCPConnection();
+                break;
+            case "driver":
+                oDataConnectionSource = new DriverManagerConnection();
+                break;
+            default:
+                break;
+        }
+
+        return oDataConnectionSource;
     }
 
 }

@@ -1,12 +1,10 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2015 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
- *               by copying and modifying this Java Server.
- *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
- * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * traxmol: The stunning micro-library that helps you to develop easily 
+ *             AJAX web applications by using Java and jQuery
+ * traxmol is distributed under the MIT License (MIT)
+ * Sources at https://github.com/rafaelaznar/traxmol
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,32 +24,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.dao.publicinterface;
 
-public class ConnectionClassHelper {
+import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
+import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
+import java.util.ArrayList;
 
-    public static String getDatabaseName() {
-        return "trolleyes";
-    }
+public interface MetaDaoInterface {
 
-    public static String getDatabaseLogin() {
-        return "root";
-    }
+    public MetaObjectGenericBeanHelper getObjectMetaData() throws Exception;
 
-    public static String getDatabasePassword() {
-        return "bitnami";
-    }
-
-    public static String getDatabasePort() {
-        return "3306";
-    }
-
-    public static String getDatabaseIP() {
-        return "127.0.0.1";
-    }
-
-    public static String getConnectionChain() {
-        return "jdbc:mysql://" + ConnectionClassHelper.getDatabaseIP() + ":" + ConnectionClassHelper.getDatabasePort() + "/" + ConnectionClassHelper.getDatabaseName();
-    }
-
+    public ArrayList<MetaPropertyGenericBeanHelper> getPropertiesMetaData() throws Exception;
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,10 @@
  */
 package eu.rafaelaznar.service.specificimplementation;
 
-import eu.rafaelaznar.service.genericimplementation.GenericTableService;
+import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
-public class LineadepedidoSpecificServiceImplementation extends GenericTableService {
+public class LineadepedidoSpecificServiceImplementation extends TableGenericServiceImplementation {
 
     public LineadepedidoSpecificServiceImplementation(HttpServletRequest request) {
         super(request);

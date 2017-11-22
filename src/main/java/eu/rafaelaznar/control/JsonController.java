@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,14 +28,15 @@
  */
 package eu.rafaelaznar.control;
 
-import eu.rafaelaznar.bean.ReplyBean;
-import eu.rafaelaznar.connection.ConnectionInterface;
-import eu.rafaelaznar.helper.AppConfigurationHelper;
-import eu.rafaelaznar.helper.EstadoHelper;
-import eu.rafaelaznar.helper.EstadoHelper.Tipo_estado;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
-import eu.rafaelaznar.helper.MappingServiceHelper;
-import static eu.rafaelaznar.helper.ParameterCookHelper.prepareCamelCaseObject;
+import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.factory.ConnectionFactory;
+import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.factory.ServiceFactory;
+import eu.rafaelaznar.helper.EnumHelper.Environment;
+import static eu.rafaelaznar.helper.ParameterHelper.prepareCamelCaseObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -62,14 +63,16 @@ public class JsonController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
-        ReplyBean oReplyBean = null;
+        ReplyBeanHelper oReplyBean = null;
         try (PrintWriter out = response.getWriter()) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (Exception ex) {
-                oReplyBean = new ReplyBean(500, "Database Connection Error: Please contact your administrator");
+                oReplyBean = new ReplyBeanHelper(500, "Database Connection Error: Please contact your administrator");
             }
-            Controllerdelay(0);
+            if (ConfigurationHelper.getEnvironment() == Environment.Debug) {
+                Controllerdelay(ConfigurationHelper.getDelay());
+            }
             String ob = prepareCamelCaseObject(request);
             String op = request.getParameter("op");
             if (("".equalsIgnoreCase(ob) && "".equalsIgnoreCase(op)) || (ob == null && op == null)) {
@@ -79,11 +82,15 @@ public class JsonController extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head><title>Trolleyes server</title><link rel=\"shortcut icon\" href=\"favicon.ico\" type=\"image/x-icon\"></head>");
-                out.println("<body style=\"background: url(trolleyes400.png) no-repeat center center fixed;\">");
+                out.println("<body style=\"background: url(trolleyes500.png) no-repeat center center fixed;\">");
                 out.println("<h1>Welcome to trolleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
-                out.println("");
+                out.println("version: " + ConfigurationHelper.getVersion() + " (" + ConfigurationHelper.getDate() + ")" + "<br>");
+                out.println("author: " + ConfigurationHelper.getAuthor() + " (" + ConfigurationHelper.getAuthorMail() + ")" + "<br>");
+                out.println("license: " + ConfigurationHelper.getLinkLicense() + "<br>");
+                out.println("sources: " + ConfigurationHelper.getSources() + "<br>");
+
                 try {
-                    oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
                     oConnection = oPooledConnection.newConnection();
                     out.print("<h3>Database Connection OK</h3>");
                 } catch (Exception ex) {
@@ -106,16 +113,16 @@ public class JsonController extends HttpServlet {
                 response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, x-requested-with, Content-Type");
                 try {
-                    oReplyBean = (ReplyBean) MappingServiceHelper.executeMethodService(request);
+                    oReplyBean = (ReplyBeanHelper) ServiceFactory.executeMethodService(request);
                 } catch (Exception ex) {
-                    if (EstadoHelper.getTipo_estado() == Tipo_estado.Debug) {
+                    if (ConfigurationHelper.getEnvironment() == Environment.Debug) {
                         out.println(ex);
                         ex.printStackTrace(out);
                     } else {
-                        oReplyBean = new ReplyBean(500, "trolleyes-server error. Please, contact your administrator.");
+                        oReplyBean = new ReplyBeanHelper(500, "trolleyes-server error. Please, contact your administrator.");
                     }
-                    Log4jConfigurationHelper.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
-                    oReplyBean = new ReplyBean(500, "Object or Operation not found : Please contact your administrator");
+                    Log4jHelper.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
+                    oReplyBean = new ReplyBeanHelper(500, "Object or Operation not found : Please contact your administrator");
                 }
                 response.setStatus(oReplyBean.getCode());
                 out.print("{\"status\":" + oReplyBean.getCode() + ", \"json\":" + oReplyBean.getJson() + "}");

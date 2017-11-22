@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,16 +28,16 @@
  */
 package eu.rafaelaznar.service.publicinterface;
 
-import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 
 public interface ViewServiceInterface {
 
-    public ReplyBean getPage() throws Exception;
+    public ReplyBeanHelper getPage() throws Exception;
 
-    public ReplyBean getCount() throws Exception;
+    public ReplyBeanHelper getCount() throws Exception;
 
-    public ReplyBean getPageX() throws Exception;
+    public ReplyBeanHelper getPageX() throws Exception;
 
-    public ReplyBean getCountX() throws Exception;
+    public ReplyBeanHelper getCountX() throws Exception;
 
 }

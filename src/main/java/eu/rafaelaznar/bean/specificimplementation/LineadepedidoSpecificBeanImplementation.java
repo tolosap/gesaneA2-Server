@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,6 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
-import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
-import eu.rafaelaznar.dao.specificimplementation.PedidoSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementation;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 
@@ -112,60 +106,60 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.obj_producto = obj_producto;
     }
 
-    @Override
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "cantidad,";
-        strColumns += "id_pedido,";
-        strColumns += "id_producto";
-        return strColumns;
-    }
-
-    @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";
-        strColumns += cantidad + ",";
-        strColumns += id_pedido + ",";
-        strColumns += id_producto;
-        return strColumns;
-    }
-
-    @Override
-    public String toPairs() {
-        String strPairs = "";
-        strPairs += "cantidad=" + cantidad + ",";
-        strPairs += "id_pedido=" + id_pedido + ",";
-        strPairs += "id_producto=" + id_producto;
-        return strPairs;
-    }
-
-    @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setCantidad(oResultSet.getInt("cantidad"));
-        this.setId_pedido(oResultSet.getInt("id_pedido"));
-        this.setId_producto(oResultSet.getInt("id_producto"));
-        if (expand > 0) {
-            PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation();
-            PedidoSpecificDaoImplementation oPedidoDao = new PedidoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-            oPedidoBean = (PedidoSpecificBeanImplementation) oPedidoDao.get(oResultSet.getInt("id_pedido"), expand - 1);
-            this.setObj_pedido(oPedidoBean);
-        } else {
-            this.setId_pedido(oResultSet.getInt("id_pedido"));
-        }
-
-        if (expand > 0) {
-            ProductoSpecificBeanImplementation oProductoBean = new ProductoSpecificBeanImplementation();
-            ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-            oProductoBean = (ProductoSpecificBeanImplementation) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1);
-            this.setObj_producto(oProductoBean);
-        } else {
-            this.setId_pedido(oResultSet.getInt("id_producto"));
-        }
-
-        return this;
-    }
+//    @Override
+//    public String getColumns() {
+//        String strColumns = "";
+//        strColumns += "id,";
+//        strColumns += "cantidad,";
+//        strColumns += "id_pedido,";
+//        strColumns += "id_producto";
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String getValues() {
+//        String strColumns = "";
+//        strColumns += id + ",";
+//        strColumns += cantidad + ",";
+//        strColumns += id_pedido + ",";
+//        strColumns += id_producto;
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String toPairs() {
+//        String strPairs = "";
+//        strPairs += "cantidad=" + cantidad + ",";
+//        strPairs += "id_pedido=" + id_pedido + ",";
+//        strPairs += "id_producto=" + id_producto;
+//        return strPairs;
+//    }
+//
+//    @Override
+//    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+//        this.setId(oResultSet.getInt("id"));
+//        this.setCantidad(oResultSet.getInt("cantidad"));
+//        this.setId_pedido(oResultSet.getInt("id_pedido"));
+//        this.setId_producto(oResultSet.getInt("id_producto"));
+//        if (expand > 0) {
+//            PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation();
+//            PedidoSpecificDaoImplementation oPedidoDao = new PedidoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
+//            oPedidoBean = (PedidoSpecificBeanImplementation) oPedidoDao.get(oResultSet.getInt("id_pedido"), expand - 1);
+//            this.setObj_pedido(oPedidoBean);
+//        } else {
+//            this.setId_pedido(oResultSet.getInt("id_pedido"));
+//        }
+//
+//        if (expand > 0) {
+//            ProductoSpecificBeanImplementation oProductoBean = new ProductoSpecificBeanImplementation();
+//            ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
+//            oProductoBean = (ProductoSpecificBeanImplementation) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1);
+//            this.setObj_producto(oProductoBean);
+//        } else {
+//            this.setId_pedido(oResultSet.getInt("id_producto"));
+//        }
+//
+//        return this;
+//    }
 
 }

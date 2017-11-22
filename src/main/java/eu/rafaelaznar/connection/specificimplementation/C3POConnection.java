@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,30 +26,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.connection;
+package eu.rafaelaznar.connection.specificimplementation;
 
-import eu.rafaelaznar.helper.ConnectionClassHelper;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DriverManagerConnection implements ConnectionInterface {
+public class C3POConnection implements ConnectionInterface {
 
-    private Connection oConnection;
+    private ComboPooledDataSource connectionPool = null;
+    private Connection oConnection = null;
 
     @Override
     public Connection newConnection() throws Exception {
-        oConnection = null;
         try {
-            //Class.forName("com.mysql.jdbc.Driver");
-            String urlOdbc = ConnectionClassHelper.getConnectionChain();
-            oConnection = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionClassHelper.getDatabaseLogin(), ConnectionClassHelper.getDatabasePassword()));
-            return oConnection;
-        } catch (Exception ex) {
+            connectionPool = new ComboPooledDataSource();
+            connectionPool.setDriverClass("com.mysql.jdbc.Driver");
+            connectionPool.setJdbcUrl(ConnectionHelper.getConnectionChain());
+            connectionPool.setUser(ConnectionHelper.getDatabaseLogin());
+            connectionPool.setPassword(ConnectionHelper.getDatabasePassword());
+            connectionPool.setMaxStatements(180);
+            oConnection = connectionPool.getConnection();
+        } catch (PropertyVetoException | SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
+        return oConnection;
     }
 
     @Override
@@ -58,11 +65,13 @@ public class DriverManagerConnection implements ConnectionInterface {
             if (oConnection != null) {
                 oConnection.close();
             }
+            if (connectionPool != null) {
+                connectionPool.close();
+            }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }
-
 }

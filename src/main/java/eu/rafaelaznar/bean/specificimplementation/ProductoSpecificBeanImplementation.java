@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,12 +30,6 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
-import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
-import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ProductoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
@@ -95,44 +89,44 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
         this.precio = precio;
     }
 
-    @Override
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "codigo,";
-        strColumns += "descripcion,";
-        strColumns += "existencias,";
-        strColumns += "precio";
-        return strColumns;
-    }
-
-    @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";        
-        strColumns += EncodingUtilHelper.quotate(codigo) + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion) + ",";
-        strColumns += existencias + ",";
-        strColumns += precio;
-        return strColumns;
-    }
-
-    @Override
-    public String toPairs() {
-        String strPairs = "";
-        strPairs += "codigo=" + EncodingUtilHelper.quotate(codigo) + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion) + ",";
-        strPairs += "existencias=" + existencias + ",";
-        strPairs += "precio=" + precio;
-        return strPairs;
-    }
-
-    @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setCodigo(oResultSet.getString("codigo"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        this.setExistencias(oResultSet.getInt("existencias"));
-        this.setPrecio(oResultSet.getInt("precio"));
-        return this;
-    }
+//    @Override
+//    public String getColumns() {
+//        String strColumns = "";
+//        strColumns += "codigo,";
+//        strColumns += "descripcion,";
+//        strColumns += "existencias,";
+//        strColumns += "precio";
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String getValues() {
+//        String strColumns = "";
+//        strColumns += id + ",";        
+//        strColumns += EncodingHelper.quotate(codigo) + ",";
+//        strColumns += EncodingHelper.quotate(descripcion) + ",";
+//        strColumns += existencias + ",";
+//        strColumns += precio;
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String toPairs() {
+//        String strPairs = "";
+//        strPairs += "codigo=" + EncodingHelper.quotate(codigo) + ",";
+//        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion) + ",";
+//        strPairs += "existencias=" + existencias + ",";
+//        strPairs += "precio=" + precio;
+//        return strPairs;
+//    }
+//
+//    @Override
+//    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+//        this.setCodigo(oResultSet.getString("codigo"));
+//        this.setDescripcion(oResultSet.getString("descripcion"));
+//        this.setExistencias(oResultSet.getInt("existencias"));
+//        this.setPrecio(oResultSet.getDouble("precio"));
+//        return this;
+//    }
 
 }

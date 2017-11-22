@@ -26,15 +26,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.service.specificimplementation;
+package eu.rafaelaznar.helper;
 
-import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
-import javax.servlet.http.HttpServletRequest;
+public class EnumHelper {
 
-public class ProductoSpecificServiceImplementation extends TableGenericServiceImplementation {
+    public static enum Environment {
+        Debug,
+        Production
+    };
 
-    public ProductoSpecificServiceImplementation(HttpServletRequest request) {
-        super(request);
-    }
+    public static enum FieldType {
+        Id,
+        String,
+        Integer,
+        Decimal,
+        Date,
+        Datetime,
+        Boolean
+    };
 
+    public static enum SourceType {
+        View,
+        Table
+    };
+        
 }

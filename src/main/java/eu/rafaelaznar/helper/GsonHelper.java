@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ *
+ * trolleyes-server3: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
- * 
- * trolleyes-server is distributed under the MIT License (MIT)
- * 
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
+ *
+ * trolleyes-server3 is distributed under the MIT License (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,32 +26,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean;
+package eu.rafaelaznar.helper;
 
-public class ReplyBean {
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-    private Integer code;
-    private String json;
+public class GsonHelper {
 
-    public ReplyBean(Integer code, String json) {
-        this.code = code;
-        this.json = json;
+    public static Gson getGson() throws Exception {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setDateFormat("dd/MM/yyyy HH:mm");
+        Gson oGson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
+        return oGson;
     }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getJson() {
-        return json;
-    }
-
-    public void setJson(String json) {
-        this.json = json;
-    }
-
 }

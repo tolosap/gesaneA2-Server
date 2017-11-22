@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,13 @@ package eu.rafaelaznar.bean.genericimplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
+import eu.rafaelaznar.factory.DaoFactory;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public abstract class ViewGenericBeanImplementation implements GenericBeanInterface {
 
@@ -40,10 +45,53 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
 
     }
 
-  
+    public static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+        if (type.getSuperclass() != null) {
+            getAllFields(fields, type.getSuperclass());
+        }
+        return fields;
+    }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws Exception {
+        ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
+        if (this.getClass().getSuperclass() == TableGenericBeanImplementation.class) {
+            Field x = this.getClass().getSuperclass().getDeclaredField("id");
+            x.setAccessible(true);
+            x.set(this, oResultSet.getInt("id"));
+            x.setAccessible(false);
+        }
+        Field[] oFields = oBean.getClass().getDeclaredFields();
+        for (Field x : oFields) {
+            x.setAccessible(true);
+            if (x.getName().startsWith("obj_")) {
+                if (expand > 0) {
+                    String ob = x.getName().substring(x.getName().indexOf("_") + 1);
+                    TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, null);
+                    TableGenericBeanImplementation oObBean = (TableGenericBeanImplementation) oObDao.get(oResultSet.getInt("id_" + ob), expand - 1);
+                    x.set(this, oObBean);
+                }
+            } else {
+                if (x.getName().startsWith("id_")) {
+                    x.set(this, oResultSet.getInt(x.getName()));
+                } else {
+                    if (x.getType() == String.class) {
+                        x.set(this, oResultSet.getString(x.getName()));
+                    }
+                    if (x.getType() == Date.class) {
+                        x.set(this, oResultSet.getDate(x.getName()));
+                    }
+                    if (x.getType() == Double.class) {
+                        x.set(this, oResultSet.getDouble(x.getName()));
+                    }
+                    if (x.getType() == Integer.class || x.getType() == int.class) {
+                        x.set(this, oResultSet.getInt(x.getName()));
+                    }
+                }
+            }
+            x.setAccessible(false);
+        }
+        return this;
     }
 }

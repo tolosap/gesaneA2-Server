@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,67 +31,64 @@ package eu.rafaelaznar.service.genericimplementation;
 import eu.rafaelaznar.service.publicinterface.ViewServiceInterface;
 import com.google.gson.Gson;
 import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
-import eu.rafaelaznar.bean.ReplyBean;
+import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.connection.ConnectionInterface;
-import eu.rafaelaznar.helper.AppConfigurationHelper;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
-import eu.rafaelaznar.helper.FilterBeanHelper;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
-import eu.rafaelaznar.helper.MappingDaoHelper;
-import eu.rafaelaznar.helper.ParameterCookHelper;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.helper.EncodingHelper;
+import eu.rafaelaznar.bean.helper.FilterBeanHelper;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
+import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.factory.DaoFactory;
+import eu.rafaelaznar.helper.ParameterHelper;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.dao.publicinterface.ViewDaoInterface;
+import eu.rafaelaznar.factory.ConnectionFactory;
+import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.helper.GsonHelper;
 
-public abstract class GenericViewService implements ViewServiceInterface {
+public abstract class ViewGenericServiceImplementation extends MetaGenericServiceImplementation implements ViewServiceInterface {
 
-    protected HttpServletRequest oRequest = null;
-    protected String ob = null;
-
-    public GenericViewService(HttpServletRequest request) {
-        oRequest = request;
-        ob = oRequest.getParameter("ob");
-    }
-
-    protected Boolean checkPermission(String strMethodName) {
-        UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
-        if (oUsuarioBean != null) {
-            return true;
-        } else {
-            return false;
-        }
+    public ViewGenericServiceImplementation(HttpServletRequest request) {
+        super(request);
     }
 
     /*
     * http://127.0.0.1:8081/trolleyes-server/json?ob=xxxxxx&op=getpage&np=1&rpp=10
      */
     @Override
-    public ReplyBean getPage() throws Exception {
+    public ReplyBeanHelper getPage() throws Exception {
         if (this.checkPermission("getpage")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
             String strOrder = oRequest.getParameter("order");
             String strFilter = oRequest.getParameter("filter");
-            LinkedHashMap<String, String> hmOrder = ParameterCookHelper.getOrderParams(strOrder);
-            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
+            LinkedHashMap<String, String> hmOrder = ParameterHelper.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterHelper.getFilterParams(strFilter);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
+            ReplyBeanHelper oReplyBean = null;
             ArrayList<ViewGenericBeanImplementation> aloBean = null;
             try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
                 oConnection = oPooledConnection.newConnection();
-                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
-                Gson oGson = AppConfigurationHelper.getGson();
-                String strJson = oGson.toJson(aloBean);
-                oReplyBean = new ReplyBean(200, strJson);
+                ViewDaoInterface oDao = (ViewDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                aloBean = oDao.getPage(rpp, np, hmOrder, alFilter, ConfigurationHelper.getJsonMsgDepth());
+
+                ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = oDao.getPropertiesMetaData();
+                MetaObjectGenericBeanHelper oMetaObject = oDao.getObjectMetaData();
+                MetaBeanHelper oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, aloBean);
+
+                String strJson = GsonHelper.getGson().toJson(oMetaBeanHelper);
+                oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
+                Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -103,7 +100,7 @@ public abstract class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
+            return new ReplyBeanHelper(401, EncodingHelper.quotate("Unauthorized"));
         }
     }
 
@@ -111,25 +108,25 @@ public abstract class GenericViewService implements ViewServiceInterface {
     * http://127.0.0.1:8081/trolleyes-server/json?ob=xxxxxxxx&op=getcount
      */
     @Override
-    public ReplyBean getCount() throws Exception {
+    public ReplyBeanHelper getCount() throws Exception {
         if (this.checkPermission("getcount")) {
             Long lResult;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
+            ReplyBeanHelper oReplyBean = null;
             String strFilter = oRequest.getParameter("filter");
-            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
+            ArrayList<FilterBeanHelper> alFilter = ParameterHelper.getFilterParams(strFilter);
             try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
                 oConnection = oPooledConnection.newConnection();
-                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                ViewDaoInterface oDao = (ViewDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
                 lResult = oDao.getCount(alFilter);
-                Gson oGson = AppConfigurationHelper.getGson();
+                Gson oGson = GsonHelper.getGson();
                 String strJson = oGson.toJson(lResult);
-                oReplyBean = new ReplyBean(200, strJson);
+                oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
+                Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -141,11 +138,11 @@ public abstract class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
+            return new ReplyBeanHelper(401, EncodingHelper.quotate("Unauthorized"));
         }
     }
 
-    public ReplyBean getPageX() throws Exception {
+    public ReplyBeanHelper getPageX() throws Exception {
         if (this.checkPermission("getpagex")) {
             int np = Integer.parseInt(oRequest.getParameter("np"));
             int rpp = Integer.parseInt(oRequest.getParameter("rpp"));
@@ -153,23 +150,23 @@ public abstract class GenericViewService implements ViewServiceInterface {
             String ob_foreign = oRequest.getParameter("ob_foreign");
             String strOrder = oRequest.getParameter("order");
             String strFilter = oRequest.getParameter("filter");
-            LinkedHashMap<String, String> hmOrder = ParameterCookHelper.getOrderParams(strOrder);
-            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
+            LinkedHashMap<String, String> hmOrder = ParameterHelper.getOrderParams(strOrder);
+            ArrayList<FilterBeanHelper> alFilter = ParameterHelper.getFilterParams(strFilter);
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
+            ReplyBeanHelper oReplyBean = null;
             ArrayList<UsuarioSpecificBeanImplementation> aloBean = null;
             try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
                 oConnection = oPooledConnection.newConnection();
-                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                aloBean = oDao.getPageX(id_foreign, ob_foreign, rpp, np, hmOrder, alFilter, AppConfigurationHelper.getJsonMsgDepth());
-                Gson oGson = AppConfigurationHelper.getGson();
+                ViewDaoInterface oDao = (ViewDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                aloBean = oDao.getPageX(id_foreign, ob_foreign, rpp, np, hmOrder, alFilter, ConfigurationHelper.getJsonMsgDepth());
+                Gson oGson = GsonHelper.getGson();
                 String strJson = oGson.toJson(aloBean);
-                oReplyBean = new ReplyBean(200, strJson);
+                oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
+                Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -181,32 +178,32 @@ public abstract class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
+            return new ReplyBeanHelper(401, EncodingHelper.quotate("Unauthorized"));
         }
     }
 
     @Override
-    public ReplyBean getCountX() throws Exception {
+    public ReplyBeanHelper getCountX() throws Exception {
         if (this.checkPermission("getcountx")) {
             Long lResult;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
-            ReplyBean oReplyBean = null;
+            ReplyBeanHelper oReplyBean = null;
             int id_foreign = Integer.parseInt(oRequest.getParameter("id_foreign"));
             String ob_foreign = oRequest.getParameter("ob_foreign");
             String strFilter = oRequest.getParameter("filter");
-            ArrayList<FilterBeanHelper> alFilter = ParameterCookHelper.getFilterParams(strFilter);
+            ArrayList<FilterBeanHelper> alFilter = ParameterHelper.getFilterParams(strFilter);
             try {
-                oPooledConnection = AppConfigurationHelper.getSourceConnection();
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
                 oConnection = oPooledConnection.newConnection();
-                ViewDaoInterface oDao = MappingDaoHelper.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                ViewDaoInterface oDao = (ViewDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
                 lResult = oDao.getCountX(id_foreign, ob_foreign, alFilter);
-                Gson oGson = AppConfigurationHelper.getGson();
+                Gson oGson = GsonHelper.getGson();
                 String strJson = oGson.toJson(lResult);
-                oReplyBean = new ReplyBean(200, strJson);
+                oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-                Log4jConfigurationHelper.errorLog(msg, ex);
+                Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
                 if (oConnection != null) {
@@ -218,7 +215,7 @@ public abstract class GenericViewService implements ViewServiceInterface {
             }
             return oReplyBean;
         } else {
-            return new ReplyBean(401, EncodingUtilHelper.quotate("Unauthorized"));
+            return new ReplyBeanHelper(401, EncodingHelper.quotate("Unauthorized"));
         }
     }
 

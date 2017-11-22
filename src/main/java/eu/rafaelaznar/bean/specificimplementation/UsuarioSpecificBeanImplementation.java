@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  *
- * trolleyes-server: Helps you to develop easily AJAX web applications
+ * trolleyes-server3: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  *
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,23 +29,59 @@
 package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
-import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
+import eu.rafaelaznar.helper.EnumHelper;
 import java.util.Date;
 
+@MetaObjectBeanInterface(
+        Name = "UsuarioSpecificBeanImplementation",        
+        TableName = "usuario",
+        Description = "Usuarios del sistema",
+        Icon = "fa-user",
+        SqlSelect = "SELECT * FROM usuario WHERE 1=1 ",
+        SqlSelectCount = "SELECT CONT(*) FROM usuario WHERE 1=1 ",
+        Type = EnumHelper.SourceType.Table
+)
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
+    @MetaPropertyBeanInterface(
+            IsId = false,
+            Name = "dni",
+            ShortName = "DNI",
+            LongName = "DNI",
+            Description = "Documento nacional de identidad",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true            
+    )
     private String dni;
+
     @Expose
+    @MetaPropertyBeanInterface(
+            IsId = false,
+            Name = "nombre",
+            ShortName = "Nombre",
+            LongName = "Nombre",
+            Description = "Nombre del usuario",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true            
+    )
     private String nombre;
-    @Expose
+    
+    @Expose    
+    @MetaPropertyBeanInterface(
+            IsId = false,
+            Name = "primer_apellido",
+            ShortName = "1er. Ap.",
+            LongName = "Primer Apellido",
+            Description = "Primer Apellido del usuario",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true            
+    )        
     private String primer_apellido;
+    
     @Expose
     private String segundo_apellido;
     @Expose
@@ -158,43 +194,28 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.obj_tipousuario = obj_tipousuario;
     }
 
-    @Override
-    public String toPairs() {
-        String strPairs = "";
-        strPairs += "dni=" + EncodingUtilHelper.quotate(dni) + ",";
-        strPairs += "nombre=" + EncodingUtilHelper.quotate(nombre) + ",";
-        strPairs += "primer_apellido=" + EncodingUtilHelper.quotate(primer_apellido) + ",";
-        strPairs += "segundo_apellido=" + EncodingUtilHelper.quotate(segundo_apellido) + ",";
-        strPairs += "login=" + EncodingUtilHelper.quotate(login) + ",";
-        strPairs += "email=" + EncodingUtilHelper.quotate(email) + ",";
-        strPairs += "fecha_nacimiento=" + EncodingUtilHelper.stringifyAndQuotate(fecha_nacimiento) + ",";
-        strPairs += "id_tipousuario=" + id_tipousuario;
-        return strPairs;
-    }
-
-    @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection,
-             UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setDni(oResultSet.getString("dni"));
-        this.setNombre(oResultSet.getString("nombre"));
-        this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
-        this.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
-        this.setLogin(oResultSet.getString("login"));
-        this.setPassword(oResultSet.getString("password"));
-        this.setEmail(oResultSet.getString("email"));
-        this.setFecha_nacimiento(oResultSet.getDate("fecha_nacimiento"));
-        this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
-        if (expand > 0) {
-            TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
-            TipousuarioSpecificDaoImplementation oTipousuarioDao = new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-            oTipousuarioBean = (TipousuarioSpecificBeanImplementation) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
-            this.setObj_tipousuario(oTipousuarioBean);
-        } else {
-            this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
-        }
-
-        return this;
-    }
-
+//    @Override
+//    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection,
+//             UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+//        this.setId(oResultSet.getInt("id"));
+//        this.setDni(oResultSet.getString("dni"));
+//        this.setNombre(oResultSet.getString("nombre"));
+//        this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
+//        this.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
+//        this.setLogin(oResultSet.getString("login"));
+//        this.setPassword(oResultSet.getString("password"));
+//        this.setEmail(oResultSet.getString("email"));
+//        this.setFecha_nacimiento(oResultSet.getDate("fecha_nacimiento"));
+//        this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
+//        if (expand > 0) {
+//            TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
+//            TipousuarioSpecificDaoImplementation oTipousuarioDao = new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
+//            oTipousuarioBean = (TipousuarioSpecificBeanImplementation) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
+//            this.setObj_tipousuario(oTipousuarioBean);
+//        } else {
+//            this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
+//        }
+//
+//        return this;
+//    }
 }

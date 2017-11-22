@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,40 +26,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.connection;
+package eu.rafaelaznar.connection.specificimplementation;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import eu.rafaelaznar.helper.ConnectionClassHelper;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class HikariConnection implements ConnectionInterface {
+public class DriverManagerConnection implements ConnectionInterface {
 
-    private HikariDataSource oConnectionPool = null;
-    private Connection oConnection = null;
+    private Connection oConnection;
 
     @Override
     public Connection newConnection() throws Exception {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(ConnectionClassHelper.getConnectionChain());
-        config.setUsername(ConnectionClassHelper.getDatabaseLogin());
-        config.setPassword(ConnectionClassHelper.getDatabasePassword());
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(5);
-        config.setLeakDetectionThreshold(15000);
-        config.setConnectionTestQuery("SELECT 1");
-        config.setConnectionTimeout(2000);
+        oConnection = null;
         try {
-            oConnectionPool = new HikariDataSource(config);
-            oConnection = oConnectionPool.getConnection();
-        } catch (SQLException ex) {
+            //Class.forName("com.mysql.jdbc.Driver");
+            String urlOdbc = ConnectionHelper.getConnectionChain();
+            oConnection = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionHelper.getDatabaseLogin(), ConnectionHelper.getDatabasePassword()));
+            return oConnection;
+        } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
-        return oConnection;
     }
 
     @Override
@@ -68,13 +59,11 @@ public class HikariConnection implements ConnectionInterface {
             if (oConnection != null) {
                 oConnection.close();
             }
-            if (oConnectionPool != null) {
-                oConnectionPool.close();
-            }
         } catch (SQLException ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
     }
+
 }

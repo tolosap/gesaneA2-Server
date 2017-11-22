@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,40 +26,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.connection.publicinterface;
 
-import org.apache.log4j.Logger;
+import java.sql.Connection;
 
-public class Log4jConfigurationHelper {
+public interface ConnectionInterface {
 
-    public static void infoLog(String strMessage) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.info(strMessage);
-    }
+    public Connection newConnection() throws Exception;
 
-    public static void errorLog(String strMessage) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.error(strMessage);
-    }
-
-    public static void errorLog(String strMessage, Exception ex) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.error(strMessage, ex);
-    }
-
-    public static void fatalLog(String strMessage) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.fatal(strMessage);
-    }
-
-    public static void debugLog(String strMessage) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.debug(strMessage);
-    }
-
-    public static void warnLog(String strMessage) {
-        Logger log = Logger.getLogger("trolleyes-server");
-        log.warn(strMessage);
-    }
-
+    public void disposeConnection() throws Exception;
 }

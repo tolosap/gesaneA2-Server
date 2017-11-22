@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  *
- * trolleyes-server: Helps you to develop easily AJAX web applications
+ * trolleyes-server3: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  *
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +30,8 @@ package eu.rafaelaznar.dao.genericimplementation;
 
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.helper.Log4jConfigurationHelper;
-import eu.rafaelaznar.helper.MappingBeanHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.factory.BeanFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +55,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oBean = (TableGenericBeanImplementation) MappingBeanHelper.getBean(ob);
+                oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
 
             } else {
@@ -63,7 +63,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oResultSet != null) {
@@ -103,7 +103,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             }
             if (iResult < 1) {
                 String msg = this.getClass().getName() + ": set";
-                Log4jConfigurationHelper.errorLog(msg);
+                Log4jHelper.errorLog(msg);
                 throw new Exception(msg);
             }
             if (insert) {
@@ -113,7 +113,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (insert) {
@@ -139,7 +139,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             iResult = oPreparedStatement.executeUpdate();
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
-            Log4jConfigurationHelper.errorLog(msg, ex);
+            Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
             if (oPreparedStatement != null) {

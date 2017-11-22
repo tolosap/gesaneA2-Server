@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
  * 
- * trolleyes-server: Helps you to develop easily AJAX web applications 
+ * trolleyes-server3: Helps you to develop easily AJAX web applications 
  *               by copying and modifying this Java Server.
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server
+ * Sources at https://github.com/rafaelaznar/trolleyes-server3
  * 
- * trolleyes-server is distributed under the MIT License (MIT)
+ * trolleyes-server3 is distributed under the MIT License (MIT)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,6 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
-import eu.rafaelaznar.helper.EncodingUtilHelper;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 
 public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
@@ -57,35 +52,35 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
         this.descripcion = descripcion;
     }
 
-    @Override
-    public String getColumns() {
-        String strColumns = "";
-        strColumns += "id,";
-        strColumns += "descripcion";
-        return strColumns;
-    }
+//    @Override
+//    public String getColumns() {
+//        String strColumns = "";
+//        strColumns += "id,";
+//        strColumns += "descripcion";
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String getValues() {
+//        String strColumns = "";
+//        strColumns += id + ",";
+//        strColumns += EncodingHelper.quotate(descripcion);
+//        return strColumns;
+//    }
+//
+//    @Override
+//    public String toPairs() {
+//        String strPairs = "";
+//        //strPairs += "id=" + id + ",";
+//        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion);
+//        return strPairs;
+//    }
 
-    @Override
-    public String getValues() {
-        String strColumns = "";
-        strColumns += id + ",";
-        strColumns += EncodingUtilHelper.quotate(descripcion);
-        return strColumns;
-    }
-
-    @Override
-    public String toPairs() {
-        String strPairs = "";
-        //strPairs += "id=" + id + ",";
-        strPairs += "descripcion=" + EncodingUtilHelper.quotate(descripcion);
-        return strPairs;
-    }
-
-    @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-        this.setId(oResultSet.getInt("id"));
-        this.setDescripcion(oResultSet.getString("descripcion"));
-        return this;
-    }
+//    @Override
+//    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
+//        this.setId(oResultSet.getInt("id"));
+//        this.setDescripcion(oResultSet.getString("descripcion"));
+//        return this;
+//    }
 
 }
