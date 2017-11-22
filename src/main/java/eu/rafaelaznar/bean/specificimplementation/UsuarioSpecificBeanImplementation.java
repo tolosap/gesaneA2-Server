@@ -41,7 +41,7 @@ import java.util.Date;
         Description = "Usuarios del sistema",
         Icon = "fa-user",
         SqlSelect = "SELECT * FROM usuario WHERE 1=1 ",
-        SqlSelectCount = "SELECT CONT(*) FROM usuario WHERE 1=1 ",
+        SqlSelectCount = "SELECT COUNT(*) FROM usuario WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table
 )
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
@@ -54,7 +54,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             LongName = "DNI",
             Description = "Documento nacional de identidad",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true            
+            IsRequired = true      
     )
     private String dni;
 
