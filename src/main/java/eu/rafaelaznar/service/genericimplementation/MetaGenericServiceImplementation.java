@@ -64,9 +64,8 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
         if (this.checkPermission("getObjectMetaData")) {
             String data = null;
             try {
-                MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                Gson oGson = GsonHelper.getGson();
-                String strJson = oGson.toJson(oDao.getObjectMetaData());
+                MetaDaoInterface oDao = DaoFactory.getDao( ob, null, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);                
+                String strJson = GsonHelper.getGson().toJson(oDao.getObjectMetaData());
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
@@ -86,8 +85,7 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
             String data = null;
             try {
                 MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                Gson oGson = GsonHelper.getGson();
-                String strJson = oGson.toJson(oDao.getPropertiesMetaData());
+                String strJson = GsonHelper.getGson().toJson(oDao.getPropertiesMetaData());
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

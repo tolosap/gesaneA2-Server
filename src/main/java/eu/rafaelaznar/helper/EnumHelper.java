@@ -39,10 +39,11 @@ public class EnumHelper {
         Id,
         String,
         Integer,
-        Decimal,
+        Double,
         Date,
         Datetime,
-        Boolean
+        Boolean,
+        Object
     };
 
     public static enum SourceType {
