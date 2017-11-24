@@ -132,8 +132,8 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
             Class classBean = oBean.getClass();
             Class superClassBean = oBean.getClass().getSuperclass();
+            alVector = fillPropertiesMetaData(superClassBean, alVector);            
             alVector = fillPropertiesMetaData(classBean, alVector);
-            alVector = fillPropertiesMetaData(superClassBean, alVector);
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4jHelper.errorLog(msg, ex);
