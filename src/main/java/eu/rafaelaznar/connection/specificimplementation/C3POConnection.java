@@ -30,7 +30,7 @@ package eu.rafaelaznar.connection.specificimplementation;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -46,9 +46,9 @@ public class C3POConnection implements ConnectionInterface {
         try {
             connectionPool = new ComboPooledDataSource();
             connectionPool.setDriverClass("com.mysql.jdbc.Driver");
-            connectionPool.setJdbcUrl(ConnectionHelper.getConnectionChain());
-            connectionPool.setUser(ConnectionHelper.getDatabaseLogin());
-            connectionPool.setPassword(ConnectionHelper.getDatabasePassword());
+            connectionPool.setJdbcUrl(ConnectionConstants.getConnectionChain());
+            connectionPool.setUser(ConnectionConstants.databaseLogin);
+            connectionPool.setPassword(ConnectionConstants.databasePassword);
             connectionPool.setMaxStatements(180);
             oConnection = connectionPool.getConnection();
         } catch (PropertyVetoException | SQLException ex) {

@@ -29,7 +29,7 @@
 package eu.rafaelaznar.connection.specificimplementation;
 
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -48,9 +48,9 @@ public class ViburConnection implements ConnectionInterface {
 
             dataSource = new ViburDBCPDataSource();
 
-            dataSource.setJdbcUrl(ConnectionHelper.getConnectionChain());
-            dataSource.setUsername(ConnectionHelper.getDatabaseLogin());
-            dataSource.setPassword(ConnectionHelper.getDatabasePassword());
+            dataSource.setJdbcUrl(ConnectionConstants.getConnectionChain());
+            dataSource.setUsername(ConnectionConstants.databaseLogin);
+            dataSource.setPassword(ConnectionConstants.databasePassword);
 
             dataSource.setPoolInitialSize(10);
             dataSource.setPoolMaxSize(100);

@@ -33,26 +33,25 @@ import eu.rafaelaznar.helper.EnumHelper;
 
 public class MetaObjectGenericBeanHelper {
 
-    @Expose
-    private String Name = "";
+    private String ClassName = "";
     @Expose
     private String Icon = "";
     @Expose
     private String Description = "";
     @Expose
     private EnumHelper.SourceType Type = EnumHelper.SourceType.Table;
-
+    @Expose
     private String TableName = "";
 
     private String SqlSelect = "";
     private String SqlSelectCount = "";
 
-    public String getName() {
-        return Name;
+    public String getClassName() {
+        return ClassName;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setClassName(String CName) {
+        this.ClassName = CName;
     }
 
     public String getIcon() {
@@ -102,7 +101,5 @@ public class MetaObjectGenericBeanHelper {
     public void setSqlSelectCount(String SqlSelectCount) {
         this.SqlSelectCount = SqlSelectCount;
     }
-
-   
 
 }

@@ -28,13 +28,13 @@
  */
 package eu.rafaelaznar.dao.specificimplementation;
 
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import java.sql.Connection;
 
 public class LineadepedidoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public LineadepedidoSpecificDaoImplementation(Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+    public LineadepedidoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("linea_pedido", oPooledConnection, oPuserBean_security, strWhere);
     }
 

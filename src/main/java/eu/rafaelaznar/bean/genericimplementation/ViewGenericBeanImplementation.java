@@ -28,6 +28,7 @@
  */
 package eu.rafaelaznar.bean.genericimplementation;
 
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -54,7 +55,7 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
     }
 
     @Override
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws Exception {
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, MetaBeanHelper oPuserBean_security, Integer expand) throws Exception {
         ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
         if (this.getClass().getSuperclass() == TableGenericBeanImplementation.class) {
             Field x = this.getClass().getSuperclass().getDeclaredField("id");
@@ -69,8 +70,8 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
                 if (expand > 0) {
                     String ob = x.getName().substring(x.getName().indexOf("_") + 1);
                     TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, null);
-                    TableGenericBeanImplementation oObBean = (TableGenericBeanImplementation) oObDao.get(oResultSet.getInt("id_" + ob), expand - 1);
-                    x.set(this, oObBean);
+                    MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oObDao.get(oResultSet.getInt("id_" + ob), expand - 1);
+                    x.set(this, oMetaBeanHelper);
                 }
             } else {
                 if (x.getName().startsWith("id_")) {

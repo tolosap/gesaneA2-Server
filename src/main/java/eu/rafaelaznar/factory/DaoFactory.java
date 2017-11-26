@@ -28,6 +28,7 @@
  */
 package eu.rafaelaznar.factory;
 
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
@@ -39,7 +40,7 @@ import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementati
 
 public class DaoFactory {
 
-    public static MetaDaoInterface getDao(String ob, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) throws Exception {
+    public static MetaDaoInterface getDao(String ob, Connection oConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         MetaDaoInterface oDao = null;
 
         switch (ob) {

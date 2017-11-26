@@ -33,11 +33,9 @@ import com.google.gson.Gson;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
-import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
-import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.dao.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.BeanFactory;
 import eu.rafaelaznar.factory.DaoFactory;
@@ -46,9 +44,8 @@ import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
 import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.GsonHelper;
-import java.util.ArrayList;
 
 public abstract class TableGenericServiceImplementation extends ViewGenericServiceImplementation implements TableServiceInterface {
 
@@ -67,17 +64,14 @@ public abstract class TableGenericServiceImplementation extends ViewGenericServi
             ConnectionInterface oPooledConnection = null;
             ReplyBeanHelper oReplyBean = null;
             try {
-                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                 oConnection = oPooledConnection.newConnection();
-                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) oDao.get(id, ConfigurationHelper.getJsonMsgDepth());
-                ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = oDao.getPropertiesMetaData();
-                MetaObjectGenericBeanHelper oMetaObject = oDao.getObjectMetaData();
-                MetaBeanHelper oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
+                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oDao.get(id, ConfigurationConstants.jsonMsgDepth);
                 String strJson = GsonHelper.getGson().toJson(oMetaBeanHelper);
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                 Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
@@ -112,14 +106,14 @@ public abstract class TableGenericServiceImplementation extends ViewGenericServi
             }
             int iResult = 0;
             try {
-                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                 oConnection = oPooledConnection.newConnection();
-                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                 iResult = oDao.set(oBean);
                 String strJson = oGson.toJson(iResult);
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                 Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {
@@ -148,15 +142,15 @@ public abstract class TableGenericServiceImplementation extends ViewGenericServi
             ConnectionInterface oPooledConnection = null;
             ReplyBeanHelper oReplyBean = null;
             try {
-                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                 oConnection = oPooledConnection.newConnection();
-                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                TableDaoInterface oDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                 iResult = oDao.remove(id);
                 Gson oGson = GsonHelper.getGson();
                 String strJson = oGson.toJson(iResult);
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                 Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             } finally {

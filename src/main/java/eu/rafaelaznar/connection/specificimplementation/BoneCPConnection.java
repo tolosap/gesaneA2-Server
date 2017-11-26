@@ -31,7 +31,7 @@ package eu.rafaelaznar.connection.specificimplementation;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -45,9 +45,9 @@ public class BoneCPConnection implements ConnectionInterface {
     public Connection newConnection() throws Exception {
         try {
             BoneCPConfig config = new BoneCPConfig();
-            config.setJdbcUrl(ConnectionHelper.getConnectionChain());
-            config.setUsername(ConnectionHelper.getDatabaseLogin());
-            config.setPassword(ConnectionHelper.getDatabasePassword());
+            config.setJdbcUrl(ConnectionConstants.getConnectionChain());
+            config.setUsername(ConnectionConstants.databaseLogin);
+            config.setPassword(ConnectionConstants.databasePassword);
             config.setMinConnectionsPerPartition(1);
             config.setMaxConnectionsPerPartition(3);
             config.setPartitionCount(1);

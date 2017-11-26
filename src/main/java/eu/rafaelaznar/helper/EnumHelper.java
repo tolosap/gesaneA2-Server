@@ -44,7 +44,7 @@ public class EnumHelper {
         Datetime,
         Boolean,
         ForeignId,
-        Object
+        ForeignObject
     };
 
     public static enum SourceType {

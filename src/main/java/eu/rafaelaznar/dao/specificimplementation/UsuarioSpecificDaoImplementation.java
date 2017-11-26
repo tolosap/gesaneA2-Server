@@ -28,9 +28,10 @@
  */
 package eu.rafaelaznar.dao.specificimplementation;
 
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.dao.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,26 +39,27 @@ import java.sql.ResultSet;
 
 public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public UsuarioSpecificDaoImplementation(Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+    public UsuarioSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("usuario", oPooledConnection, oPuserBean_security, strWhere);
     }
 
-    public UsuarioSpecificBeanImplementation getFromLoginAndPass(UsuarioSpecificBeanImplementation oUsuarioBean) throws Exception {
+    public MetaBeanHelper getFromLoginAndPass(UsuarioSpecificBeanImplementation oUsuarioBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-
+        MetaBeanHelper oMetaBeanHelper = null;
         strSQL += " AND login='" + oUsuarioBean.getLogin() + "'";
         strSQL += " AND password='" + oUsuarioBean.getPassword() + "'";
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
-                oUsuarioBean.fill(oResultSet, oConnection, oPuserSecurity, ConfigurationHelper.getJsonMsgDepth());
+                oUsuarioBean.setId(oResultSet.getInt("id"));
+                oMetaBeanHelper = this.get(oUsuarioBean.getId(), ConfigurationConstants.jsonMsgDepth);
             } else {
                 throw new Exception("UsuarioDao getFromLoginAndPass error");
             }
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
@@ -68,7 +70,7 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
                 oPreparedStatement.close();
             }
         }
-        return oUsuarioBean;
+        return oMetaBeanHelper;
     }
 
 }

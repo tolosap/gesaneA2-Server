@@ -29,7 +29,7 @@
 package eu.rafaelaznar.connection.specificimplementation;
 
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -45,9 +45,9 @@ public class DBCPConnection implements ConnectionInterface {
         try {
             dataSource = new BasicDataSource();
             dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            dataSource.setUsername(ConnectionHelper.getDatabaseLogin());
-            dataSource.setPassword(ConnectionHelper.getDatabasePassword());
-            dataSource.setUrl(ConnectionHelper.getConnectionChain());
+            dataSource.setUsername(ConnectionConstants.databaseLogin);
+            dataSource.setPassword(ConnectionConstants.databasePassword);
+            dataSource.setUrl(ConnectionConstants.getConnectionChain());
             dataSource.setValidationQuery("select 1");
             dataSource.setMaxActive(100);
             dataSource.setMaxWait(10000);

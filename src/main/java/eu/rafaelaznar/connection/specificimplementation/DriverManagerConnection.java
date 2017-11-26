@@ -29,7 +29,7 @@
 package eu.rafaelaznar.connection.specificimplementation;
 
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -43,8 +43,8 @@ public class DriverManagerConnection implements ConnectionInterface {
         oConnection = null;
         try {
             //Class.forName("com.mysql.jdbc.Driver");
-            String urlOdbc = ConnectionHelper.getConnectionChain();
-            oConnection = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionHelper.getDatabaseLogin(), ConnectionHelper.getDatabasePassword()));
+            String urlOdbc = ConnectionConstants.getConnectionChain();
+            oConnection = (java.sql.DriverManager.getConnection(urlOdbc, ConnectionConstants.databaseLogin, ConnectionConstants.databasePassword));
             return oConnection;
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

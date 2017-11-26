@@ -31,8 +31,8 @@ package eu.rafaelaznar.control;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.helper.ConnectionHelper;
-import eu.rafaelaznar.helper.ConfigurationHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
+import eu.rafaelaznar.dao.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.ServiceFactory;
 import eu.rafaelaznar.helper.EnumHelper.Environment;
@@ -70,8 +70,8 @@ public class JsonController extends HttpServlet {
             } catch (Exception ex) {
                 oReplyBean = new ReplyBeanHelper(500, "Database Connection Error: Please contact your administrator");
             }
-            if (ConfigurationHelper.getEnvironment() == Environment.Debug) {
-                Controllerdelay(ConfigurationHelper.getDelay());
+            if (ConfigurationConstants.environment == Environment.Debug) {
+                Controllerdelay(ConfigurationConstants.programDalay);
             }
             String ob = prepareCamelCaseObject(request);
             String op = request.getParameter("op");
@@ -84,13 +84,13 @@ public class JsonController extends HttpServlet {
                 out.println("<head><title>Trolleyes server</title><link rel=\"shortcut icon\" href=\"favicon.ico\" type=\"image/x-icon\"></head>");
                 out.println("<body style=\"background: url(trolleyes500.png) no-repeat center center fixed;\">");
                 out.println("<h1>Welcome to trolleyes server</h1><h2>Servlet controller json listening at " + InetAddress.getLocalHost().getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "</h2>");
-                out.println("version: " + ConfigurationHelper.getVersion() + " (" + ConfigurationHelper.getDate() + ")" + "<br>");
-                out.println("author: " + ConfigurationHelper.getAuthor() + " (" + ConfigurationHelper.getAuthorMail() + ")" + "<br>");
-                out.println("license: " + ConfigurationHelper.getLinkLicense() + "<br>");
-                out.println("sources: " + ConfigurationHelper.getSources() + "<br>");
+                out.println("version: " + ConfigurationConstants.version + " (" + ConfigurationConstants.versionDate + ")" + "<br>");
+                out.println("author: " + ConfigurationConstants.author + " (" + ConfigurationConstants.authorMail + ")" + "<br>");
+                out.println("license: " + ConfigurationConstants.licenseLink+ "<br>");
+                out.println("sources: " + ConfigurationConstants.sources + "<br>");
 
                 try {
-                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                     oConnection = oPooledConnection.newConnection();
                     out.print("<h3>Database Connection OK</h3>");
                 } catch (Exception ex) {
@@ -115,7 +115,7 @@ public class JsonController extends HttpServlet {
                 try {
                     oReplyBean = (ReplyBeanHelper) ServiceFactory.executeMethodService(request);
                 } catch (Exception ex) {
-                    if (ConfigurationHelper.getEnvironment() == Environment.Debug) {
+                    if (ConfigurationConstants.environment == Environment.Debug) {
                         out.println(ex);
                         ex.printStackTrace(out);
                     } else {

@@ -29,6 +29,9 @@
 package eu.rafaelaznar.dao.genericimplementation;
 
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
+import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.BeanFactory;
@@ -37,19 +40,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
+import java.util.ArrayList;
 
-public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplementation implements TableDaoInterface<TableGenericBeanImplementation> {
+public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplementation implements TableDaoInterface {
 
-    public TableGenericDaoImplementation(String ob, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+    public TableGenericDaoImplementation(String ob, Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super(ob, oPooledConnection, oPuserBean_security, strWhere);
     }
 
     @Override
-    public TableGenericBeanImplementation get(int id, int intExpand) throws Exception {
+    public MetaBeanHelper get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         strSQL += " AND id=? ";
         TableGenericBeanImplementation oBean = null;
+        MetaBeanHelper oMetaBeanHelper = null;
         try {
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
@@ -57,12 +62,14 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             if (oResultSet.next()) {
                 oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
-
+                ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
+                MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
+                oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
             } else {
                 oBean = null;
             }
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
@@ -74,7 +81,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             }
 
         }
-        return oBean;
+        return oMetaBeanHelper;
     }
 
     @Override
@@ -112,7 +119,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
                 iResult = oResultSet.getInt(1);
             }
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {
@@ -138,7 +145,7 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             oPreparedStatement.setInt(1, id);
             iResult = oPreparedStatement.executeUpdate();
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         } finally {

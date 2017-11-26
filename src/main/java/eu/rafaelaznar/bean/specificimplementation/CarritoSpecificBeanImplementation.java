@@ -30,6 +30,7 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 
 public class CarritoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
@@ -39,7 +40,7 @@ public class CarritoSpecificBeanImplementation extends TableGenericBeanImplement
     @Expose(serialize = false)
     private Integer id_producto = 0;
     @Expose(deserialize = false)
-    private ProductoSpecificBeanImplementation obj_producto = null;
+    private MetaBeanHelper obj_producto = null;
 
     public CarritoSpecificBeanImplementation() {
     }
@@ -60,11 +61,11 @@ public class CarritoSpecificBeanImplementation extends TableGenericBeanImplement
         this.id_producto = id_producto;
     }
 
-    public ProductoSpecificBeanImplementation getObj_producto() {
+    public MetaBeanHelper getObj_producto() {
         return obj_producto;
     }
 
-    public void setObj_producto(ProductoSpecificBeanImplementation obj_producto) {
+    public void setObj_producto(MetaBeanHelper obj_producto) {
         this.obj_producto = obj_producto;
     }
 

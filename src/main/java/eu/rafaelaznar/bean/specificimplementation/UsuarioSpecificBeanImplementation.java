@@ -31,16 +31,16 @@ package eu.rafaelaznar.bean.specificimplementation;
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
-import eu.rafaelaznar.helper.RegexHelper;
+import eu.rafaelaznar.dao.constant.RegexConstants;
 import java.util.Date;
 
 @MetaObjectBeanInterface(
-        Name = "UsuarioSpecificBeanImplementation",
         TableName = "usuario",
         Description = "Usuarios del sistema",
-        Icon = "fa-user",
+        Icon = "fa fa-user",
         SqlSelect = "SELECT * FROM usuario WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM usuario WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table
@@ -54,8 +54,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Documento nacional de identidad",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.dni,
-            RegexHelp = RegexHelper.dni_Help
+            RegexPattern = RegexConstants.dni,
+            RegexHelp = RegexConstants.dni_Help
     )
     private String dni;
 
@@ -66,8 +66,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Nombre del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.capitalizedName,
-            RegexHelp = RegexHelper.capitalizedName_Help,
+            RegexPattern = RegexConstants.capitalizedName,
+            RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true
     )
     private String nombre;
@@ -79,8 +79,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Primer Apellido del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.capitalizedName,
-            RegexHelp = RegexHelper.capitalizedName_Help,
+            RegexPattern = RegexConstants.capitalizedName,
+            RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true
     )
     private String primer_apellido;
@@ -92,8 +92,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Segundo Apellido del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.capitalizedName,
-            RegexHelp = RegexHelper.capitalizedName_Help,
+            RegexPattern = RegexConstants.capitalizedName,
+            RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true
     )
     private String segundo_apellido;
@@ -105,8 +105,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Login para entrar en el sistema",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.nameWithEndingNumbers,
-            RegexHelp = RegexHelper.nameWithEndingNumbers_Help
+            RegexPattern = RegexConstants.nameWithEndingNumbers,
+            RegexHelp = RegexConstants.nameWithEndingNumbers_Help
     )
     private String login;
 
@@ -120,8 +120,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Correo electrónico del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.email,
-            RegexHelp = RegexHelper.email_Help
+            RegexPattern = RegexConstants.email,
+            RegexHelp = RegexConstants.email_Help
     )
     private String email;
 
@@ -144,10 +144,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             ShortName = "Tipo",
             LongName = "Tipo usuario",
             Description = "Tipo de usuario",
-            Type = EnumHelper.FieldType.String,
+            Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true
     )
-    private TipousuarioSpecificBeanImplementation obj_tipousuario = null;
+    private MetaBeanHelper obj_tipousuario = null;
 
     public UsuarioSpecificBeanImplementation() {
 
@@ -229,11 +229,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public TipousuarioSpecificBeanImplementation getObj_tipousuario() {
+    public MetaBeanHelper getObj_tipousuario() {
         return obj_tipousuario;
     }
 
-    public void setObj_tipousuario(TipousuarioSpecificBeanImplementation obj_tipousuario) {
+    public void setObj_tipousuario(MetaBeanHelper obj_tipousuario) {
         this.obj_tipousuario = obj_tipousuario;
     }
 

@@ -28,7 +28,7 @@
  */
 package eu.rafaelaznar.bean.publicinterface;
 
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
@@ -40,6 +40,6 @@ public interface GenericBeanInterface {
 
     public String toPairs() throws Exception;
 
-    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws Exception;
+    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, MetaBeanHelper oPuserBean_security, Integer expand) throws Exception;
 
 }

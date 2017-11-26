@@ -28,11 +28,12 @@
  */
 package eu.rafaelaznar.dao.publicinterface;
 
-import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 
-public interface TableDaoInterface<TableGenericBeanImplementation> extends ViewDaoInterface<ViewGenericBeanImplementation> {
+public interface TableDaoInterface extends ViewDaoInterface {
 
-    public TableGenericBeanImplementation get(int id, int intExpand) throws Exception;
+    public MetaBeanHelper get(int id, int intExpand) throws Exception;
 
     public Integer set(TableGenericBeanImplementation oBean) throws Exception;
 

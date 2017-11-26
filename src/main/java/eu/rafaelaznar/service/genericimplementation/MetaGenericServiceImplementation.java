@@ -28,9 +28,8 @@
  */
 package eu.rafaelaznar.service.genericimplementation;
 
-import com.google.gson.Gson;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.GsonHelper;
@@ -50,7 +49,7 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
     }
 
     protected Boolean checkPermission(String strMethodName) {
-        UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
+        MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             return true;
         } else {
@@ -64,11 +63,11 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
         if (this.checkPermission("getObjectMetaData")) {
             String data = null;
             try {
-                MetaDaoInterface oDao = DaoFactory.getDao( ob, null, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);                
+                MetaDaoInterface oDao = DaoFactory.getDao( ob, null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);                
                 String strJson = GsonHelper.getGson().toJson(oDao.getObjectMetaData());
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                 Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             }
@@ -84,11 +83,11 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
         if (this.checkPermission("getPropertiesMetaData")) {
             String data = null;
             try {
-                MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                 String strJson = GsonHelper.getGson().toJson(oDao.getPropertiesMetaData());
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
-                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                 Log4jHelper.errorLog(msg, ex);
                 throw new Exception(msg, ex);
             }

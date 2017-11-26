@@ -31,7 +31,7 @@ package eu.rafaelaznar.connection.specificimplementation;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,9 +44,9 @@ public class HikariConnection implements ConnectionInterface {
     @Override
     public Connection newConnection() throws Exception {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(ConnectionHelper.getConnectionChain());
-        config.setUsername(ConnectionHelper.getDatabaseLogin());
-        config.setPassword(ConnectionHelper.getDatabasePassword());
+        config.setJdbcUrl(ConnectionConstants.getConnectionChain());
+        config.setUsername(ConnectionConstants.databaseLogin);
+        config.setPassword(ConnectionConstants.databasePassword);
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(5);
         config.setLeakDetectionThreshold(15000);

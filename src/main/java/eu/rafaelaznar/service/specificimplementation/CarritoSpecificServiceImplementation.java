@@ -1,23 +1,23 @@
 /*
  * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server3: Helps you to develop easily AJAX web applications 
+ *
+ * trolleyes-server3: Helps you to develop easily AJAX web applications
  *               by copying and modifying this Java Server.
  *
  * Sources at https://github.com/rafaelaznar/trolleyes-server3
- * 
+ *
  * trolleyes-server3 is distributed under the MIT License (MIT)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,6 +29,7 @@
 package eu.rafaelaznar.service.specificimplementation;
 
 import com.google.gson.Gson;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.CarritoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.LineadepedidoSpecificBeanImplementation;
@@ -40,8 +41,8 @@ import eu.rafaelaznar.dao.specificimplementation.LineadepedidoSpecificDaoImpleme
 import eu.rafaelaznar.dao.specificimplementation.PedidoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.helper.ConfigurationHelper;
-import eu.rafaelaznar.helper.ConnectionHelper;
+import eu.rafaelaznar.dao.constant.ConfigurationConstants;
+import eu.rafaelaznar.dao.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
@@ -59,7 +60,7 @@ public class CarritoSpecificServiceImplementation {
     }
 
     private Boolean checkPermission(String strMethodName) throws Exception {
-        UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
+        MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             return true;
         } else {
@@ -72,7 +73,8 @@ public class CarritoSpecificServiceImplementation {
             Iterator<CarritoSpecificBeanImplementation> iterator = alCarrito.iterator();
             while (iterator.hasNext()) {
                 CarritoSpecificBeanImplementation oCarritoBean = iterator.next();
-                if (oCarritoBean.getObj_producto().getId() == id) {
+                ProductoSpecificBeanImplementation oProducto = (ProductoSpecificBeanImplementation) oCarritoBean.getObj_producto().getBean();
+                if (oProducto.getId() == id) {
                     return oCarritoBean;
                 }
             }
@@ -97,14 +99,15 @@ public class CarritoSpecificServiceImplementation {
                 oCarritoBeanEnCarrito.setCantidad(oCarritoBeanEnCarrito.getCantidad() + cantidad);
             } else {
                 try {
-                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                     oConnection = oPooledConnection.newConnection();
                     CarritoSpecificBeanImplementation oCarritoBean = new CarritoSpecificBeanImplementation();
                     oCarritoBean.setCantidad(cantidad);
-                    ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                    ProductoSpecificBeanImplementation oProductoBeanAdd = (ProductoSpecificBeanImplementation) oProductoDao.get(id, ConfigurationHelper.getJsonMsgDepth());
+                    ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                    MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oProductoDao.get(id, ConfigurationConstants.jsonMsgDepth);
+                    ProductoSpecificBeanImplementation oProductoBeanAdd = (ProductoSpecificBeanImplementation) oMetaBeanHelper.getBean();
                     oCarritoBean.setId_producto(oProductoBeanAdd.getId());
-                    oCarritoBean.setObj_producto(oProductoBeanAdd);
+                    oCarritoBean.setObj_producto(oMetaBeanHelper);
                     alCarrito.add(oCarritoBean);
                 } catch (Exception ex) {
                     String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
@@ -114,12 +117,12 @@ public class CarritoSpecificServiceImplementation {
                     if (oConnection != null) {
                         oConnection.close();
                     }
-                    if (ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName()) != null) {
-                        ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName()).disposeConnection();
+                    if (ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName) != null) {
+                        ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName).disposeConnection();
                     }
                 }
             }
-            oRequest.getSession().setAttribute("carrito",alCarrito);            
+            oRequest.getSession().setAttribute("carrito", alCarrito);
             oReplyBean = new ReplyBeanHelper(200, GsonHelper.getGson().toJson(alCarrito));
             return oReplyBean;
         } else {
@@ -159,33 +162,34 @@ public class CarritoSpecificServiceImplementation {
     public ReplyBeanHelper buy() throws Exception {
         if (this.checkPermission("buy")) {
             ArrayList<CarritoSpecificBeanImplementation> alCarrito = (ArrayList) oRequest.getSession().getAttribute("carrito");
-            UsuarioSpecificBeanImplementation oUsuarioBean = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user");
+            MetaBeanHelper oUsuarioBeanConMetaDatos = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
             ReplyBeanHelper oReplyBean = null;
             Connection oConnection = null;
             ConnectionInterface oPooledConnection = null;
             try {
-                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName());
+                oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
                 oConnection = oPooledConnection.newConnection();
                 if (alCarrito != null && alCarrito.size() > 0) {
                     oConnection.setAutoCommit(false);
                     PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation();
-                    oPedidoBean.setId_usuario(oUsuarioBean.getId());
+                    oPedidoBean.setId_usuario(((UsuarioSpecificBeanImplementation) oUsuarioBeanConMetaDatos.getBean()).getId());
                     oPedidoBean.setFecha(Calendar.getInstance().getTime());
-                    PedidoSpecificDaoImplementation oPedidoDao = new PedidoSpecificDaoImplementation(oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
+                    PedidoSpecificDaoImplementation oPedidoDao = new PedidoSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                     oPedidoBean.setId(oPedidoDao.set(oPedidoBean));
-                    //--                              
                     Iterator<CarritoSpecificBeanImplementation> iterator = alCarrito.iterator();
                     while (iterator.hasNext()) {
                         CarritoSpecificBeanImplementation oCarritoBean = iterator.next();
-                        ProductoSpecificBeanImplementation oProductoBeanDeCarrito = oCarritoBean.getObj_producto();
-                        ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute("user"), null);
-                        ProductoSpecificBeanImplementation oProductoBeanDeDB = (ProductoSpecificBeanImplementation) oProductoDao.get(oProductoBeanDeCarrito.getId(), ConfigurationHelper.getJsonMsgDepth());
+                        MetaBeanHelper oProductoBeanDeCarritoConMetaDatos = oCarritoBean.getObj_producto();
+                        ProductoSpecificBeanImplementation oProductoBeanDeCarrito = (ProductoSpecificBeanImplementation) oProductoBeanDeCarritoConMetaDatos.getBean();
+                        ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                        MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oProductoDao.get(oProductoBeanDeCarrito.getId(), ConfigurationConstants.jsonMsgDepth);
+                        ProductoSpecificBeanImplementation oProductoBeanDeDB = (ProductoSpecificBeanImplementation) oMetaBeanHelper.getBean();
                         if (oProductoBeanDeDB.getExistencias() > oCarritoBean.getCantidad()) {
                             LineadepedidoSpecificBeanImplementation oLineadepedidoBean = new LineadepedidoSpecificBeanImplementation();
                             oLineadepedidoBean.setCantidad(oCarritoBean.getCantidad());
                             oLineadepedidoBean.setId_pedido(oPedidoBean.getId());
                             oLineadepedidoBean.setId_producto(oProductoBeanDeCarrito.getId());
-                            LineadepedidoSpecificDaoImplementation oLineadepedidoDao = new LineadepedidoSpecificDaoImplementation(oConnection, oUsuarioBean, null);
+                            LineadepedidoSpecificDaoImplementation oLineadepedidoDao = new LineadepedidoSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                             oLineadepedidoBean.setId(oLineadepedidoDao.set(oLineadepedidoBean));
                             oProductoBeanDeCarrito.setExistencias(oProductoBeanDeCarrito.getExistencias() - oCarritoBean.getCantidad());
                             oProductoDao.set(oProductoBeanDeCarrito);
@@ -194,7 +198,6 @@ public class CarritoSpecificServiceImplementation {
                     alCarrito.clear();
                     oConnection.commit();
                 }
-
             } catch (Exception ex) {
                 oConnection.rollback();
                 String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
@@ -204,8 +207,8 @@ public class CarritoSpecificServiceImplementation {
                 if (oConnection != null) {
                     oConnection.close();
                 }
-                if (ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName()) != null) {
-                    ConnectionFactory.getSourceConnection(ConnectionHelper.getSourceConnectionName()).disposeConnection();
+                if (ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName) != null) {
+                    ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName).disposeConnection();
                 }
             }
             return oReplyBean = new ReplyBeanHelper(200, "Compra realizada correctamente");

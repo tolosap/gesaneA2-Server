@@ -30,10 +30,19 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
-import eu.rafaelaznar.helper.RegexHelper;
+import eu.rafaelaznar.dao.constant.RegexConstants;
 
+@MetaObjectBeanInterface(
+        TableName = "tipousuario",
+        Description = "Tipo de usuario",
+        Icon = "fa fa-user-o",
+        SqlSelect = "SELECT * FROM tipousuario WHERE 1=1 ",
+        SqlSelectCount = "SELECT COUNT(*) FROM tipousuario WHERE 1=1 ",
+        Type = EnumHelper.SourceType.Table
+)
 public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
@@ -43,8 +52,8 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
             Description = "Tipo de usuario dentro del sistema",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexHelper.capitalizedSentence,
-            RegexHelp = RegexHelper.capitalizedSentence_Help,
+            RegexPattern = RegexConstants.capitalizedSentence,
+            RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true
     )
     private String descripcion;

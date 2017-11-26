@@ -39,8 +39,6 @@ import java.lang.annotation.Target;
 
 public @interface MetaObjectBeanInterface {
 
-    public String Name() default "";
-
     public String Icon() default "fa-question-circle";
 
     public EnumHelper.SourceType Type() default EnumHelper.SourceType.Table;

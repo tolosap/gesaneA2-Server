@@ -30,6 +30,7 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 
 
 
@@ -42,12 +43,12 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     @Expose(serialize = false)
     private Integer id_pedido = 0;
     @Expose(deserialize = false)
-    private PedidoSpecificBeanImplementation obj_pedido = null;
+    private MetaBeanHelper obj_pedido = null;
 
     @Expose(serialize = false)
     private Integer id_producto = 0;
     @Expose(deserialize = false)
-    private ProductoSpecificBeanImplementation obj_producto = null;
+    private MetaBeanHelper obj_producto = null;
 
     public LineadepedidoSpecificBeanImplementation() {
     }
@@ -82,11 +83,11 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.id_pedido = id_pedido;
     }
 
-    public PedidoSpecificBeanImplementation getObj_pedido() {
+    public MetaBeanHelper getObj_pedido() {
         return obj_pedido;
     }
 
-    public void setObj_pedido(PedidoSpecificBeanImplementation obj_pedido) {
+    public void setObj_pedido(MetaBeanHelper obj_pedido) {
         this.obj_pedido = obj_pedido;
     }
 
@@ -98,68 +99,12 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
         this.id_producto = id_producto;
     }
 
-    public ProductoSpecificBeanImplementation getObj_producto() {
+    public MetaBeanHelper getObj_producto() {
         return obj_producto;
     }
 
-    public void setObj_producto(ProductoSpecificBeanImplementation obj_producto) {
+    public void setObj_producto(MetaBeanHelper obj_producto) {
         this.obj_producto = obj_producto;
     }
-
-//    @Override
-//    public String getColumns() {
-//        String strColumns = "";
-//        strColumns += "id,";
-//        strColumns += "cantidad,";
-//        strColumns += "id_pedido,";
-//        strColumns += "id_producto";
-//        return strColumns;
-//    }
-//
-//    @Override
-//    public String getValues() {
-//        String strColumns = "";
-//        strColumns += id + ",";
-//        strColumns += cantidad + ",";
-//        strColumns += id_pedido + ",";
-//        strColumns += id_producto;
-//        return strColumns;
-//    }
-//
-//    @Override
-//    public String toPairs() {
-//        String strPairs = "";
-//        strPairs += "cantidad=" + cantidad + ",";
-//        strPairs += "id_pedido=" + id_pedido + ",";
-//        strPairs += "id_producto=" + id_producto;
-//        return strPairs;
-//    }
-//
-//    @Override
-//    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-//        this.setId(oResultSet.getInt("id"));
-//        this.setCantidad(oResultSet.getInt("cantidad"));
-//        this.setId_pedido(oResultSet.getInt("id_pedido"));
-//        this.setId_producto(oResultSet.getInt("id_producto"));
-//        if (expand > 0) {
-//            PedidoSpecificBeanImplementation oPedidoBean = new PedidoSpecificBeanImplementation();
-//            PedidoSpecificDaoImplementation oPedidoDao = new PedidoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-//            oPedidoBean = (PedidoSpecificBeanImplementation) oPedidoDao.get(oResultSet.getInt("id_pedido"), expand - 1);
-//            this.setObj_pedido(oPedidoBean);
-//        } else {
-//            this.setId_pedido(oResultSet.getInt("id_pedido"));
-//        }
-//
-//        if (expand > 0) {
-//            ProductoSpecificBeanImplementation oProductoBean = new ProductoSpecificBeanImplementation();
-//            ProductoSpecificDaoImplementation oProductoDao = new ProductoSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-//            oProductoBean = (ProductoSpecificBeanImplementation) oProductoDao.get(oResultSet.getInt("id_producto"), expand - 1);
-//            this.setObj_producto(oProductoBean);
-//        } else {
-//            this.setId_pedido(oResultSet.getInt("id_producto"));
-//        }
-//
-//        return this;
-//    }
-
+    
 }

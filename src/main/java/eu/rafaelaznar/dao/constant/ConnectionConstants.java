@@ -26,45 +26,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.dao.constant;
 
-import eu.rafaelaznar.helper.EnumHelper.Environment;
+public class ConnectionConstants {
 
-public class ConfigurationHelper {
+    public static final String connectionName = "hikari";
+    public static final String databaseName = "trolleyes";
+    public static final String databaseLogin = "root";
+    public static final String databasePassword = "bitnami";
+    public static final String databasePort = "3306";
+    public static final String databaseIP = "127.0.0.1";
+    
 
-    public static int getJsonMsgDepth() {
-        return 1;
+    public static String getConnectionChain() {
+        return "jdbc:mysql://" + ConnectionConstants.databaseIP + ":" + ConnectionConstants.databasePort + "/" + ConnectionConstants.databaseName;
     }
 
-    public static Environment getEnvironment() {
-        return Environment.Debug;
-    }
-
-    public static String getVersion() {
-        return "03.01";
-    }
-
-    public static String getDate() {
-        return "22/11/2017";
-    }
-
-    public static String getAuthor() {
-        return "Rafael Aznar";
-    }
-
-    public static String getSources() {
-        return "https://github.com/rafaelaznar/trolleyes-server3";
-    }
-
-    public static String getAuthorMail() {
-        return "rafaaznar{at}gmail{dot}com";
-    }
-
-    public static String getLinkLicense() {
-        return "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
-    }
-
-    public static int getDelay() {
-        return 0;
-    }
 }

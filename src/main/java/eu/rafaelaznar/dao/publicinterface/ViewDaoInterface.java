@@ -29,16 +29,17 @@
 package eu.rafaelaznar.dao.publicinterface;
 
 import eu.rafaelaznar.bean.helper.FilterBeanHelper;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-public interface ViewDaoInterface<ViewGenericBeanImplementation> extends MetaDaoInterface {
+public interface ViewDaoInterface extends MetaDaoInterface {
 
     public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception;
 
-    public ArrayList<ViewGenericBeanImplementation> getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public MetaBeanHelper getPage(int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
 
-    public ArrayList<ViewGenericBeanImplementation> getPageX(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
+    public MetaBeanHelper getPageX(int id_foreign, String ob_foreign, int intRegsPerPag, int intPage, LinkedHashMap<String, String> hmOrder, ArrayList<FilterBeanHelper> alFilter, int expand) throws Exception;
 
     public Long getCountX(int id_foreign, String ob_foreign, ArrayList<FilterBeanHelper> alFilter) throws Exception;
 

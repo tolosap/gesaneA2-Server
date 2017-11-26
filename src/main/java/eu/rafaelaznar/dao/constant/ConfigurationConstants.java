@@ -26,19 +26,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper;
+package eu.rafaelaznar.dao.constant;
 
-public class RegexHelper {
+import eu.rafaelaznar.helper.EnumHelper.Environment;
 
-    public static final String dni = "/^[0-9]{8,8}[A-Z]$/";
-    public static final String dni_Help = "ocho dígitos y una letra mayúscula";    
-    public static final String capitalizedName = "/^([A-Z]{1}[a-zñáéíóúàèò]+[\\s]*)+$/";
-    public static final String capitalizedName_Help = "una o varias palabras que todas comienzan en mayúcula";    
-    public static final String nameWithEndingNumbers = "/^[a-z][a-z0-9]+$/";
-    public static final String nameWithEndingNumbers_Help = "un texto en minúsculas que puede acabar en dígitos";
-    public static final String email = "/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{2,5}$/"; // see \\ is \    
-    public static final String email_Help = "un email válido"; // see \\ is \    
-    public static final String capitalizedSentence = "/^[A-Z]([^\\s]*\\s?)+$/";
-    public static final String capitalizedSentence_Help = "una frase que comienza en mayúscula";
+public class ConfigurationConstants {
 
+    public static final int jsonMsgDepth = 1;
+    public static final Environment environment = Environment.Debug;
+    public static final String version = "03.01";
+    public static final String versionDate = "26/11/2017";
+    public static final String author = "Rafael Aznar";
+    public static final String authorMail =  "rafaaznar{at}gmail{dot}com";
+    public static final String sources = "https://github.com/rafaelaznar/trolleyes-server3";
+    public static final String licenseLink = "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
+    public static final int programDalay = 0;
+   
 }

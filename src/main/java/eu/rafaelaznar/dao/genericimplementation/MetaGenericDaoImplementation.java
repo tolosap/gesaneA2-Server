@@ -30,8 +30,8 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
 import eu.rafaelaznar.bean.genericimplementation.ViewGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.BeanFactory;
@@ -48,18 +48,30 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
 
     protected String strCountSQL = null;
     protected Connection oConnection = null;
-    protected UsuarioSpecificBeanImplementation oPuserSecurity = null;
+    protected MetaBeanHelper oPuserSecurity = null;
 
-    public MetaGenericDaoImplementation(String obj, Connection oPooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, String strWhere) {
+    public MetaGenericDaoImplementation(String obj, Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
         ob = obj;
-        strSQL = "select * from " + ob + " WHERE 1=1 ";
-        strCountSQL = "select COUNT(*) from " + ob + " WHERE 1=1 ";
-        if (strWhere != null) {
-            strSQL += strWhere + " ";
-            strCountSQL += strWhere + " ";
-        }
+
+        MetaObjectGenericBeanHelper oMetaObject;
+        try {
+            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
+            Class oClassBEAN = oBean.getClass();
+            oMetaObject = new MetaObjectGenericBeanHelper();
+            oMetaObject = fillObjectMetaData(oClassBEAN, oMetaObject);
+            strSQL = oMetaObject.getSqlSelect();
+            strCountSQL = oMetaObject.getSqlSelectCount();
+            if (strWhere != null) {
+                strSQL += strWhere + " ";
+                strCountSQL += strWhere + " ";
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        }      
     }
 
     private ArrayList<MetaPropertyGenericBeanHelper> fillPropertiesMetaData(Class oClassBEAN, ArrayList<MetaPropertyGenericBeanHelper> alVector) {
@@ -81,7 +93,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
                     oMeta.setType(fieldAnnotation.Type());
                     oMeta.setIsRequired(fieldAnnotation.IsRequired());
                     oMeta.setRegexPattern(fieldAnnotation.RegexPattern());
-                    oMeta.setRegexHelp(fieldAnnotation.RegexHelp());                    
+                    oMeta.setRegexHelp(fieldAnnotation.RegexHelp());
                     oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
                     oMeta.setIsVisible(fieldAnnotation.IsVisible());
                     alVector.add(oMeta);
@@ -96,7 +108,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
         for (Integer i = 0; i < classAnnotations.length; i++) {
             if (classAnnotations[i].annotationType().equals(MetaObjectBeanInterface.class)) {
                 MetaObjectBeanInterface fieldAnnotation = (MetaObjectBeanInterface) classAnnotations[i];
-                oMetaObject.setName(oClassBEAN.getName());
+                oMetaObject.setClassName(oClassBEAN.getName());
                 oMetaObject.setDescription(fieldAnnotation.Description());
                 oMetaObject.setIcon(fieldAnnotation.Icon());
                 oMetaObject.setTableName(fieldAnnotation.TableName());
@@ -117,7 +129,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             oMetaObject = new MetaObjectGenericBeanHelper();
             oMetaObject = fillObjectMetaData(oClassBEAN, oMetaObject);
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
@@ -134,7 +146,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             alVector = fillPropertiesMetaData(superClassBean, alVector);
             alVector = fillPropertiesMetaData(classBean, alVector);
         } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
         }
