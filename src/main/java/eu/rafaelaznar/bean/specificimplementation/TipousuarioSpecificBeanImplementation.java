@@ -30,10 +30,23 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
+import eu.rafaelaznar.helper.EnumHelper;
+import eu.rafaelaznar.helper.RegexHelper;
 
 public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "Tipo",
+            LongName = "Tipo de usuario",
+            Description = "Tipo de usuario dentro del sistema",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexHelper.capitalizedSentence,
+            RegexHelp = RegexHelper.capitalizedSentence_Help,
+            IsForeignKeyDescriptor = true
+    )
     private String descripcion;
 
     public TipousuarioSpecificBeanImplementation() {
@@ -51,36 +64,5 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-//    @Override
-//    public String getColumns() {
-//        String strColumns = "";
-//        strColumns += "id,";
-//        strColumns += "descripcion";
-//        return strColumns;
-//    }
-//
-//    @Override
-//    public String getValues() {
-//        String strColumns = "";
-//        strColumns += id + ",";
-//        strColumns += EncodingHelper.quotate(descripcion);
-//        return strColumns;
-//    }
-//
-//    @Override
-//    public String toPairs() {
-//        String strPairs = "";
-//        //strPairs += "id=" + id + ",";
-//        strPairs += "descripcion=" + EncodingHelper.quotate(descripcion);
-//        return strPairs;
-//    }
-
-//    @Override
-//    public GenericBeanInterface fill(ResultSet oResultSet, Connection pooledConnection, UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-//        this.setId(oResultSet.getInt("id"));
-//        this.setDescripcion(oResultSet.getString("descripcion"));
-//        return this;
-//    }
 
 }

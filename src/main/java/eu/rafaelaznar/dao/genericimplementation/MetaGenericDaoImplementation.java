@@ -68,24 +68,23 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             for (Integer i = 0; i < fieldAnnotations.length; i++) {
                 if (fieldAnnotations[i].annotationType().equals(MetaPropertyBeanInterface.class)) {
                     MetaPropertyBeanInterface fieldAnnotation = (MetaPropertyBeanInterface) fieldAnnotations[i];
-                    if (!fieldAnnotation.IsIdForeignKey()) {
-                        MetaPropertyGenericBeanHelper oMeta = new MetaPropertyGenericBeanHelper();
-                        oMeta.setName(fieldAnnotation.Name());
-                        oMeta.setShortName(fieldAnnotation.ShortName());
-                        oMeta.setLongName(fieldAnnotation.LongName());
-                        oMeta.setDescription(fieldAnnotation.Description());
-                        oMeta.setIsId(fieldAnnotation.IsId());
-                        oMeta.setIsIdForeignKey(fieldAnnotation.IsIdForeignKey());
-                        oMeta.setIsObjForeignKey(fieldAnnotation.IsObjForeignKey());
-                        oMeta.setReferences(fieldAnnotation.References());
-                        oMeta.setIsForeignKeyDescriptor(fieldAnnotation.IsForeignKeyDescriptor());
-                        oMeta.setType(fieldAnnotation.Type());
-                        oMeta.setIsRequired(fieldAnnotation.IsRequired());
-                        oMeta.setRegexPattern(fieldAnnotation.RegexPattern());
-                        oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
-                        oMeta.setIsVisible(fieldAnnotation.IsVisible());                       
-                        alVector.add(oMeta);
-                    }
+                    MetaPropertyGenericBeanHelper oMeta = new MetaPropertyGenericBeanHelper();
+                    oMeta.setName(field.getName());
+                    oMeta.setShortName(fieldAnnotation.ShortName());
+                    oMeta.setLongName(fieldAnnotation.LongName());
+                    oMeta.setDescription(fieldAnnotation.Description());
+                    oMeta.setIsId(field.getName() == "id");
+                    oMeta.setIsIdForeignKey(field.getName().startsWith("id_"));
+                    oMeta.setIsObjForeignKey(field.getName().startsWith("obj_"));
+                    oMeta.setReferences(fieldAnnotation.References());
+                    oMeta.setIsForeignKeyDescriptor(fieldAnnotation.IsForeignKeyDescriptor());
+                    oMeta.setType(fieldAnnotation.Type());
+                    oMeta.setIsRequired(fieldAnnotation.IsRequired());
+                    oMeta.setRegexPattern(fieldAnnotation.RegexPattern());
+                    oMeta.setRegexHelp(fieldAnnotation.RegexHelp());                    
+                    oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
+                    oMeta.setIsVisible(fieldAnnotation.IsVisible());
+                    alVector.add(oMeta);
                 }
             }
         }
@@ -97,7 +96,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
         for (Integer i = 0; i < classAnnotations.length; i++) {
             if (classAnnotations[i].annotationType().equals(MetaObjectBeanInterface.class)) {
                 MetaObjectBeanInterface fieldAnnotation = (MetaObjectBeanInterface) classAnnotations[i];
-                oMetaObject.setName(fieldAnnotation.Name());
+                oMetaObject.setName(oClassBEAN.getName());
                 oMetaObject.setDescription(fieldAnnotation.Description());
                 oMetaObject.setIcon(fieldAnnotation.Icon());
                 oMetaObject.setTableName(fieldAnnotation.TableName());
@@ -132,7 +131,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
             Class classBean = oBean.getClass();
             Class superClassBean = oBean.getClass().getSuperclass();
-            alVector = fillPropertiesMetaData(superClassBean, alVector);            
+            alVector = fillPropertiesMetaData(superClassBean, alVector);
             alVector = fillPropertiesMetaData(classBean, alVector);
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();

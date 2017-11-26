@@ -39,10 +39,11 @@ public class EnumHelper {
         Id,
         String,
         Integer,
-        Double,
+        Decimal,
         Date,
         Datetime,
         Boolean,
+        ForeignId,
         Object
     };
 

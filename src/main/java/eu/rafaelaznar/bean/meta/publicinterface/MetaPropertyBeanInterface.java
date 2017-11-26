@@ -39,19 +39,11 @@ import java.lang.annotation.Target;
 
 public @interface MetaPropertyBeanInterface {
 
-    public String Name() default "";
-
     public String ShortName() default "";
 
     public String LongName() default "";
 
     public String Description() default "";
-
-    public boolean IsId() default false;
-
-    public boolean IsIdForeignKey() default false;
-
-    public boolean IsObjForeignKey() default false;
 
     public String References() default "";
 
@@ -63,8 +55,10 @@ public @interface MetaPropertyBeanInterface {
 
     public String RegexPattern() default "";
 
+    public String RegexHelp() default "";
+
     public String DefaultValue() default "";
 
     public boolean IsVisible() default true;
-           
+
 }

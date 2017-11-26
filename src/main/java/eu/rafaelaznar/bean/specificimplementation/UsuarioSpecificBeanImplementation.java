@@ -33,10 +33,11 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
+import eu.rafaelaznar.helper.RegexHelper;
 import java.util.Date;
 
 @MetaObjectBeanInterface(
-        Name = "UsuarioSpecificBeanImplementation",        
+        Name = "UsuarioSpecificBeanImplementation",
         TableName = "usuario",
         Description = "Usuarios del sistema",
         Icon = "fa-user",
@@ -48,54 +49,104 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
 
     @Expose
     @MetaPropertyBeanInterface(
-            IsId = false,
-            Name = "dni",
             ShortName = "DNI",
             LongName = "DNI",
             Description = "Documento nacional de identidad",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true      
+            IsRequired = true,
+            RegexPattern = RegexHelper.dni,
+            RegexHelp = RegexHelper.dni_Help
     )
     private String dni;
 
     @Expose
     @MetaPropertyBeanInterface(
-            IsId = false,
-            Name = "nombre",
             ShortName = "Nombre",
             LongName = "Nombre",
             Description = "Nombre del usuario",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true            
+            IsRequired = true,
+            RegexPattern = RegexHelper.capitalizedName,
+            RegexHelp = RegexHelper.capitalizedName_Help,
+            IsForeignKeyDescriptor = true
     )
     private String nombre;
-    
-    @Expose    
+
+    @Expose
     @MetaPropertyBeanInterface(
-            IsId = false,
-            Name = "primer_apellido",
             ShortName = "1er. Ap.",
             LongName = "Primer Apellido",
             Description = "Primer Apellido del usuario",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true            
-    )        
+            IsRequired = true,
+            RegexPattern = RegexHelper.capitalizedName,
+            RegexHelp = RegexHelper.capitalizedName_Help,
+            IsForeignKeyDescriptor = true
+    )
     private String primer_apellido;
-    
+
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "2º Ap.",
+            LongName = "Segundo Apellido",
+            Description = "Segundo Apellido del usuario",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexHelper.capitalizedName,
+            RegexHelp = RegexHelper.capitalizedName_Help,
+            IsForeignKeyDescriptor = true
+    )
     private String segundo_apellido;
+
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "login",
+            LongName = "Login",
+            Description = "Login para entrar en el sistema",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexHelper.nameWithEndingNumbers,
+            RegexHelp = RegexHelper.nameWithEndingNumbers_Help
+    )
     private String login;
+
     @Expose(serialize = false)
     private String password;
+
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "email",
+            LongName = "Correo electrónico",
+            Description = "Correo electrónico del usuario",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexHelper.email,
+            RegexHelp = RegexHelper.email_Help
+    )
     private String email;
+
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "F.nacimiento",
+            LongName = "Fecha de nacimiento",
+            Description = "Fecha de nacimiento del usuario",
+            Type = EnumHelper.FieldType.Date,
+            IsRequired = true,
+            IsVisible = false
+    )
     private Date fecha_nacimiento;
 
     @Expose(serialize = false)
     private Integer id_tipousuario = 0;
+
     @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Tipo",
+            LongName = "Tipo usuario",
+            Description = "Tipo de usuario",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true
+    )
     private TipousuarioSpecificBeanImplementation obj_tipousuario = null;
 
     public UsuarioSpecificBeanImplementation() {
@@ -103,14 +154,6 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     }
 
     public UsuarioSpecificBeanImplementation(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -194,28 +237,4 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.obj_tipousuario = obj_tipousuario;
     }
 
-//    @Override
-//    public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection,
-//             UsuarioSpecificBeanImplementation oPuserBean_security, Integer expand) throws SQLException, Exception {
-//        this.setId(oResultSet.getInt("id"));
-//        this.setDni(oResultSet.getString("dni"));
-//        this.setNombre(oResultSet.getString("nombre"));
-//        this.setPrimer_apellido(oResultSet.getString("primer_apellido"));
-//        this.setSegundo_apellido(oResultSet.getString("segundo_apellido"));
-//        this.setLogin(oResultSet.getString("login"));
-//        this.setPassword(oResultSet.getString("password"));
-//        this.setEmail(oResultSet.getString("email"));
-//        this.setFecha_nacimiento(oResultSet.getDate("fecha_nacimiento"));
-//        this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
-//        if (expand > 0) {
-//            TipousuarioSpecificBeanImplementation oTipousuarioBean = new TipousuarioSpecificBeanImplementation();
-//            TipousuarioSpecificDaoImplementation oTipousuarioDao = new TipousuarioSpecificDaoImplementation(oConnection, oPuserBean_security, null);
-//            oTipousuarioBean = (TipousuarioSpecificBeanImplementation) oTipousuarioDao.get(oResultSet.getInt("id_tipousuario"), expand - 1);
-//            this.setObj_tipousuario(oTipousuarioBean);
-//        } else {
-//            this.setId_tipousuario(oResultSet.getInt("id_tipousuario"));
-//        }
-//
-//        return this;
-//    }
 }

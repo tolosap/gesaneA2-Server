@@ -41,8 +41,6 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
 
     @Expose
     @MetaPropertyBeanInterface(
-            IsId = true,
-            Name = "id",
             ShortName = "ID",
             LongName = "Identificador",
             Description = "Número Identificador de registro",

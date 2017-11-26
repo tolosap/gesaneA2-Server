@@ -58,6 +58,8 @@ public class MetaPropertyGenericBeanHelper {
     @Expose
     private String RegexPattern = "";
     @Expose
+    private String RegexHelp = "";
+    @Expose
     private String DefaultValue = "";
     @Expose
     private boolean IsVisible = true;
@@ -156,6 +158,14 @@ public class MetaPropertyGenericBeanHelper {
 
     public void setRegexPattern(String RegexPattern) {
         this.RegexPattern = RegexPattern;
+    }
+
+    public String getRegexHelp() {
+        return RegexHelp;
+    }
+
+    public void setRegexHelp(String RegexHelp) {
+        this.RegexHelp = RegexHelp;
     }
 
     public String getDefaultValue() {
