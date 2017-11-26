@@ -145,7 +145,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             LongName = "Tipo usuario",
             Description = "Tipo de usuario",
             Type = EnumHelper.FieldType.ForeignObject,
-            IsRequired = true
+            IsRequired = true,
+            References = "tipousuario"
     )
     private MetaBeanHelper obj_tipousuario = null;
 
