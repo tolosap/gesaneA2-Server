@@ -72,7 +72,7 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
             TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
-                if (!x.getName().startsWith("obj_")) {
+                if (!x.getName().startsWith("obj_") && !x.getName().startsWith("link_")) {
                     strColumns += x.getName() + ",";
                 }
             }
@@ -92,7 +92,7 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
             TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
-                if (!x.getName().startsWith("obj_")) {
+                if (!x.getName().startsWith("obj_") && !x.getName().startsWith("link_")) {
                     if (x.getName().equals("password")) {
                         strColumns += EncodingHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ", ";
                     } else {
@@ -136,7 +136,7 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
             TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
-                if (!x.getName().startsWith("obj_")) {
+                if (!x.getName().startsWith("obj_") && !x.getName().startsWith("link_")) {
                     if (!x.getName().equals("password")) {
                         strColumns += x.getName() + "=";
                         x.setAccessible(true);
@@ -151,6 +151,10 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
                                 } else {
                                     if (x.getType() == Double.class) {
                                         strColumns += (Double) x.get(this) + ",";
+                                    } else {
+                                        if (x.getType() == Boolean.class) {
+                                            strColumns += (int) x.get(this) + ",";
+                                        }
                                     }
                                 }
                             }

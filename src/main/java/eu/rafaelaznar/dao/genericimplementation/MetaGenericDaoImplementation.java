@@ -64,8 +64,8 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             strSQL = oMetaObject.getSqlSelect();
             strCountSQL = oMetaObject.getSqlSelectCount();
             if (strWhere != null) {
-                strSQL += strWhere + " ";
-                strCountSQL += strWhere + " ";
+                strSQL += " " + strWhere + " ";
+                strCountSQL += " " + strWhere + " ";
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;

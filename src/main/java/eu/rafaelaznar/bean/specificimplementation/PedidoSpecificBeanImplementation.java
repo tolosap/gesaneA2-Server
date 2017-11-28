@@ -31,21 +31,64 @@ package eu.rafaelaznar.bean.specificimplementation;
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
+import eu.rafaelaznar.dao.constant.RegexConstants;
+import eu.rafaelaznar.helper.EnumHelper;
 import java.util.Date;
 
+@MetaObjectBeanInterface(
+        TableName = "pedido",
+        Description = "Pedidos de usuarios",
+        Icon = "fa fa-user",
+        SqlSelect = "SELECT * FROM pedido WHERE 1=1 ",
+        SqlSelectCount = "SELECT COUNT(*) FROM pedido WHERE 1=1 ",
+        Type = EnumHelper.SourceType.Table
+)
 public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "Fecha",
+            LongName = "Fecha del pedido",
+            Description = "Fecha de pedido del usuario",
+            Type = EnumHelper.FieldType.Date,
+            IsRequired = true
+    )
     private Date fecha;
-    @Expose
-    private int iva;
-    @Expose
-    private int tiene_iva;
 
-    //---
+    @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "%IVA",
+            LongName = "Porcentaje IVA",
+            Description = "Impuesto del valor añadido IVA",
+            Type = EnumHelper.FieldType.Integer,
+            IsRequired = true
+    )
+    private Integer iva;
+
+    @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "¿IVA?",
+            LongName = "¿Lleva IVA?",
+            Description = "¿Lleva IVA?",
+            Type = EnumHelper.FieldType.Boolean,
+            IsRequired = true
+    )
+    private Integer tiene_iva;
+
     @Expose(serialize = false)
     private Integer id_usuario = 0;
+
     @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Cliente",
+            LongName = "Cliente que realiza el pedido",
+            Description = "Cliente que realiza el pedido",
+            Type = EnumHelper.FieldType.ForeignObject,
+            IsRequired = true,
+            References = "usuario"
+    )
     private MetaBeanHelper obj_usuario = null;
 
     public PedidoSpecificBeanImplementation() {

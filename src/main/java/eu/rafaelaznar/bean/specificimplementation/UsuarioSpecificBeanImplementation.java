@@ -150,6 +150,16 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private MetaBeanHelper obj_tipousuario = null;
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Pedidos",
+            LongName = "Pedidos",
+            Description = "Pedidos del usuario",
+            Type = EnumHelper.FieldType.Link,
+            References = "pedido"
+    )
+    private Integer link_pedido = null;
+
     public UsuarioSpecificBeanImplementation() {
 
     }
