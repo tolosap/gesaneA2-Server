@@ -87,7 +87,8 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
             Description = "Cliente que realiza el pedido",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
-            References = "usuario"
+            References = "usuario",
+            IsVisible = false
     )
     private MetaBeanHelper obj_usuario = null;
 
