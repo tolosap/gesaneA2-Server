@@ -33,7 +33,6 @@ import com.google.gson.Gson;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
-import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.dao.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
