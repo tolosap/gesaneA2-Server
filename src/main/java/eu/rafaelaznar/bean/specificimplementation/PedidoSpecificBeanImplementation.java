@@ -40,7 +40,7 @@ import java.util.Date;
 @MetaObjectBeanInterface(
         TableName = "pedido",
         Description = "Pedidos de usuarios",
-        Icon = "fa fa-user",
+        Icon = "fa fa-list-ol",
         SqlSelect = "SELECT * FROM pedido WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM pedido WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table

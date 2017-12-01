@@ -30,6 +30,7 @@ package eu.rafaelaznar.factory;
 
 import eu.rafaelaznar.connection.specificimplementation.C3POConnection;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.connection.specificimplementation.BoneCPConnection;
 import eu.rafaelaznar.connection.specificimplementation.DBCPConnection;
 import eu.rafaelaznar.connection.specificimplementation.DriverManagerConnection;
 import eu.rafaelaznar.connection.specificimplementation.HikariConnection;
@@ -54,6 +55,9 @@ public class ConnectionFactory {
                 break;
             case "driver":
                 oDataConnectionSource = new DriverManagerConnection();
+                break;
+            case "bone":
+                oDataConnectionSource = new BoneCPConnection();
                 break;
             default:
                 break;
