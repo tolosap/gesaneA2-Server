@@ -36,7 +36,6 @@ import eu.rafaelaznar.bean.specificimplementation.LineadepedidoSpecificBeanImple
 import eu.rafaelaznar.bean.specificimplementation.PedidoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ProductoSpecificBeanImplementation;
 
-
 public class BeanFactory {
 
     public static GenericBeanInterface getBean(String ob) {

@@ -69,6 +69,4 @@ public class CarritoSpecificBeanImplementation extends TableGenericBeanImplement
         this.obj_producto = obj_producto;
     }
 
-
-
 }

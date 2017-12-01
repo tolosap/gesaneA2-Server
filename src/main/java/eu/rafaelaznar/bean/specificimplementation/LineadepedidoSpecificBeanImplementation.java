@@ -32,9 +32,6 @@ import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 
-
-
-
 public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
@@ -106,5 +103,5 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
     public void setObj_producto(MetaBeanHelper obj_producto) {
         this.obj_producto = obj_producto;
     }
-    
+
 }

@@ -37,9 +37,9 @@ public class ConfigurationConstants {
     public static final String version = "03.01";
     public static final String versionDate = "26/11/2017";
     public static final String author = "Rafael Aznar";
-    public static final String authorMail =  "rafaaznar{at}gmail{dot}com";
+    public static final String authorMail = "rafaaznar{at}gmail{dot}com";
     public static final String sources = "https://github.com/rafaelaznar/trolleyes-server3";
     public static final String licenseLink = "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
     public static final int programDalay = 0;
-   
+
 }

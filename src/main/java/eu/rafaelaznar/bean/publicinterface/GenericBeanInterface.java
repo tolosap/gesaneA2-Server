@@ -33,7 +33,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 public interface GenericBeanInterface {
-    
+
     public String getColumns() throws Exception;
 
     public String getValues() throws Exception;

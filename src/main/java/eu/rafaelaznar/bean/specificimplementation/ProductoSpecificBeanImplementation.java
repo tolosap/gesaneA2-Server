@@ -48,7 +48,7 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
     public ProductoSpecificBeanImplementation(Integer id) {
         super(id);
     }
-        
+
     public Integer getId() {
         return id;
     }
@@ -128,5 +128,4 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
 //        this.setPrecio(oResultSet.getDouble("precio"));
 //        return this;
 //    }
-
 }

@@ -52,5 +52,5 @@ public class EnumHelper {
         View,
         Table
     };
-        
+
 }

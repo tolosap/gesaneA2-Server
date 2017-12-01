@@ -71,7 +71,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);
-        }      
+        }
     }
 
     private ArrayList<MetaPropertyGenericBeanHelper> fillPropertiesMetaData(Class oClassBEAN, ArrayList<MetaPropertyGenericBeanHelper> alVector) {

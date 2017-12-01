@@ -63,7 +63,7 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
         if (this.checkPermission("getObjectMetaData")) {
             String data = null;
             try {
-                MetaDaoInterface oDao = DaoFactory.getDao( ob, null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);                
+                MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
                 String strJson = GsonHelper.getGson().toJson(oDao.getObjectMetaData());
                 oReplyBean = new ReplyBeanHelper(200, strJson);
             } catch (Exception ex) {
