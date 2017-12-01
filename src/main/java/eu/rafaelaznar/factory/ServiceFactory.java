@@ -36,6 +36,7 @@ import eu.rafaelaznar.service.specificimplementation.PedidoSpecificServiceImplem
 import eu.rafaelaznar.service.specificimplementation.ProductoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 public class ServiceFactory {
@@ -45,9 +46,31 @@ public class ServiceFactory {
         String op = oRequest.getParameter("op");
         ReplyBeanHelper oReplyBean = null;
         switch (ob) {
+//            case "usuario":
+//                switch (op) {
+//                    case "getobjectsmetadata":
+//                        ArrayList alObjectsMetaData = new ArrayList();
+//                        UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest);
+//                        alObjectsMetaData.add(oUsuarioService.getObjectMetaData());
+//                        TipousuarioSpecificServiceImplementation oTipousuarioService = new TipousuarioSpecificServiceImplementation(oRequest);
+//                        alObjectsMetaData.add(oTipousuarioService.getObjectMetaData());                        
+//                        PedidoSpecificServiceImplementation oPedidoService = new PedidoSpecificServiceImplementation(oRequest);
+//                        alObjectsMetaData.add(oPedidoService.getObjectMetaData());
+//                        ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
+//                        alObjectsMetaData.add(oProductoService.getObjectMetaData());
+//                        LineadepedidoSpecificServiceImplementation oLineadepedidoService = new LineadepedidoSpecificServiceImplementation(oRequest);
+//                        alObjectsMetaData.add(oLineadepedidoService.getObjectMetaData());
+//                        oReplyBean
+//                        
+//                        break;
+//                }
+//                break;
             case "usuario":
                 UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "getallobjectsmetadata":
+                        oReplyBean = oUsuarioService.getallobjectsmetadata();
+                        break;
                     case "getobjectmetadata":
                         oReplyBean = oUsuarioService.getObjectMetaData();
                         break;
@@ -246,7 +269,7 @@ public class ServiceFactory {
                         break;
                     case "empty":
                         oReplyBean = oCarritoService.empty();
-                        break;                   
+                        break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;

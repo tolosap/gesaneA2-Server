@@ -36,10 +36,13 @@ import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;
 import eu.rafaelaznar.dao.constant.ConnectionConstants;
+import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
+import eu.rafaelaznar.factory.DaoFactory;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +52,27 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
 
     public UsuarioSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
+    }
+
+    public ReplyBeanHelper getallobjectsmetadata() throws Exception {
+        ReplyBeanHelper oReplyBean = null;
+        HashMap hmObjectsMetaData = new HashMap();
+        MetaDaoInterface oDao = null;
+
+        oDao = DaoFactory.getDao("usuario", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("usuario", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("tipousuario", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("tipousuario", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("pedido", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("pedido", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("producto", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("producto", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("linea_pedido", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("linea_pedido", oDao.getObjectMetaData());
+
+        String strJson = GsonHelper.getGson().toJson(hmObjectsMetaData);
+        oReplyBean = new ReplyBeanHelper(200, strJson);
+        return oReplyBean;
     }
 
     public ReplyBeanHelper login() throws Exception {
@@ -137,8 +161,8 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
                 oConnection = oPooledConnection.newConnection();
                 oConnection.setAutoCommit(false);
                 UsuarioSpecificDaoImplementation oUserDao = new UsuarioSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-                MetaBeanHelper oSessionUsuarioBeanMeta = (MetaBeanHelper) oRequest.getSession().getAttribute("user");                
-                UsuarioSpecificBeanImplementation oSessionUsuarioBean=(UsuarioSpecificBeanImplementation) oSessionUsuarioBeanMeta.getBean();                
+                MetaBeanHelper oSessionUsuarioBeanMeta = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
+                UsuarioSpecificBeanImplementation oSessionUsuarioBean = (UsuarioSpecificBeanImplementation) oSessionUsuarioBeanMeta.getBean();
                 if (oSessionUsuarioBean.getPassword().equalsIgnoreCase(oldPass)) {
                     oSessionUsuarioBean.setPassword(newPass);
                     iResult = oUserDao.set(oSessionUsuarioBean);
