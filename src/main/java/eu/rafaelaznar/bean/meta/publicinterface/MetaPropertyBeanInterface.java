@@ -61,4 +61,6 @@ public @interface MetaPropertyBeanInterface {
 
     public boolean IsVisible() default true;
 
+    public int Wide() default 2;
+
 }

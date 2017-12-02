@@ -26,20 +26,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.dao.constant;
+package eu.rafaelaznar.helper.constant;
 
-import eu.rafaelaznar.helper.EnumHelper.Environment;
+public class ConnectionConstants {
 
-public class ConfigurationConstants {
+    public static final String connectionName = "hikari";
+    public static final String databaseName = "trolleyes";
+    public static final String databaseLogin = "root";
+    public static final String databasePassword = "bitnami";
+    public static final String databasePort = "3306";
+    public static final String databaseIP = "127.0.0.1";
 
-    public static final int jsonMsgDepth = 1;
-    public static final Environment environment = Environment.Debug;
-    public static final String version = "03.01";
-    public static final String versionDate = "26/11/2017";
-    public static final String author = "Rafael Aznar";
-    public static final String authorMail = "rafaaznar{at}gmail{dot}com";
-    public static final String sources = "https://github.com/rafaelaznar/trolleyes-server3";
-    public static final String licenseLink = "<a href=\"https://opensource.org/licenses/MIT\">MIT License</a>";
-    public static final int programDalay = 0;
+    public static String getConnectionChain() {
+        return "jdbc:mysql://" + ConnectionConstants.databaseIP + ":" + ConnectionConstants.databasePort + "/" + ConnectionConstants.databaseName;
+    }
 
 }

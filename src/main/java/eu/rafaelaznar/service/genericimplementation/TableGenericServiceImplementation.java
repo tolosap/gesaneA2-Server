@@ -34,7 +34,7 @@ import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.dao.constant.ConfigurationConstants;
+import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.BeanFactory;
 import eu.rafaelaznar.factory.DaoFactory;
@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.dao.publicinterface.TableDaoInterface;
 import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.dao.constant.ConnectionConstants;
+import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.GsonHelper;
 
 public abstract class TableGenericServiceImplementation extends ViewGenericServiceImplementation implements TableServiceInterface {

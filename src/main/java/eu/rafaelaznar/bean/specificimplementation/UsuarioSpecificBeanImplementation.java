@@ -34,7 +34,7 @@ import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
-import eu.rafaelaznar.dao.constant.RegexConstants;
+import eu.rafaelaznar.helper.constant.RegexConstants;
 import java.util.Date;
 
 @MetaObjectBeanInterface(
@@ -68,7 +68,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true
+            IsForeignKeyDescriptor = true,
+            Wide = 3
     )
     private String nombre;
 
@@ -81,7 +82,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true
+            IsForeignKeyDescriptor = true,
+            Wide = 3
     )
     private String primer_apellido;
 
@@ -94,7 +96,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true
+            IsForeignKeyDescriptor = true,
+            Wide = 3
     )
     private String segundo_apellido;
 

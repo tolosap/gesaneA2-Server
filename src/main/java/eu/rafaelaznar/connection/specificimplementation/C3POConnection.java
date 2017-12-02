@@ -30,7 +30,7 @@ package eu.rafaelaznar.connection.specificimplementation;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.dao.constant.ConnectionConstants;
+import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;

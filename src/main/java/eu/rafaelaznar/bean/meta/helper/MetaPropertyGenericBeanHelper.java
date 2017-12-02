@@ -63,6 +63,8 @@ public class MetaPropertyGenericBeanHelper {
     private String DefaultValue = "";
     @Expose
     private boolean IsVisible = true;
+    @Expose
+    private Integer Wide = 2;
 
     public String getName() {
         return Name;
@@ -182,6 +184,14 @@ public class MetaPropertyGenericBeanHelper {
 
     public void setIsVisible(boolean isVisible) {
         this.IsVisible = isVisible;
+    }
+
+    public Integer getWide() {
+        return Wide;
+    }
+
+    public void setWide(Integer Wide) {
+        this.Wide = Wide;
     }
 
 }

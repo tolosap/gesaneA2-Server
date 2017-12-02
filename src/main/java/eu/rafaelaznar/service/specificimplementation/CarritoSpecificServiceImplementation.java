@@ -41,8 +41,8 @@ import eu.rafaelaznar.dao.specificimplementation.LineadepedidoSpecificDaoImpleme
 import eu.rafaelaznar.dao.specificimplementation.PedidoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ProductoSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.dao.constant.ConfigurationConstants;
-import eu.rafaelaznar.dao.constant.ConnectionConstants;
+import eu.rafaelaznar.helper.constant.ConfigurationConstants;
+import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;

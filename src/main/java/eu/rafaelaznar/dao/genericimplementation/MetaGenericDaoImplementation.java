@@ -96,6 +96,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
                     oMeta.setRegexHelp(fieldAnnotation.RegexHelp());
                     oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
                     oMeta.setIsVisible(fieldAnnotation.IsVisible());
+                    oMeta.setWide(fieldAnnotation.Wide());
                     alVector.add(oMeta);
                 }
             }
