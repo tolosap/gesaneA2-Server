@@ -48,8 +48,12 @@ public class ServiceFactory {
             case "usuario":
                 UsuarioSpecificServiceImplementation oUsuarioService = new UsuarioSpecificServiceImplementation(oRequest);
                 switch (op) {
+
                     case "getallobjectsmetadata":
                         oReplyBean = oUsuarioService.getallobjectsmetadata();
+                        break;
+                    case "getmetadata":
+                        oReplyBean = oUsuarioService.getMetaData();
                         break;
                     case "getobjectmetadata":
                         oReplyBean = oUsuarioService.getObjectMetaData();
@@ -101,6 +105,9 @@ public class ServiceFactory {
             case "tipousuario":
                 TipousuarioSpecificServiceImplementation oTipousuarioService = new TipousuarioSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oTipousuarioService.getMetaData();
+                        break;
                     case "getobjectmetadata":
                         oReplyBean = oTipousuarioService.getObjectMetaData();
                         break;
@@ -130,6 +137,9 @@ public class ServiceFactory {
             case "pedido":
                 PedidoSpecificServiceImplementation oPedidoService = new PedidoSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oPedidoService.getMetaData();
+                        break;
                     case "getobjectmetadata":
                         oReplyBean = oPedidoService.getObjectMetaData();
                         break;
@@ -165,6 +175,9 @@ public class ServiceFactory {
             case "producto":
                 ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oProductoService.getMetaData();
+                        break;
                     case "getobjectmetadata":
                         oReplyBean = oProductoService.getObjectMetaData();
                         break;
@@ -200,6 +213,9 @@ public class ServiceFactory {
             case "linea_pedido":
                 LineadepedidoSpecificServiceImplementation oLineadepedidoService = new LineadepedidoSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oLineadepedidoService.getMetaData();
+                        break;
                     case "getobjectmetadata":
                         oReplyBean = oLineadepedidoService.getObjectMetaData();
                         break;

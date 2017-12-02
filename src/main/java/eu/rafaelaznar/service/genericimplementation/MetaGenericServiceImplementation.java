@@ -36,6 +36,7 @@ import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.DaoFactory;
 import eu.rafaelaznar.service.publicinterface.MetaServiceInterface;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
 public abstract class MetaGenericServiceImplementation implements MetaServiceInterface {
@@ -54,6 +55,28 @@ public abstract class MetaGenericServiceImplementation implements MetaServiceInt
             return true;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public ReplyBeanHelper getMetaData() throws Exception {
+        ReplyBeanHelper oReplyBean = null;
+        if (this.checkPermission("getMetaData")) {
+            String data = null;
+            try {
+                MetaDaoInterface oDao = DaoFactory.getDao(ob, null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                HashMap alMeta = new HashMap();
+                alMeta.put("metaObject", oDao.getObjectMetaData());
+                alMeta.put("metaProperties", oDao.getPropertiesMetaData());
+                oReplyBean = new ReplyBeanHelper(200, GsonHelper.getGson().toJson(alMeta));
+            } catch (Exception ex) {
+                String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+                Log4jHelper.errorLog(msg, ex);
+                throw new Exception(msg, ex);
+            }
+            return oReplyBean;
+        } else {
+            return new ReplyBeanHelper(401, EncodingHelper.quotate("Unauthorized"));
         }
     }
 
