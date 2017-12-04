@@ -119,7 +119,7 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
                                 if (x.getType() == Date.class) {
                                     x.set(this, oResultSet.getDate(x.getName()));
                                 } else {
-                                    if (x.getType() == Double.class) {
+                                    if (x.getType() == Double.class || x.getType() == double.class) {
                                         x.set(this, oResultSet.getDouble(x.getName()));
                                     } else {
                                         if (x.getType() == Integer.class || x.getType() == int.class) {
