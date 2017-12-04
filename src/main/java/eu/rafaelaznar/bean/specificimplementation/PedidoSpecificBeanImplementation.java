@@ -39,7 +39,7 @@ import java.util.Date;
 @MetaObjectBeanInterface(
         TableName = "pedido",
         Description = "Pedidos de usuarios",
-        Icon = "fa fa-list-ol",
+        Icon = "fa fa-file-text",
         SqlSelect = "SELECT * FROM pedido WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM pedido WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table
@@ -87,9 +87,20 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "usuario",
-            IsVisible = false
+            IsVisible = true,
+            Wide = 5
     )
     private MetaBeanHelper obj_usuario = null;
+
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Lineas",
+            LongName = "Líneas del pedido",
+            Description = "Líneas del pedido",
+            Type = EnumHelper.FieldType.Link,
+            References = "linea_pedido"
+    )
+    private Integer link_linea_pedido = null;
 
     public PedidoSpecificBeanImplementation() {
 
@@ -148,5 +159,15 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
     public void setTiene_iva(int tiene_iva) {
         this.tiene_iva = tiene_iva;
     }
+
+    public Integer getLink_linea_pedido() {
+        return link_linea_pedido;
+    }
+
+    public void setLink_linea_pedido(Integer link_linea_pedido) {
+        this.link_linea_pedido = link_linea_pedido;
+    }
+
+
 
 }
