@@ -52,19 +52,39 @@ public class LineadepedidoSpecificBeanImplementation extends TableGenericBeanImp
             Description = "Cantidad de producto pedido",
             Type = EnumHelper.FieldType.Integer,
             IsRequired = true,
+            IsForeignKeyDescriptor = true,
             Wide = 3,
             MaxLength = 5
     )
     private Integer cantidad;
 
     @Expose(serialize = false)
+
     private Integer id_pedido = 0;
     @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Pedido",
+            LongName = "Pedido",
+            Description = "Pedido del cliente",
+            Type = EnumHelper.FieldType.ForeignObject,
+            IsRequired = true,
+            References = "pedido",
+            Wide = 4
+    )
     private MetaBeanHelper obj_pedido = null;
 
     @Expose(serialize = false)
     private Integer id_producto = 0;
     @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Producto",
+            LongName = "Producto",
+            Description = "Producto",
+            Type = EnumHelper.FieldType.ForeignObject,
+            IsRequired = true,
+            References = "producto",
+            Wide = 4
+    )
     private MetaBeanHelper obj_producto = null;
 
     public LineadepedidoSpecificBeanImplementation() {

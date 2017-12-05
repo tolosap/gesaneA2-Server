@@ -52,6 +52,7 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
             LongName = "Fecha del pedido",
             Description = "Fecha de pedido del usuario",
             Type = EnumHelper.FieldType.Date,
+            IsForeignKeyDescriptor = true,
             IsRequired = true
     )
     private Date fecha;
@@ -167,7 +168,5 @@ public class PedidoSpecificBeanImplementation extends TableGenericBeanImplementa
     public void setLink_linea_pedido(Integer link_linea_pedido) {
         this.link_linea_pedido = link_linea_pedido;
     }
-
-
 
 }
