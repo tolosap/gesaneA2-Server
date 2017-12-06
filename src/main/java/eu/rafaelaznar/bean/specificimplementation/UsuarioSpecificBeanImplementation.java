@@ -140,6 +140,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             LongName = "Fecha de nacimiento",
             Description = "Fecha de nacimiento del usuario",
             Type = EnumHelper.FieldType.Date,
+            RegexHelp = "una fecha correcta",
             IsRequired = true,
             IsVisible = false
     )
