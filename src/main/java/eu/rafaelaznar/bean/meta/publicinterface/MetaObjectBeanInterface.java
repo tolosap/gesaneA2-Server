@@ -45,7 +45,9 @@ public @interface MetaObjectBeanInterface {
 
     public String TableName() default "";
 
-    public String Description() default "";
+    public String SingularDescription() default "";
+
+    public String PluralDescription() default "";
 
     public String SqlSelect() default "";
 

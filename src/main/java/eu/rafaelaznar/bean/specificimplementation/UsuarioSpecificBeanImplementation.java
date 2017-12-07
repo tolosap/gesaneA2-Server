@@ -39,7 +39,8 @@ import java.util.Date;
 
 @MetaObjectBeanInterface(
         TableName = "usuario",
-        Description = "Usuarios del sistema",
+        SingularDescription = "Usuario",
+        PluralDescription = "Usuarios",
         Icon = "fa fa-user",
         SqlSelect = "SELECT * FROM usuario WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM usuario WHERE 1=1 ",

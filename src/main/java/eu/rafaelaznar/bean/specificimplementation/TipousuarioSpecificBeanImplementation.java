@@ -37,7 +37,8 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
         TableName = "tipousuario",
-        Description = "Tipo de usuario",
+        SingularDescription = "Tipo de usuario",
+        PluralDescription = "Tipos de usuarios",
         Icon = "fa fa-user-o",
         SqlSelect = "SELECT * FROM tipousuario WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM tipousuario WHERE 1=1 ",

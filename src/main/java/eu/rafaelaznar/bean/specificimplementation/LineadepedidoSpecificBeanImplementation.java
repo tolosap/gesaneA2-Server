@@ -37,7 +37,8 @@ import eu.rafaelaznar.helper.EnumHelper;
 
 @MetaObjectBeanInterface(
         TableName = "linea_pedido",
-        Description = "Líneas de un pedido",
+        SingularDescription = "Línea de pedido",
+        PluralDescription = "Líneas de un pedido",
         Icon = "fa fa-list-ol",
         SqlSelect = "SELECT * FROM linea_pedido WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM linea_pedido WHERE 1=1 ",

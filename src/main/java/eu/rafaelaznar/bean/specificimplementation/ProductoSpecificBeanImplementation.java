@@ -37,7 +37,8 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
         TableName = "producto",
-        Description = "Productos del sistema",
+        SingularDescription = "Productos",
+        PluralDescription = "Producto",
         Icon = "fa fa-gift",
         SqlSelect = "SELECT * FROM producto WHERE 1=1 ",
         SqlSelectCount = "SELECT COUNT(*) FROM producto WHERE 1=1 ",

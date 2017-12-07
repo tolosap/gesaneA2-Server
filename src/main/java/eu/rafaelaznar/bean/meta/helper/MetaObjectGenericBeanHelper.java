@@ -37,7 +37,9 @@ public class MetaObjectGenericBeanHelper {
     @Expose
     private String Icon = "";
     @Expose
-    private String Description = "";
+    private String SingularDescription = "";
+    @Expose
+    private String PluralDescription = "";
     @Expose
     private EnumHelper.SourceType Type = EnumHelper.SourceType.Table;
     @Expose
@@ -62,12 +64,21 @@ public class MetaObjectGenericBeanHelper {
         this.Icon = Icon;
     }
 
-    public String getDescription() {
-        return Description;
+   
+    public String getSingularDescription() {
+        return SingularDescription;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setSingularDescription(String SingularDescription) {
+        this.SingularDescription = SingularDescription;
+    }
+
+    public String getPluralDescription() {
+        return PluralDescription;
+    }
+
+    public void setPluralDescription(String PluralDescription) {
+        this.PluralDescription = PluralDescription;
     }
 
     public EnumHelper.SourceType getType() {
