@@ -69,6 +69,7 @@ public class ProductoSpecificBeanImplementation extends TableGenericBeanImplemen
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
+            IsForeignKeyDescriptor = true,
             Wide = 3,
             MaxLength = 100
     )
