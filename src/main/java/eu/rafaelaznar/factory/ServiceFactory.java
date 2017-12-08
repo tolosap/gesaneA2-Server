@@ -172,6 +172,7 @@ public class ServiceFactory {
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
+                break;
             case "producto":
                 ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
                 switch (op) {
