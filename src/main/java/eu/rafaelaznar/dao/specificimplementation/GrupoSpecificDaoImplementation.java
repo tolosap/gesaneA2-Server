@@ -32,10 +32,10 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import java.sql.Connection;
 
-public class ProductoSpecificDaoImplementation extends TableGenericDaoImplementation {
+public class GrupoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public ProductoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
-        super("producto", oPooledConnection, oPuserBean_security, strWhere);
+    public GrupoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+        super("grupo", oPooledConnection, oPuserBean_security, strWhere);
     }
 
 }

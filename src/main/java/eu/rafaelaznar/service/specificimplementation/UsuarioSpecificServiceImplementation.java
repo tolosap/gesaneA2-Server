@@ -32,6 +32,7 @@ import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplement
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;

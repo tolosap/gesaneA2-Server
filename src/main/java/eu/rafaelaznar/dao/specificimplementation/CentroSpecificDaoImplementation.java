@@ -26,19 +26,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.helper.constant;
+package eu.rafaelaznar.dao.specificimplementation;
 
-public class ConnectionConstants {
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
+import java.sql.Connection;
 
-    public static final String connectionName = "hikari";
-    public static final String databaseName = "gesane";
-    public static final String databaseLogin = "root";
-    public static final String databasePassword = "bitnami";
-    public static final String databasePort = "3306";
-    public static final String databaseIP = "127.0.0.1";
+public class CentroSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public static String getConnectionChain() {
-        return "jdbc:mysql://" + ConnectionConstants.databaseIP + ":" + ConnectionConstants.databasePort + "/" + ConnectionConstants.databaseName;
+    public CentroSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+        super("centro", oPooledConnection, oPuserBean_security, strWhere);
     }
 
 }

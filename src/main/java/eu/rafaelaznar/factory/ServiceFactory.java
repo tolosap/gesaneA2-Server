@@ -30,10 +30,10 @@ package eu.rafaelaznar.factory;
 
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.helper.EncodingHelper;
-import eu.rafaelaznar.service.specificimplementation.CarritoSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.LineadepedidoSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.PedidoSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.ProductoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -134,144 +134,159 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-            case "pedido":
-                PedidoSpecificServiceImplementation oPedidoService = new PedidoSpecificServiceImplementation(oRequest);
+            case "grupo":
+                GrupoSpecificServiceImplementation oGrupoService = new GrupoSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
-                        oReplyBean = oPedidoService.getMetaData();
+                        oReplyBean = oGrupoService.getMetaData();
                         break;
                     case "getobjectmetadata":
-                        oReplyBean = oPedidoService.getObjectMetaData();
+                        oReplyBean = oGrupoService.getObjectMetaData();
                         break;
                     case "getpropertiesmetadata":
-                        oReplyBean = oPedidoService.getPropertiesMetaData();
+                        oReplyBean = oGrupoService.getPropertiesMetaData();
                         break;
                     case "get":
-                        oReplyBean = oPedidoService.get();
+                        oReplyBean = oGrupoService.get();
                         break;
                     case "set":
-                        oReplyBean = oPedidoService.set();
+                        oReplyBean = oGrupoService.set();
                         break;
                     case "remove":
-                        oReplyBean = oPedidoService.remove();
+                        oReplyBean = oGrupoService.remove();
                         break;
                     case "getpage":
-                        oReplyBean = oPedidoService.getPage();
+                        oReplyBean = oGrupoService.getPage();
                         break;
                     case "getcount":
-                        oReplyBean = oPedidoService.getCount();
+                        oReplyBean = oGrupoService.getCount();
                         break;
-
                     case "getcountx":
-                        oReplyBean = oPedidoService.getCountX();
+                        oReplyBean = oGrupoService.getCountX();
                         break;
                     case "getpagex":
-                        oReplyBean = oPedidoService.getPageX();
+                        oReplyBean = oGrupoService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
-            case "producto":
-                ProductoSpecificServiceImplementation oProductoService = new ProductoSpecificServiceImplementation(oRequest);
+            case "curso":
+                CursoSpecificServiceImplementation oCursoService = new CursoSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
-                        oReplyBean = oProductoService.getMetaData();
+                        oReplyBean = oCursoService.getMetaData();
                         break;
                     case "getobjectmetadata":
-                        oReplyBean = oProductoService.getObjectMetaData();
+                        oReplyBean = oCursoService.getObjectMetaData();
                         break;
                     case "getpropertiesmetadata":
-                        oReplyBean = oProductoService.getPropertiesMetaData();
+                        oReplyBean = oCursoService.getPropertiesMetaData();
                         break;
                     case "get":
-                        oReplyBean = oProductoService.get();
+                        oReplyBean = oCursoService.get();
                         break;
                     case "set":
-                        oReplyBean = oProductoService.set();
+                        oReplyBean = oCursoService.set();
                         break;
                     case "remove":
-                        oReplyBean = oProductoService.remove();
+                        oReplyBean = oCursoService.remove();
                         break;
                     case "getpage":
-                        oReplyBean = oProductoService.getPage();
+                        oReplyBean = oCursoService.getPage();
                         break;
                     case "getcount":
-                        oReplyBean = oProductoService.getCount();
+                        oReplyBean = oCursoService.getCount();
                         break;
                     case "getcountx":
-                        oReplyBean = oProductoService.getCountX();
+                        oReplyBean = oCursoService.getCountX();
                         break;
                     case "getpagex":
-                        oReplyBean = oProductoService.getPageX();
+                        oReplyBean = oCursoService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
-            case "linea_pedido":
-                LineadepedidoSpecificServiceImplementation oLineadepedidoService = new LineadepedidoSpecificServiceImplementation(oRequest);
+            case "centrosanitario":
+                CentrosanitarioSpecificServiceImplementation oCentrosanitarioService = new CentrosanitarioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
-                        oReplyBean = oLineadepedidoService.getMetaData();
+                        oReplyBean = oCentrosanitarioService.getMetaData();
                         break;
                     case "getobjectmetadata":
-                        oReplyBean = oLineadepedidoService.getObjectMetaData();
+                        oReplyBean = oCentrosanitarioService.getObjectMetaData();
                         break;
                     case "getpropertiesmetadata":
-                        oReplyBean = oLineadepedidoService.getPropertiesMetaData();
+                        oReplyBean = oCentrosanitarioService.getPropertiesMetaData();
                         break;
                     case "get":
-                        oReplyBean = oLineadepedidoService.get();
+                        oReplyBean = oCentrosanitarioService.get();
                         break;
                     case "set":
-                        oReplyBean = oLineadepedidoService.set();
+                        oReplyBean = oCentrosanitarioService.set();
                         break;
                     case "remove":
-                        oReplyBean = oLineadepedidoService.remove();
+                        oReplyBean = oCentrosanitarioService.remove();
                         break;
                     case "getpage":
-                        oReplyBean = oLineadepedidoService.getPage();
+                        oReplyBean = oCentrosanitarioService.getPage();
                         break;
                     case "getcount":
-                        oReplyBean = oLineadepedidoService.getCount();
+                        oReplyBean = oCentrosanitarioService.getCount();
                         break;
                     case "getcountx":
-                        oReplyBean = oLineadepedidoService.getCountX();
+                        oReplyBean = oCentrosanitarioService.getCountX();
                         break;
                     case "getpagex":
-                        oReplyBean = oLineadepedidoService.getPageX();
+                        oReplyBean = oCentrosanitarioService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
-            case "carrito":
-                CarritoSpecificServiceImplementation oCarritoService = new CarritoSpecificServiceImplementation(oRequest);
+            case "centro":
+                CentroSpecificServiceImplementation oCentroService = new CentroSpecificServiceImplementation(oRequest);
                 switch (op) {
-                    case "add":
-                        oReplyBean = oCarritoService.add();
+                    case "getmetadata":
+                        oReplyBean = oCentroService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oCentroService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oCentroService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oCentroService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oCentroService.set();
                         break;
                     case "remove":
-                        oReplyBean = oCarritoService.remove();
+                        oReplyBean = oCentroService.remove();
                         break;
-                    case "list":
-                        oReplyBean = oCarritoService.list();
+                    case "getpage":
+                        oReplyBean = oCentroService.getPage();
                         break;
-                    case "buy":
-                        oReplyBean = oCarritoService.buy();
+                    case "getcount":
+                        oReplyBean = oCentroService.getCount();
                         break;
-                    case "empty":
-                        oReplyBean = oCarritoService.empty();
+                    case "getcountx":
+                        oReplyBean = oCentroService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oCentroService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
                 break;
+           
             default:
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;

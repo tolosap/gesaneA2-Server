@@ -26,47 +26,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean.specificimplementation;
+package eu.rafaelaznar.service.specificimplementation;
 
-import com.google.gson.annotations.Expose;
-import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
-import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
+import javax.servlet.http.HttpServletRequest;
 
-public class CarritoSpecificBeanImplementation extends TableGenericBeanImplementation {
+public class CentrosanitarioSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    @Expose
-    private Integer cantidad;
-    //--
-    @Expose(serialize = false)
-    private Integer id_producto = 0;
-    @Expose(deserialize = false)
-    private MetaBeanHelper obj_producto = null;
-
-    public CarritoSpecificBeanImplementation() {
-    }
-
-    public Integer getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public Integer getId_producto() {
-        return id_producto;
-    }
-
-    public void setId_producto(Integer id_producto) {
-        this.id_producto = id_producto;
-    }
-
-    public MetaBeanHelper getObj_producto() {
-        return obj_producto;
-    }
-
-    public void setObj_producto(MetaBeanHelper obj_producto) {
-        this.obj_producto = obj_producto;
+    public CentrosanitarioSpecificServiceImplementation(HttpServletRequest request) {
+        super(request);
     }
 
 }

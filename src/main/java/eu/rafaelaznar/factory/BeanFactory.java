@@ -31,10 +31,10 @@ package eu.rafaelaznar.factory;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
-import eu.rafaelaznar.bean.specificimplementation.CarritoSpecificBeanImplementation;
-import eu.rafaelaznar.bean.specificimplementation.LineadepedidoSpecificBeanImplementation;
-import eu.rafaelaznar.bean.specificimplementation.PedidoSpecificBeanImplementation;
-import eu.rafaelaznar.bean.specificimplementation.ProductoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -48,17 +48,17 @@ public class BeanFactory {
             case "tipousuario":
                 oBean = new TipousuarioSpecificBeanImplementation();
                 break;
-            case "linea_pedido":
-                oBean = new LineadepedidoSpecificBeanImplementation();
+            case "grupo":
+                oBean = new GrupoSpecificBeanImplementation();
                 break;
-            case "producto":
-                oBean = new ProductoSpecificBeanImplementation();
+            case "curso":
+                oBean = new CursoSpecificBeanImplementation();
                 break;
-            case "pedido":
-                oBean = new PedidoSpecificBeanImplementation();
+            case "centrosanitario":
+                oBean = new CentrosanitarioSpecificBeanImplementation();
                 break;
-            case "carrito":
-                oBean = new CarritoSpecificBeanImplementation();
+            case "centro":
+                oBean = new CentroSpecificBeanImplementation();
                 break;
             default:
 
