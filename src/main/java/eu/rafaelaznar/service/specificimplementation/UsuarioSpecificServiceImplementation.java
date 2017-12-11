@@ -63,12 +63,14 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         hmObjectsMetaData.put("usuario", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("tipousuario", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("tipousuario", oDao.getObjectMetaData());
-        oDao = DaoFactory.getDao("pedido", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-        hmObjectsMetaData.put("pedido", oDao.getObjectMetaData());
-        oDao = DaoFactory.getDao("producto", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-        hmObjectsMetaData.put("producto", oDao.getObjectMetaData());
-        oDao = DaoFactory.getDao("linea_pedido", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-        hmObjectsMetaData.put("linea_pedido", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("centro", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("centro", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("centrosanitario", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("centrosanitario", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("curso", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("curso", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("grupo", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("grupo", oDao.getObjectMetaData());
 
         String strJson = GsonHelper.getGson().toJson(hmObjectsMetaData);
         oReplyBean = new ReplyBeanHelper(200, strJson);

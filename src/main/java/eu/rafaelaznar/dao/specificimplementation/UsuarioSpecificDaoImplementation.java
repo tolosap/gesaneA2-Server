@@ -31,7 +31,6 @@ package eu.rafaelaznar.dao.specificimplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
-import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,7 +53,7 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
             oResultSet = oPreparedStatement.executeQuery();
             if (oResultSet.next()) {
                 oUsuarioBean.setId(oResultSet.getInt("id"));
-                oMetaBeanHelper = this.get(oUsuarioBean.getId(), ConfigurationConstants.jsonMsgDepth);
+                oMetaBeanHelper = this.get(oUsuarioBean.getId(), 3);
             } else {
                 throw new Exception("UsuarioDao getFromLoginAndPass error");
             }
