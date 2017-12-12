@@ -137,6 +137,9 @@ public class ServiceFactory {
             case "grupo":
                 GrupoSpecificServiceImplementation oGrupoService = new GrupoSpecificServiceImplementation(oRequest);
                 switch (op) {
+                    case "check":
+                        oReplyBean = oGrupoService.check();
+                        break;
                     case "getmetadata":
                         oReplyBean = oGrupoService.getMetaData();
                         break;
@@ -286,7 +289,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-           
+
             default:
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;

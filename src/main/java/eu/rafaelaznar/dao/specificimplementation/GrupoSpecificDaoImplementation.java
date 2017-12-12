@@ -29,13 +29,46 @@
 package eu.rafaelaznar.dao.specificimplementation;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
+import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class GrupoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
     public GrupoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("grupo", oPooledConnection, oPuserBean_security, strWhere);
+    }
+
+    public MetaBeanHelper getFromCodigo(GrupoSpecificBeanImplementation oCodigoBean) throws Exception {
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        MetaBeanHelper oMetaBeanHelper = null;
+        strSQL += " AND codigo='" + oCodigoBean.getCodigo() + "'";
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                oCodigoBean.setId(oResultSet.getInt("id"));
+                oMetaBeanHelper = this.get(oCodigoBean.getId(), 3);
+            } else {
+                throw new Exception("GrupoSpecificDaoImplementation getFromCodigo error");
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return oMetaBeanHelper;
     }
 
 }

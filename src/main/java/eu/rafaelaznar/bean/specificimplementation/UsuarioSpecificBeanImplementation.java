@@ -124,7 +124,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.email,
             RegexHelp = RegexConstants.email_Help,
-            MaxLength = 50
+            MaxLength = 50,
+            IsVisible = false
     )
     private String email;
 
@@ -137,7 +138,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             LongName = "¿Usuario activo?",
             Description = "¿Usuario activo?",
             Type = EnumHelper.FieldType.Integer,
-            IsRequired = true
+            IsRequired = true,
+            IsVisible = false
     )
     private Boolean activo;
 
@@ -159,7 +161,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             LongName = "¿Usuario validado?",
             Description = "¿Usuario validado?",
             Type = EnumHelper.FieldType.Integer,
-            IsRequired = true
+            IsRequired = true,
+            IsVisible = false
     )
     private Boolean validado;
 
