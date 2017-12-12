@@ -16,9 +16,7 @@ import eu.rafaelaznar.helper.EnumHelper;
         TableName = "grupo",
         SingularDescription = "Grupo",
         PluralDescription = "Grupos",
-        Icon = "fa fa-user-o",
-        SqlSelect = "SELECT * FROM grupo WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM grupo WHERE 1=1 ",
+        Icon = "fa fa-users",
         Type = EnumHelper.SourceType.Table
 )
 public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementation {

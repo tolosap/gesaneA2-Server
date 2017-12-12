@@ -16,9 +16,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         TableName = "centro",
         SingularDescription = "Centro educativo",
         PluralDescription = "Centros educativos",
-        Icon = "fa fa-user-o",
-        SqlSelect = "SELECT * FROM centro WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM centro WHERE 1=1 ",
+        Icon = "fa fa-graduation-cap",
         Type = EnumHelper.SourceType.Table
 )
 public class CentroSpecificBeanImplementation extends TableGenericBeanImplementation {

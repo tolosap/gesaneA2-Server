@@ -16,9 +16,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         TableName = "curso",
         SingularDescription = "Curso",
         PluralDescription = "Cursos",
-        Icon = "fa fa-user-o",
-        SqlSelect = "SELECT * FROM curso WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM curso WHERE 1=1 ",
+        Icon = "fa fa-calendar-check-o",
         Type = EnumHelper.SourceType.Table
 )
 public class CursoSpecificBeanImplementation extends TableGenericBeanImplementation {

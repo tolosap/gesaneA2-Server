@@ -48,8 +48,6 @@ import java.util.Date;
         SingularDescription = "Usuario",
         PluralDescription = "Usuarios",
         Icon = "fa fa-user",
-        SqlSelect = "SELECT * FROM usuario WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM usuario WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table
 )
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {

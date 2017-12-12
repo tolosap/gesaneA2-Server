@@ -49,7 +49,4 @@ public @interface MetaObjectBeanInterface {
 
     public String PluralDescription() default "";
 
-    public String SqlSelect() default "";
-
-    public String SqlSelectCount() default "";
 }
