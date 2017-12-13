@@ -65,8 +65,10 @@ public class BeanFactory {
                 break;
             case "destinoalta":
                 oBean = new DestinoaltaSpecificBeanImplementation();
+                break;
             case "tipopago":
                 oBean = new TipopagoSpecificBeanImplementation();
+                break;
             case "sexo":
                 oBean = new SexoSpecificBeanImplementation();
                 break;
