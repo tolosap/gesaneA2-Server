@@ -48,5 +48,4 @@ public class TipoepisodioSpecificServiceImplementation extends TableGenericServi
             return false;
         }
     }
-
 }
