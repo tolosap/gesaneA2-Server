@@ -16,9 +16,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         TableName = "centrosanitario",
         SingularDescription = "Centro sanitario",
         PluralDescription = "Centros sanitarios",
-        Icon = "fa fa-user-o",
-        SqlSelect = "SELECT * FROM centrosanitario WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM centrosanitario WHERE 1=1 ",
+        Icon = "fa fa-medkit",
         Type = EnumHelper.SourceType.Table
 )
 public class CentrosanitarioSpecificBeanImplementation extends TableGenericBeanImplementation {

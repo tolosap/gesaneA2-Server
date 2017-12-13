@@ -40,8 +40,6 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         SingularDescription = "Tipo de usuario",
         PluralDescription = "Tipos de usuarios",
         Icon = "fa fa-user-o",
-        SqlSelect = "SELECT * FROM tipousuario WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM tipousuario WHERE 1=1 ",
         Type = EnumHelper.SourceType.Table
 )
 public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImplementation {

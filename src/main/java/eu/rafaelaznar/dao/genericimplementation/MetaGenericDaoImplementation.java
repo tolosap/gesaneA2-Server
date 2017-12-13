@@ -45,7 +45,6 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
 
     protected String ob = null;
     protected String strSQL = null;
-
     protected String strCountSQL = null;
     protected Connection oConnection = null;
     protected MetaBeanHelper oPuserSecurity = null;
@@ -54,15 +53,9 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
         oConnection = oPooledConnection;
         oPuserSecurity = oPuserBean_security;
         ob = obj;
-
-        MetaObjectGenericBeanHelper oMetaObject;
         try {
-            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
-            Class oClassBEAN = oBean.getClass();
-            oMetaObject = new MetaObjectGenericBeanHelper();
-            oMetaObject = fillObjectMetaData(oClassBEAN, oMetaObject);
-            strSQL = oMetaObject.getSqlSelect();
-            strCountSQL = oMetaObject.getSqlSelectCount();
+            strSQL = "SELECT * FROM " + ob + " WHERE 1=1 ";
+            strCountSQL = "SELECT COUNT(*) FROM " + ob + " WHERE 1=1 ";
             if (strWhere != null) {
                 strSQL += " " + strWhere + " ";
                 strCountSQL += " " + strWhere + " ";
@@ -115,8 +108,6 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
                 oMetaObject.setPluralDescription(fieldAnnotation.PluralDescription());
                 oMetaObject.setIcon(fieldAnnotation.Icon());
                 oMetaObject.setTableName(fieldAnnotation.TableName());
-                oMetaObject.setSqlSelect(fieldAnnotation.SqlSelect());
-                oMetaObject.setSqlSelectCount(fieldAnnotation.SqlSelectCount());
                 oMetaObject.setType(fieldAnnotation.Type());
             }
         }

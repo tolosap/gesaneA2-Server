@@ -45,9 +45,6 @@ public class MetaObjectGenericBeanHelper {
     @Expose
     private String TableName = "";
 
-    private String SqlSelect = "";
-    private String SqlSelectCount = "";
-
     public String getClassName() {
         return ClassName;
     }
@@ -97,20 +94,5 @@ public class MetaObjectGenericBeanHelper {
         this.TableName = TableName;
     }
 
-    public String getSqlSelect() {
-        return SqlSelect;
-    }
-
-    public void setSqlSelect(String SqlSelect) {
-        this.SqlSelect = SqlSelect;
-    }
-
-    public String getSqlSelectCount() {
-        return SqlSelectCount;
-    }
-
-    public void setSqlSelectCount(String SqlSelectCount) {
-        this.SqlSelectCount = SqlSelectCount;
-    }
 
 }
