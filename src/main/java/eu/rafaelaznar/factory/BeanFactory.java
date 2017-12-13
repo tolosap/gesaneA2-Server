@@ -36,6 +36,7 @@ import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImp
 import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -61,8 +62,13 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
+
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
+
+            case "sexo":
+                oBean = new SexoSpecificBeanImplementation();
+
                 break;
             default:
 

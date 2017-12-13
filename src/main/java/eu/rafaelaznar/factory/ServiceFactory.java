@@ -35,6 +35,7 @@ import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServ
 import eu.rafaelaznar.service.specificimplementation.CircunstanciasaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.SexoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -290,7 +291,8 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                  case "circunstanciasalta":
+
+            case "circunstanciasalta":
                 CircunstanciasaltaSpecificServiceImplementation oCircunstanciasaltaService = new CircunstanciasaltaSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -316,6 +318,45 @@ public class ServiceFactory {
                         break;
                     case "getcount":
                         oReplyBean = oCircunstanciasaltaService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "sexo":
+                SexoSpecificServiceImplementation oSexoService = new SexoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oSexoService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oSexoService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oSexoService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oSexoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oSexoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oSexoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oSexoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oSexoService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oSexoService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oSexoService.getPageX();
+
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
