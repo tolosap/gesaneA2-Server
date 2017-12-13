@@ -67,10 +67,10 @@ public class DaoFactory {
                 break;
             case "destinoalta":
                 oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             case "tipopago":
                 oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
-
             case "sexo":
                 oDao = (MetaDaoInterface) new SexoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
