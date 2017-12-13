@@ -34,6 +34,7 @@ import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 
 public class BeanFactory {
@@ -60,6 +61,8 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
+            case "destinoalta":
+                oBean = new DestinoaltaSpecificBeanImplementation();
             default:
 
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
