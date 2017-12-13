@@ -97,35 +97,36 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
                 x.setAccessible(true);
-                if (getTypeFromPropertyMetaData(x) == FieldType.Calculated) {                    
-                } else {
-                    if (getTypeFromPropertyMetaData(x) == FieldType.ForeignObject) {
-                        if (expand > 0) {
-                            String ob = getReferencesFromPropertyMetaData(x);
-                            TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, null);
-                            MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oObDao.get(oResultSet.getInt("id_" + ob), expand - 1);
-                            x.set(this, oMetaBeanHelper);
-                        }
-                    } else {
-                        if (getTypeFromPropertyMetaData(x) == FieldType.Link) {
-                            String ob = getReferencesFromPropertyMetaData(x);
-                            TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, " and id_" + getOwnNameFromObjectMetaData() + "=" + oResultSet.getInt("id"));
-                            x.set(this, oObDao.getCount(null).intValue());
+                if (getTypeFromPropertyMetaData(x) != null) {
+                    if (getTypeFromPropertyMetaData(x) != FieldType.Calculated) {
+                        if (getTypeFromPropertyMetaData(x) == FieldType.ForeignObject) {
+                            if (expand > 0) {
+                                String ob = getReferencesFromPropertyMetaData(x);
+                                TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, null);
+                                MetaBeanHelper oMetaBeanHelper = (MetaBeanHelper) oObDao.get(oResultSet.getInt("id_" + ob), expand - 1);
+                                x.set(this, oMetaBeanHelper);
+                            }
                         } else {
-                            if (getTypeFromPropertyMetaData(x) == FieldType.ForeignId) {
-                                x.set(this, oResultSet.getInt(x.getName()));
+                            if (getTypeFromPropertyMetaData(x) == FieldType.Link) {
+                                String ob = getReferencesFromPropertyMetaData(x);
+                                TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, " and id_" + getOwnNameFromObjectMetaData() + "=" + oResultSet.getInt("id"));
+                                x.set(this, oObDao.getCount(null).intValue());
                             } else {
-                                if (x.getType() == String.class) {
-                                    x.set(this, oResultSet.getString(x.getName()));
+                                if (getTypeFromPropertyMetaData(x) == FieldType.ForeignId) {
+                                    x.set(this, oResultSet.getInt(x.getName()));
                                 } else {
-                                    if (x.getType() == Date.class) {
-                                        x.set(this, oResultSet.getDate(x.getName()));
+                                    if (x.getType() == String.class) {
+                                        x.set(this, oResultSet.getString(x.getName()));
                                     } else {
-                                        if (x.getType() == Double.class || x.getType() == double.class) {
-                                            x.set(this, oResultSet.getDouble(x.getName()));
+                                        if (x.getType() == Date.class) {
+                                            x.set(this, oResultSet.getDate(x.getName()));
                                         } else {
-                                            if (x.getType() == Integer.class || x.getType() == int.class) {
-                                                x.set(this, oResultSet.getInt(x.getName()));
+                                            if (x.getType() == Double.class || x.getType() == double.class) {
+                                                x.set(this, oResultSet.getDouble(x.getName()));
+                                            } else {
+                                                if (x.getType() == Integer.class || x.getType() == int.class) {
+                                                    x.set(this, oResultSet.getInt(x.getName()));
+                                                }
                                             }
                                         }
                                     }
@@ -136,9 +137,9 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
                 }
                 x.setAccessible(false);
             }
-           
+
             this.ComputeCalculatedFields();
-           
+
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName();
             Log4jHelper.errorLog(msg, ex);
@@ -146,9 +147,9 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
         }
         return this;
     }
-    
+
     @Override
-    public void ComputeCalculatedFields(){
-        
+    public void ComputeCalculatedFields() {
+
     }
 }
