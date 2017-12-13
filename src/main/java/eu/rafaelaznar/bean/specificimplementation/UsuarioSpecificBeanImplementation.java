@@ -52,6 +52,18 @@ import java.util.Date;
 )
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Nombre completo",
+            LongName = "Nombre completo",
+            Description = "Nombre completo del usuario",
+            Type = EnumHelper.FieldType.Calculated,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 100
+    )
+    private String nombrecompleto;
+
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Nombre",
@@ -61,9 +73,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String nombre;
 
@@ -76,9 +89,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String primer_apellido;
 
@@ -91,9 +105,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String segundo_apellido;
 
@@ -223,6 +238,16 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private MetaBeanHelper obj_centrosanitario = null;
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Es profesor de los grupos",
+            LongName = "Es profesor de los grupos",
+            Description = "Es profesor de los grupos",
+            Type = EnumHelper.FieldType.Link,
+            References = "grupo"
+    )
+    private Integer link_grupo = null;
+
     public UsuarioSpecificBeanImplementation() {
         this.obj_grupos = new ArrayList<>();
     }
@@ -230,6 +255,15 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     public UsuarioSpecificBeanImplementation(Integer id) {
         this.obj_grupos = new ArrayList<>();
         this.id = id;
+    }
+
+    @Override
+    public void ComputeCalculatedFields() {
+        this.nombrecompleto = this.nombre + " " + this.primer_apellido + " " + this.segundo_apellido;
+    }
+
+    public String getNombrecompleto() {
+        return nombrecompleto;
     }
 
     public String getNombre() {
