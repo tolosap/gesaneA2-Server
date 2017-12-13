@@ -33,6 +33,7 @@ import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
@@ -286,6 +287,38 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oCentroService.getPageX();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "especialidad":
+                EspecialidadSpecificServiceImplementation oEspecialidadService = new EspecialidadSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oEspecialidadService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oEspecialidadService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oEspecialidadService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oEspecialidadService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oEspecialidadService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oEspecialidadService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oEspecialidadService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oEspecialidadService.getCount();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
