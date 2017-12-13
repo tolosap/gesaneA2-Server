@@ -65,23 +65,24 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
-
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
-
-           case "especialidad":
+                break;
+            case "especialidad":
                 oBean = new EspecialidadSpecificBeanImplementation();
+                break;
             case "destinoalta":
                 oBean = new DestinoaltaSpecificBeanImplementation();
+                break;
             case "tipopago":
                 oBean = new TipopagoSpecificBeanImplementation();
+                break;
             case "sexo":
                 oBean = new SexoSpecificBeanImplementation();
-
                 break;
             default:
 
-                //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+              //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
         }
         return oBean;

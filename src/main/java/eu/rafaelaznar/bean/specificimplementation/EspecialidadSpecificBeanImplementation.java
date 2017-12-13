@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 @MetaObjectBeanInterface(
         TableName = "especialidad",
         SingularDescription = "Especialidad",
-        PluralDescription = "Tabla de especialidad",
+        PluralDescription = "Especialidades",
         Icon = "fa fa-stethoscope",
         Type = EnumHelper.SourceType.Table
 )
