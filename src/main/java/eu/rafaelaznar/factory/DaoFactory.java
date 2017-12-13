@@ -38,6 +38,16 @@ import eu.rafaelaznar.dao.specificimplementation.TipoepisodioSpecificDaoImplemen
 import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import java.sql.Connection;
+import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
+import java.sql.Connection;
 
 public class DaoFactory {
 
@@ -63,9 +73,24 @@ public class DaoFactory {
             case "centro":
                 oDao = (MetaDaoInterface) new CentroSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
+            case "especialidad":
+                oDao = (MetaDaoInterface) new EspecialidadSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                 break;
+            case "destinoalta":
+                oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                 break;
+            case "tipopago":
+                oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                 break;
+            case "circunstanciasalta":
+                oDao = (MetaDaoInterface) new CircunstanciasaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "sexo":
+                oDao = (MetaDaoInterface) new SexoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             case "tipoepisodio":
                 oDao = (MetaDaoInterface) new TipoepisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;
+                break;                
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;

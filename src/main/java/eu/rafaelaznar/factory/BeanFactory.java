@@ -36,6 +36,13 @@ import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImp
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipoepisodioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -60,6 +67,22 @@ public class BeanFactory {
                 break;
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
+                break;
+
+            case "circunstanciasalta":
+                oBean = new CircunstanciasaltaSpecificBeanImplementation();
+                break;
+           case "especialidad":
+                oBean = new EspecialidadSpecificBeanImplementation();
+                break;
+            case "destinoalta":
+                oBean = new DestinoaltaSpecificBeanImplementation();
+                break;
+            case "tipopago":
+                oBean = new TipopagoSpecificBeanImplementation();
+                break;
+            case "sexo":
+                oBean = new SexoSpecificBeanImplementation();
                 break;
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
