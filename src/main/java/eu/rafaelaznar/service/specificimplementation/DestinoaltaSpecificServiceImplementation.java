@@ -18,13 +18,13 @@ public class DestinoaltaSpecificServiceImplementation extends TableGenericServic
 
     @Override
     protected Boolean checkPermission(String strMethodName) {
-        strMethodName.toLowerCase();
+        String method = strMethodName.toLowerCase();
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         UsuarioSpecificBeanImplementation oUser = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();
         if (oUsuarioBean != null && oUser.getId_tipousuario() == 1) {
             return true;
-        } else if (oUsuarioBean != null && oUser.getId_tipousuario() >= 3 && oUser.getId_tipousuario() <= 5) {
-            switch (strMethodName) {
+        } else if (oUsuarioBean != null && oUser.getId_tipousuario() == 3 || oUser.getId_tipousuario() == 4 || oUser.getId_tipousuario() == 5) {
+            switch (method) {
                 case "getmetadata":
                     return true;
                 case "getobjectmetadata":
