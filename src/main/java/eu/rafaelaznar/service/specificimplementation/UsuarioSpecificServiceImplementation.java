@@ -71,6 +71,8 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         hmObjectsMetaData.put("curso", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("grupo", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("grupo", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("tipopago", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("tipopago", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("sexo", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("sexo", oDao.getObjectMetaData());
 
