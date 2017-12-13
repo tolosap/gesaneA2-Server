@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>json</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.JsonController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>log4j-init</servlet-name>
+        <servlet-class>eu.rafaelaznar.control.Log4jInit</servlet-class>
+        <init-param>
+            <param-name>log4j-trolleyes-server3</param-name>
+            <param-value>WEB-INF/log4j.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>json</servlet-name>
+        <url-pattern>/json</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>json</welcome-file>
+    </welcome-file-list>
+</web-app>
