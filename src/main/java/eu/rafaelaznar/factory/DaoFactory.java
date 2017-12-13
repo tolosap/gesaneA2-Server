@@ -32,6 +32,7 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.dao.specificimplementation.CentroSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
@@ -72,11 +73,15 @@ public class DaoFactory {
                 oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
             case "tipopago":
                 oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+
+            case "circunstanciasalta":
+                oDao = (MetaDaoInterface) new CircunstanciasaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
 
             case "sexo":
                 oDao = (MetaDaoInterface) new SexoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
+
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;

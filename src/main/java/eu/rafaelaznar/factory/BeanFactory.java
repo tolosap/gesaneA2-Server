@@ -33,6 +33,7 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
@@ -64,6 +65,10 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
+
+            case "circunstanciasalta":
+                oBean = new CircunstanciasaltaSpecificBeanImplementation();
+
            case "especialidad":
                 oBean = new EspecialidadSpecificBeanImplementation();
             case "destinoalta":
@@ -72,6 +77,7 @@ public class BeanFactory {
                 oBean = new TipopagoSpecificBeanImplementation();
             case "sexo":
                 oBean = new SexoSpecificBeanImplementation();
+
                 break;
             default:
 
