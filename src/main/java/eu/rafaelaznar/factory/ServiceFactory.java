@@ -32,12 +32,7 @@ import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipoepisodioSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
-import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
-import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.service.specificimplementation.CircunstanciasaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
@@ -107,6 +102,9 @@ public class ServiceFactory {
                         break;
                     case "getsessionuserlevel":
                         oReplyBean = oUsuarioService.getSessionUserLevel();
+                        break;
+                    case "checklogin":
+                        oReplyBean = oUsuarioService.checklogin();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
@@ -472,7 +470,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-         case "tipoepisodio":
+            case "tipoepisodio":
                 TipoepisodioSpecificServiceImplementation oTipoepisodioService = new TipoepisodioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
