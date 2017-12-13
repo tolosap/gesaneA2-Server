@@ -35,6 +35,7 @@ import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImple
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
@@ -66,6 +67,8 @@ public class DaoFactory {
                 break;
             case "destinoalta":
                 oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+            case "tipopago":
+                oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
 
             case "sexo":
