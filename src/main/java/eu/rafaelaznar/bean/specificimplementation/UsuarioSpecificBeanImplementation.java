@@ -52,6 +52,18 @@ import java.util.Date;
 )
 public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Nombre completo",
+            LongName = "Nombre completo",
+            Description = "Nombre completo del usuario",
+            Type = EnumHelper.FieldType.Calculated,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 100
+    )
+    private String nombrecompleto;
+
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Nombre",
@@ -61,9 +73,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String nombre;
 
@@ -76,9 +89,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String primer_apellido;
 
@@ -91,9 +105,10 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            IsForeignKeyDescriptor = true,
+            IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String segundo_apellido;
 
@@ -135,11 +150,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             ShortName = "¿Activo?",
             LongName = "¿Usuario activo?",
             Description = "¿Usuario activo?",
-            Type = EnumHelper.FieldType.Integer,
+            Type = EnumHelper.FieldType.Boolean,
             IsRequired = true,
             IsVisible = false
     )
-    private Boolean activo;
+    private Integer activo;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -158,11 +173,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             ShortName = "¿Validado?",
             LongName = "¿Usuario validado?",
             Description = "¿Usuario validado?",
-            Type = EnumHelper.FieldType.Integer,
+            Type = EnumHelper.FieldType.Boolean,
             IsRequired = true,
             IsVisible = false
     )
-    private Boolean validado;
+    private Integer validado;
 
     @Expose(serialize = false)
     private Integer id_tipousuario = 0;
@@ -192,8 +207,8 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private MetaBeanHelper obj_grupo = null;
 
-    @Expose(deserialize = false)
-    private ArrayList<MetaBeanHelper> obj_grupos;
+    @Expose(deserialize = false)    
+    private ArrayList<MetaBeanHelper> grupos;
 
     @Expose(serialize = false)
     private Integer id_centro = 0;
@@ -223,13 +238,32 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private MetaBeanHelper obj_centrosanitario = null;
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Es profesor de los grupos",
+            LongName = "Es profesor de los grupos",
+            Description = "Es profesor de los grupos",
+            Type = EnumHelper.FieldType.Link,
+            References = "grupo"
+    )
+    private Integer link_grupo = null;
+
     public UsuarioSpecificBeanImplementation() {
-        this.obj_grupos = new ArrayList<>();
+        this.grupos = new ArrayList<>();
     }
 
     public UsuarioSpecificBeanImplementation(Integer id) {
-        this.obj_grupos = new ArrayList<>();
+        this.grupos = new ArrayList<>();
         this.id = id;
+    }
+
+    @Override
+    public void ComputeCalculatedFields() {
+        this.nombrecompleto = this.nombre + " " + this.primer_apellido + " " + this.segundo_apellido;
+    }
+
+    public String getNombrecompleto() {
+        return nombrecompleto;
     }
 
     public String getNombre() {
@@ -288,11 +322,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.token = token;
     }
 
-    public Boolean getActivo() {
+    public Integer getActivo() {
         return activo;
     }
 
-    public void setActivo(Boolean activo) {
+    public void setActivo(Integer activo) {
         this.activo = activo;
     }
 
@@ -304,11 +338,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
         this.fecha_alta = fecha_alta;
     }
 
-    public Boolean getValidado() {
+    public Integer getValidado() {
         return validado;
     }
 
-    public void setValidado(Boolean validado) {
+    public void setValidado(Integer validado) {
         this.validado = validado;
     }
 
@@ -377,11 +411,11 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     }
 
     public ArrayList<MetaBeanHelper> getObj_grupos() {
-        return obj_grupos;
+        return grupos;
     }
 
     public void setObj_grupos(ArrayList<MetaBeanHelper> obj_grupos) {
-        this.obj_grupos = obj_grupos;
+        this.grupos = obj_grupos;
     }
 
     @Override

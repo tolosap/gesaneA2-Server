@@ -42,4 +42,6 @@ public interface GenericBeanInterface {
 
     public GenericBeanInterface fill(ResultSet oResultSet, Connection oConnection, MetaBeanHelper oPuserBean_security, Integer expand) throws Exception;
 
+    public void ComputeCalculatedFields();
+
 }
