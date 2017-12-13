@@ -20,9 +20,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         TableName = "sexo",
         SingularDescription = "Sexo",
         PluralDescription = "Sexo",
-        Icon = "fa fa-user", //cambiar
-        SqlSelect = "SELECT * FROM sexo WHERE 1=1 ",
-        SqlSelectCount = "SELECT COUNT(*) FROM sexo WHERE 1=1 ",
+        Icon = "fa fa-venus-mars",
         Type = EnumHelper.SourceType.Table
 )
 public class SexoSpecificBeanImplementation extends TableGenericBeanImplementation {
