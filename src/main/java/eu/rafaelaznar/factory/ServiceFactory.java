@@ -34,6 +34,7 @@ import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplem
 import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -289,7 +290,38 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-
+            case "tipopago":
+                TipopagoSpecificServiceImplementation oTipopagoService = new TipopagoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oTipopagoService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oTipopagoService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oTipopagoService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oTipopagoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oTipopagoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oTipopagoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oTipopagoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oTipopagoService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
             default:
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;
