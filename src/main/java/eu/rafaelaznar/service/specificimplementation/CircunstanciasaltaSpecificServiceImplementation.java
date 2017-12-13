@@ -23,19 +23,16 @@ public class CircunstanciasaltaSpecificServiceImplementation extends TableGeneri
         super(request);
     }
 
-    @Override
+      @Override
     protected Boolean checkPermission(String strMethodName) {
         String strMethod = strMethodName.toLowerCase();
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         UsuarioSpecificBeanImplementation oUser = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();
-
-        if(oUsuarioBean != null && oUser.getId_tipousuario() == 1){
+        if (oUsuarioBean != null && oUser.getId_tipousuario() == 1) {
             return true;
-        }
-        else if (oUsuarioBean != null && oUser.getId_tipousuario() == 3 || oUser.getId_tipousuario() == 4 && oUser.getId_tipousuario() == 5) {
-
+        } else if (oUsuarioBean != null && oUser.getId_tipousuario() == 3 || oUser.getId_tipousuario() == 4 || oUser.getId_tipousuario() == 5) {
             switch (strMethod) {
-                case "getmedata":
+                case "getmetadata":
                     return true;
                 case "getobjectmetadata":
                     return true;
@@ -61,6 +58,5 @@ public class CircunstanciasaltaSpecificServiceImplementation extends TableGeneri
         } else {
             return false;
         }
-
     }
 }
