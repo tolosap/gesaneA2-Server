@@ -32,6 +32,12 @@ import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.TipoepisodioSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
+import javax.servlet.http.HttpServletRequest;
 import eu.rafaelaznar.service.specificimplementation.CircunstanciasaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
@@ -460,7 +466,38 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oSexoService.getPageX();
-
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+         case "tipoepisodio":
+                TipoepisodioSpecificServiceImplementation oTipoepisodioService = new TipoepisodioSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oTipoepisodioService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oTipoepisodioService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oTipoepisodioService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oTipoepisodioService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oTipoepisodioService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oTipoepisodioService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oTipoepisodioService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oTipoepisodioService.getCount();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
