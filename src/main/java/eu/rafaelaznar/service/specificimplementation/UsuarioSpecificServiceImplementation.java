@@ -71,12 +71,18 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         hmObjectsMetaData.put("curso", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("grupo", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("grupo", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("tipoepisodio", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("tipoepisodio", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("especialidad", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("especialidad", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("destinoalta", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("destinoalta", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("tipopago", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("tipopago", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("sexo", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("sexo", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("circunstanciasalta", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("circunstanciasalta", oDao.getObjectMetaData());
 
         String strJson = GsonHelper.getGson().toJson(hmObjectsMetaData);
         oReplyBean = new ReplyBeanHelper(200, strJson);
