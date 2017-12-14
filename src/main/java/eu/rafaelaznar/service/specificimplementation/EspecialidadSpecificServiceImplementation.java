@@ -40,26 +40,6 @@ public class EspecialidadSpecificServiceImplementation extends TableGenericServi
         super(request);
     }
 
-//    @Override
-//    protected Boolean checkPermission(String strMethodName) {
-//        MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
-////        UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oRequest.getSession().getAttribute(ob);
-//        if (oUsuarioBean != null) {
-////            this.checkPermission("get");
-////            this.checkPermission("getpage");
-////            if (oUsuario.getId_tipousuario() == 1) {
-////                this.checkPermission("remove");
-////                this.checkPermission("set");
-////                this.checkPermission("getcount");
-////                return true;
-////            } else {
-////                return true;
-////            }
-//           return true;
-//        } else {
-//            return false;
-//        }
-//    }
     @Override
     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
