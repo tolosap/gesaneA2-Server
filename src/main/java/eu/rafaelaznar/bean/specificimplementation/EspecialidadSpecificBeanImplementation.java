@@ -11,17 +11,6 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -49,6 +38,16 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
+    
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Tipo especialidad del médico",
+//            LongName = "Tipo especialidad del médico",
+//            Description = "Tipo especialidad del médico",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "medico"
+//    )
+//    private Integer link_medico = null;
 
     public EspecialidadSpecificBeanImplementation() {
     }

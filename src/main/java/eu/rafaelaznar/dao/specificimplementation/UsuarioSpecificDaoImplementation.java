@@ -35,6 +35,8 @@ import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementation {
 
@@ -70,6 +72,61 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
             }
         }
         return oMetaBeanHelper;
+    }
+
+    public Integer getIDfromUser(String strLogin) throws Exception {
+        Integer intResult = null;
+        Statement oStatement = null;
+        ResultSet oResultSet = null;
+        try {
+            oStatement = (Statement) oConnection.createStatement();
+            String strSQL = "SELECT id FROM usuario WHERE login ='" + strLogin + "'";
+            oResultSet = oStatement.executeQuery(strSQL);
+            if (oResultSet.next()) {
+                intResult = oResultSet.getInt("id");
+            } else {
+                return 0;
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oStatement != null) {
+                oStatement.close();
+            }
+        }
+        return intResult;
+    }
+    public Integer getIDfromCodigoGrupo(String strCode) throws Exception {
+        Integer intResult = null;
+        Statement oStatement = null;
+        ResultSet oResultSet = null;
+        try {
+            oStatement = (Statement) oConnection.createStatement();
+            String strSQL = "SELECT id FROM grupo WHERE codigo ='" + strCode + "'";
+            oResultSet = oStatement.executeQuery(strSQL);
+            if (oResultSet.next()) {
+                intResult = oResultSet.getInt("id");
+            } else {
+                return 0;
+            }
+        } catch (SQLException ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oStatement != null) {
+                oStatement.close();
+            }
+        }
+        return intResult;
     }
 
 }

@@ -56,6 +56,17 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
+    
+    
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Usuarios del tipo",
+            LongName = "Usuarios del tipo",
+            Description = "Usuarios del tipo",
+            Type = EnumHelper.FieldType.Link,
+            References = "usuario"
+    )
+    private Integer link_usuario = null;
 
     public TipousuarioSpecificBeanImplementation() {
     }
