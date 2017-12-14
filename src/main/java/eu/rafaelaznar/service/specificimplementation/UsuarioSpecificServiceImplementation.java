@@ -358,5 +358,4 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
 //
 //        return ReplyBeanHelper;
 //    }
-
 }

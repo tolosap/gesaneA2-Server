@@ -14,9 +14,9 @@ import java.sql.Connection;
  * @author a023321991z
  */
 public class SexoSpecificDaoImplementation extends TableGenericDaoImplementation {
-    
+
     public SexoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("sexo", oPooledConnection, oPuserBean_security, strWhere);
     }
-    
+
 }

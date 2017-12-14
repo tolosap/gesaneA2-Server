@@ -61,9 +61,9 @@ public class GrupoSpecificServiceImplementation extends TableGenericServiceImple
                 oGrupo.setCodigo(codigo);
                 oGrupo = (GrupoSpecificBeanImplementation) oGrupoDao.getFromCodigo(oGrupo).getBean();
                 if (oGrupo.getId() > 0) {
-                    oReplyBean = new ReplyBeanHelper(200,  EncodingHelper.quotate("OK"));
+                    oReplyBean = new ReplyBeanHelper(200, EncodingHelper.quotate("OK"));
                 } else {
-                    oReplyBean = new ReplyBeanHelper(403,  EncodingHelper.quotate("Bad authentication"));
+                    oReplyBean = new ReplyBeanHelper(403, EncodingHelper.quotate("Bad authentication"));
                 }
             } catch (Exception ex) {
                 if (oConnection != null) {

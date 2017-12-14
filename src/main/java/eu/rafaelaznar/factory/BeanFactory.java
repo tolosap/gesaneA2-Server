@@ -71,7 +71,7 @@ public class BeanFactory {
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
                 break;
-           case "especialidad":
+            case "especialidad":
                 oBean = new EspecialidadSpecificBeanImplementation();
                 break;
             case "destinoalta":
@@ -88,7 +88,7 @@ public class BeanFactory {
                 break;
             default:
 
-              //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+                //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
         }
         return oBean;

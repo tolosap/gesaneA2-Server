@@ -56,8 +56,8 @@ public class TipopagoSpecificBeanImplementation extends TableGenericBeanImplemen
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
-    
-     @Expose(deserialize = false)
+
+    @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo de pago según el paciente",
             LongName = "Tipo de pago según el paciente",

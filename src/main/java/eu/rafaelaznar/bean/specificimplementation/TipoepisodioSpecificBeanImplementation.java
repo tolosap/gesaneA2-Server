@@ -1,4 +1,3 @@
-
 package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
@@ -30,7 +29,7 @@ public class TipoepisodioSpecificBeanImplementation extends TableGenericBeanImpl
     )
 
     private String descripcion = "";
-    
+
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo de episodio según el episodio",
@@ -40,7 +39,7 @@ public class TipoepisodioSpecificBeanImplementation extends TableGenericBeanImpl
             References = "episodio"
     )
     private Integer link_episodio = null;
-    
+
     public TipoepisodioSpecificBeanImplementation() {
     }
 

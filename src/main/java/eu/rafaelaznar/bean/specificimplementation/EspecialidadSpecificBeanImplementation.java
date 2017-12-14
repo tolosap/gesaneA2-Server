@@ -37,8 +37,8 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
-    
-         @Expose(deserialize = false)
+
+    @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo especialidad del médico",
             LongName = "Tipo especialidad del médico",
@@ -47,16 +47,6 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
             References = "medico"
     )
     private Integer link_medico = null;
-
-//    @Expose(deserialize = false)
-//    @MetaPropertyBeanInterface(
-//            ShortName = "Esp.",
-//            LongName = "Especialidad del médico",
-//            Description = "Especialidad del médico",
-//            Type = EnumHelper.FieldType.Link,
-//            References = "medico"
-//    )
-//    private Integer link_medico = null;
 
     public EspecialidadSpecificBeanImplementation() {
     }

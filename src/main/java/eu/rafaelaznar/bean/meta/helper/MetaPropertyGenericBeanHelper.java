@@ -66,7 +66,7 @@ public class MetaPropertyGenericBeanHelper {
     @Expose
     private Integer Wide = 2;
     @Expose
-    private Integer MaxLength=255;
+    private Integer MaxLength = 255;
 
     public String getName() {
         return Name;
