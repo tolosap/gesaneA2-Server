@@ -45,7 +45,8 @@ public class EnumHelper {
         Boolean,
         ForeignId,
         ForeignObject,
-        Link
+        Link,
+        Calculated
     };
 
     public static enum SourceType {

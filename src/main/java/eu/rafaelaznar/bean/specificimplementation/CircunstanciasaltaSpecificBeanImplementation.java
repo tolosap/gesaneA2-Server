@@ -16,19 +16,17 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
  *
  * @author a022583952e
  */
-
-    @MetaObjectBeanInterface(
+@MetaObjectBeanInterface(
         TableName = "circunstanciasalta",
         SingularDescription = "Circunstancia del alta",
         PluralDescription = "Circunstancias del alta",
         Icon = "fa fa-blind",
         Type = EnumHelper.SourceType.Table
 )
-    
-public class CircunstanciasaltaSpecificBeanImplementation extends TableGenericBeanImplementation {
-    
 
-     @Expose
+public class CircunstanciasaltaSpecificBeanImplementation extends TableGenericBeanImplementation {
+
+    @Expose
     @MetaPropertyBeanInterface(
             ShortName = "C.Alta",
             LongName = "Circunstancias del alta",
@@ -40,6 +38,16 @@ public class CircunstanciasaltaSpecificBeanImplementation extends TableGenericBe
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
+
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Es circunstancia de alta de los episodios",
+            LongName = "Es circunstancia de alta de los episodios",
+            Description = "Es circunstancia de alta de los episodios",
+            Type = EnumHelper.FieldType.Link,
+            References = "episodio"
+    )
+    private Integer link_episodio = null;
 
     public CircunstanciasaltaSpecificBeanImplementation() {
     }
@@ -55,8 +63,5 @@ public class CircunstanciasaltaSpecificBeanImplementation extends TableGenericBe
     public void setDescription(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    
-    
-    
+
 }
