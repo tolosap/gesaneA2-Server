@@ -28,8 +28,19 @@ public class TipoepisodioSpecificBeanImplementation extends TableGenericBeanImpl
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true
     )
-    private String descripcion = "";
 
+    private String descripcion = "";
+    
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Tipo de episodio según el episodio",
+            LongName = "Tipo de episodio según el episodio",
+            Description = "Tipo de episodio según el episodio",
+            Type = EnumHelper.FieldType.Link,
+            References = "episodio"
+    )
+    private Integer link_episodio = null;
+    
     public TipoepisodioSpecificBeanImplementation() {
     }
 
