@@ -17,6 +17,10 @@ public class DestinoaltaSpecificServiceImplementation extends TableGenericServic
         super(request);
     }
 
+    /**
+     *
+     * @author a022583952e
+     */
     @Override
     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");

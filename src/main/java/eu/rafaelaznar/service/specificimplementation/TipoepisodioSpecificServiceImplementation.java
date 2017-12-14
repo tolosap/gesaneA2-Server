@@ -1,6 +1,7 @@
 package eu.rafaelaznar.service.specificimplementation;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -12,40 +13,47 @@ public class TipoepisodioSpecificServiceImplementation extends TableGenericServi
     }
 
     @Override
-    protected Boolean checkPermission(String strMethodName) {
-        String strMethod = strMethodName.toLowerCase();
+     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
-        UsuarioSpecificBeanImplementation oUser = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();
-        if (oUsuarioBean != null && oUser.getId_tipousuario() == 1) {
-            return true;
-        } else if (oUsuarioBean != null && oUser.getId_tipousuario() == 3
-                || oUser.getId_tipousuario() == 4 || oUser.getId_tipousuario() == 5) {
-            switch (strMethod) {
-                case "getmetadata":
-                    return true;
-                case "getobjectmetadata":
-                    return true;
-                case "getpropertiesmetadata":
-                    return true;
-                case "get":
-                    return true;
-                case "set":
+        if (oUsuarioBean != null) {
+            UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();
+            MetaBeanHelper oMetaBeanHelper = oUsuario.getObj_tipousuario();
+            TipousuarioSpecificBeanImplementation oTipousuario = (TipousuarioSpecificBeanImplementation) oMetaBeanHelper.getBean();
+            Integer idTipousuario = oTipousuario.getId();
+
+            String strMethod = strMethodName.toLowerCase();
+            if (idTipousuario == 1) {
+                return true;
+            } else {
+                if (idTipousuario == 3
+                        || idTipousuario == 4
+                        || idTipousuario == 5) {
+
+                    switch (strMethod) {
+                        case "getmetadata":
+                            return true;
+                        case "getobjectmetadata":
+                            return true;
+                        case "getpropertiesmetadata":
+                            return true;
+                        case "get":
+                            return true;
+                        case "set":
+                            return false;
+                        case "remove":
+                            return false;
+                        case "getpage":
+                            return true;
+                        case "getcount":
+                            return true;
+                    }
+                } else {
                     return false;
-                case "remove":
-                    return false;
-                case "getpage":
-                    return true;
-                case "getcount":
-                    return true;
-                case "getcountx":
-                    return true;
-                case "getpagex":
-                    return true;
-                default:
-                    return false;
+                }
             }
         } else {
             return false;
         }
+        return false;
     }
 }
