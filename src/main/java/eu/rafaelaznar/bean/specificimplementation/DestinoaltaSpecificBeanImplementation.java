@@ -34,6 +34,16 @@ public class DestinoaltaSpecificBeanImplementation extends TableGenericBeanImple
     )
     private String descripcion = "";
 
+        @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Destino del alta en funcion del episodio",
+            LongName = "Destino del alta en funcion del episodio",
+            Description = "Destino del alta en funcion del episodio",
+            Type = EnumHelper.FieldType.Link,
+            References = "episodio"
+    )
+    private Integer link_grupo = null;
+        
     public DestinoaltaSpecificBeanImplementation() {
     }
 
