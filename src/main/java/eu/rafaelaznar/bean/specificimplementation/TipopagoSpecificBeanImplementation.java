@@ -57,15 +57,15 @@ public class TipopagoSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private String descripcion = "";
     
-     @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Tipo de pago según el paciente",
-            LongName = "Tipo de pago según el paciente",
-            Description = "Tipo de pago según el paciente",
-            Type = EnumHelper.FieldType.Link,
-            References = "paciente"
-    )
-    private Integer link_paciente = null;
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Tipo de pago según el paciente",
+//            LongName = "Tipo de pago según el paciente",
+//            Description = "Tipo de pago según el paciente",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "paciente"
+//    )
+//    private Integer link_paciente = null;
 
     public TipopagoSpecificBeanImplementation() {
     }
