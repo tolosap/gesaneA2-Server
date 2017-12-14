@@ -39,15 +39,15 @@ public class CircunstanciasaltaSpecificBeanImplementation extends TableGenericBe
     )
     private String descripcion = "";
 
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Es circunstancia de alta de los episodios",
-            LongName = "Es circunstancia de alta de los episodios",
-            Description = "Es circunstancia de alta de los episodios",
-            Type = EnumHelper.FieldType.Link,
-            References = "episodio"
-    )
-    private Integer link_episodio = null;
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Es circunstancia de alta de los episodios",
+//            LongName = "Es circunstancia de alta de los episodios",
+//            Description = "Es circunstancia de alta de los episodios",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "episodio"
+//    )
+//    private Integer link_episodio = null;
 
     public CircunstanciasaltaSpecificBeanImplementation() {
     }
