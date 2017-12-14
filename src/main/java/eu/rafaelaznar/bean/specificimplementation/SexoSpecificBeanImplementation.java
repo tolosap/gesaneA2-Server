@@ -40,15 +40,15 @@ public class SexoSpecificBeanImplementation extends TableGenericBeanImplementati
     )
     private String descripcion;
 
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Sexo",
-            LongName = "Sexo del paciente",
-            Description = "Sexo del paciente",
-            Type = EnumHelper.FieldType.Link,
-            References = "paciente"
-    )
-    private Integer link_paciente = null;
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Sexo",
+//            LongName = "Sexo del paciente",
+//            Description = "Sexo del paciente",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "paciente"
+//    )
+//    private Integer link_paciente = null;
 
     public String getDescripcion() {
         return descripcion;
