@@ -27,7 +27,6 @@ import javax.validation.constraints.Size;
  *
  * @author a0y3770325h
  */
-
 @MetaObjectBeanInterface(
         TableName = "especialidad",
         SingularDescription = "Especialidad",
@@ -50,12 +49,23 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     )
     private String descripcion = "";
 
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Esp.",
+//            LongName = "Especialidad del médico",
+//            Description = "Especialidad del médico",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "medico"
+//    )
+//    private Integer link_medico = null;
+
     public EspecialidadSpecificBeanImplementation() {
     }
 
     EspecialidadSpecificBeanImplementation(Integer id_especialidad) {
         id = id_especialidad;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -63,7 +73,5 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    
 
 }
