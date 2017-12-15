@@ -38,4 +38,5 @@ public class TipousuarioSpecificDaoImplementation extends TableGenericDaoImpleme
         super("tipousuario", oPooledConnection, oPuserBean_security, strWhere);
     }
 
+    
 }

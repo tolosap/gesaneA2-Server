@@ -40,6 +40,7 @@ import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceI
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.SexoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.TipodependenciaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -499,6 +500,38 @@ public class ServiceFactory {
                         break;
                     case "getcount":
                         oReplyBean = oTipoepisodioService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+                 case "tipodependencia":
+                TipodependenciaSpecificServiceImplementation oTipodependenciaService = new TipodependenciaSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oTipodependenciaService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oTipodependenciaService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oTipodependenciaService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oTipodependenciaService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oTipodependenciaService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oTipodependenciaService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oTipodependenciaService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oTipodependenciaService.getCount();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
