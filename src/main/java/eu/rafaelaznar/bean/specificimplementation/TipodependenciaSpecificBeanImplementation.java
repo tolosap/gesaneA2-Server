@@ -19,7 +19,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
         TableName = "Tipodependencia",
-        SingularDescription = "Tipo de depependencia",
+        SingularDescription = "Tipo de dependencia",
         PluralDescription = "Tipo de dependencias",
         Icon = "fa fa-yelp",
         Type = EnumHelper.SourceType.Table
