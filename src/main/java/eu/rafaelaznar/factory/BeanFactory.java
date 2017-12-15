@@ -43,6 +43,7 @@ import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImpleme
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TiposervicioSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -86,6 +87,9 @@ public class BeanFactory {
                 break;
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
+                break;
+            case "tiposervicio":
+                oBean = new TiposervicioSpecificBeanImplementation();
                 break;
             default:
 

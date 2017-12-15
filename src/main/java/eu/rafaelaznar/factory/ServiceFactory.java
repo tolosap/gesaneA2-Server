@@ -40,6 +40,7 @@ import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceI
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.SexoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.TiposervicioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.UsuarioSpecificServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
@@ -502,7 +503,44 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-
+case "tiposervicio":
+                TiposervicioSpecificServiceImplementation oTiposervicioService = new TiposervicioSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oTiposervicioService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oTiposervicioService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oTiposervicioService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oTiposervicioService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oTiposervicioService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oTiposervicioService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oTiposervicioService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oTiposervicioService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oTiposervicioService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oTiposervicioService.getPageX();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
             default:
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;

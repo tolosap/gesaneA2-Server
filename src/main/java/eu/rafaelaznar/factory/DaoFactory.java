@@ -45,6 +45,7 @@ import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplement
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TiposervicioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import java.sql.Connection;
@@ -90,7 +91,10 @@ public class DaoFactory {
                 break;
             case "tipoepisodio":
                 oDao = (MetaDaoInterface) new TipoepisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;                
+                break;
+            case "tiposervicio":
+                oDao = (MetaDaoInterface) new TiposervicioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
