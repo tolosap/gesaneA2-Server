@@ -16,11 +16,10 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
  *
  * @author a0y3770325h
  */
-
 @MetaObjectBeanInterface(
         TableName = "especialidad",
         SingularDescription = "Especialidad",
-        PluralDescription = "Tabla de especialidad",
+        PluralDescription = "Especialidades",
         Icon = "fa fa-stethoscope",
         Type = EnumHelper.SourceType.Table
 )
@@ -55,6 +54,7 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     EspecialidadSpecificBeanImplementation(Integer id_especialidad) {
         id = id_especialidad;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -62,7 +62,5 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    
 
 }

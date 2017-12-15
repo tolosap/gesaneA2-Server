@@ -42,8 +42,11 @@ import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplem
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.FacturaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TipodependenciaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TiposervicioSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -69,7 +72,6 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
-
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
                 break;
@@ -88,12 +90,21 @@ public class BeanFactory {
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
                 break;
+            case "tiposervicio":
+                oBean = new TiposervicioSpecificBeanImplementation();
+                break;
+            case "modalidadepisodio":
+                oBean = new ModalidadepisodioSpecificBeanImplementation();
+                break;
+            case "tipodependencia":
+                oBean = new TipodependenciaSpecificBeanImplementation();
+
             case "factura":
                 oBean = new FacturaSpecificBeanImplementation();
                 break;
             default:
 
-                //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+                //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
         }
         return oBean;

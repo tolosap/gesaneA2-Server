@@ -207,7 +207,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private MetaBeanHelper obj_grupo = null;
 
-    @Expose(deserialize = false)    
+    @Expose(deserialize = false)
     private ArrayList<MetaBeanHelper> grupos;
 
     @Expose(serialize = false)

@@ -23,8 +23,8 @@ public class CircunstanciasaltaSpecificServiceImplementation extends TableGeneri
         super(request);
     }
 
-      @Override
-     protected Boolean checkPermission(String strMethodName) {
+    @Override
+    protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();

@@ -11,14 +11,18 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
-public class DestinoaltaSpecificServiceImplementation extends TableGenericServiceImplementation {
+/**
+ *
+ * @author a0y3770325h
+ */
+public class TipodependenciaSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public DestinoaltaSpecificServiceImplementation(HttpServletRequest request) {
+    public TipodependenciaSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
-
+    
     @Override
-    protected Boolean checkPermission(String strMethodName) {
+     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();

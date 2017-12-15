@@ -11,9 +11,13 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
-public class DestinoaltaSpecificServiceImplementation extends TableGenericServiceImplementation {
+/**
+ *
+ * @author a024441493z
+ */
+public class ModalidadepisodioSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public DestinoaltaSpecificServiceImplementation(HttpServletRequest request) {
+    public ModalidadepisodioSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
 
@@ -61,4 +65,5 @@ public class DestinoaltaSpecificServiceImplementation extends TableGenericServic
         }
         return false;
     }
+
 }

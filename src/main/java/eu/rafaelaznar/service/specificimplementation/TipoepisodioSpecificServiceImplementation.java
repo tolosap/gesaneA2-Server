@@ -13,7 +13,7 @@ public class TipoepisodioSpecificServiceImplementation extends TableGenericServi
     }
 
     @Override
-     protected Boolean checkPermission(String strMethodName) {
+    protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();

@@ -13,19 +13,19 @@ import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
-        TableName = "destinoalta",
-        SingularDescription = "Destino de Alta",
-        PluralDescription = "Destinos de Alta",
-        Icon = "fa fa-ellipsis-v",
+        TableName = "tiposervicio",
+        SingularDescription = "Tipo de Servicio",
+        PluralDescription = "Tipos de Servicio",
+        Icon = "fa fa-stack-exchange",
         Type = EnumHelper.SourceType.Table
 )
-public class DestinoaltaSpecificBeanImplementation extends TableGenericBeanImplementation {
-
+public class TiposervicioSpecificBeanImplementation extends TableGenericBeanImplementation{
+    
     @Expose
     @MetaPropertyBeanInterface(
-            ShortName = "Alta",
-            LongName = "Destino de Alta",
-            Description = "Destino al que se va a dar de alta",
+            ShortName = "Tipo",
+            LongName = "Tipo de Servicio",
+            Description = "Servicio a suministrar",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
@@ -33,29 +33,29 @@ public class DestinoaltaSpecificBeanImplementation extends TableGenericBeanImple
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
-
-//    @Expose(deserialize = false)
+    
+    //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
-//            ShortName = "Destino de alta en funcion del episodio",
-//            LongName = "Destino de alta en funcion del episodio",
-//            Description = "Destino de alta en funcion del episodio",
+//            ShortName = "Tipo de servicio en función del servicio",
+//            LongName = "Tipo de servicio en función del servicio",
+//            Description = "Tipo de servicio en función del servicio",
 //            Type = EnumHelper.FieldType.Link,
-//            References = "episodio"
+//            References = "servicio"
 //    )
-//    private Integer link_episodio = null;
-        
-    public DestinoaltaSpecificBeanImplementation() {
+//    private Integer link_servicio = null;
+
+    public TiposervicioSpecificBeanImplementation() {
     }
 
-    public DestinoaltaSpecificBeanImplementation(Integer id) {
+    public TiposervicioSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
-    public String getDescription() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescription(String descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 }

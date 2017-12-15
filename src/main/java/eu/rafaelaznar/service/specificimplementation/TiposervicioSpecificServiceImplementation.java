@@ -11,9 +11,9 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
-public class DestinoaltaSpecificServiceImplementation extends TableGenericServiceImplementation {
+public class TiposervicioSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public DestinoaltaSpecificServiceImplementation(HttpServletRequest request) {
+    public TiposervicioSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
 

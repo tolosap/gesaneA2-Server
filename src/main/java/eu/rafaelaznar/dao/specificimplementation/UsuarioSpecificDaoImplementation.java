@@ -101,6 +101,7 @@ public class UsuarioSpecificDaoImplementation extends TableGenericDaoImplementat
         }
         return intResult;
     }
+
     public Integer getIDfromCodigoGrupo(String strCode) throws Exception {
         Integer intResult = null;
         Statement oStatement = null;
