@@ -58,15 +58,15 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
+            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
             if (oResultSet.next()) {
-                oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
-                ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
-                MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
-                oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
             } else {
-                oBean = null;
+                oBean.setId(0);
             }
+            ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
+            MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
+            oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
