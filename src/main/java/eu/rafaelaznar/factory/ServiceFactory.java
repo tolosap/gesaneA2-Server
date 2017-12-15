@@ -38,6 +38,7 @@ import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImpleme
 import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.ModalidadepisodioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.SexoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipousuarioSpecificServiceImplementation;
@@ -505,7 +506,38 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-
+            case "modalidadepisodio":
+                ModalidadepisodioSpecificServiceImplementation oModalidadepisodioService = new ModalidadepisodioSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oModalidadepisodioService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oModalidadepisodioService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oModalidadepisodioService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oModalidadepisodioService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oModalidadepisodioService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oModalidadepisodioService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oModalidadepisodioService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oModalidadepisodioService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
             default:
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;
