@@ -9,10 +9,10 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import java.sql.Connection;
 
-public class DestinoaltaSpecificDaoImplementation extends TableGenericDaoImplementation{
-    
+public class DestinoaltaSpecificDaoImplementation extends TableGenericDaoImplementation {
+
     public DestinoaltaSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("destinoalta", oPooledConnection, oPuserBean_security, strWhere);
     }
-    
+
 }

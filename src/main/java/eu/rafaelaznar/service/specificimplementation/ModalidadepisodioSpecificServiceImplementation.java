@@ -6,20 +6,18 @@
 package eu.rafaelaznar.service.specificimplementation;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
-
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author a022583952e
+ * @author a024441493z
  */
-public class CircunstanciasaltaSpecificServiceImplementation extends TableGenericServiceImplementation {
+public class ModalidadepisodioSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public CircunstanciasaltaSpecificServiceImplementation(HttpServletRequest request) {
+    public ModalidadepisodioSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
 
@@ -67,4 +65,5 @@ public class CircunstanciasaltaSpecificServiceImplementation extends TableGeneri
         }
         return false;
     }
+
 }

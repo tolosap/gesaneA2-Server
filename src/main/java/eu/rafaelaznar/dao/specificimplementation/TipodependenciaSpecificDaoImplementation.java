@@ -11,12 +11,11 @@ import java.sql.Connection;
 
 /**
  *
- * @author a023321991z
+ * @author a0y3770325h
  */
-public class SexoSpecificDaoImplementation extends TableGenericDaoImplementation {
+public class TipodependenciaSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public SexoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
-        super("sexo", oPooledConnection, oPuserBean_security, strWhere);
+    public TipodependenciaSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+        super("tipodependencia", oPooledConnection, oPuserBean_security, strWhere);
     }
-
 }

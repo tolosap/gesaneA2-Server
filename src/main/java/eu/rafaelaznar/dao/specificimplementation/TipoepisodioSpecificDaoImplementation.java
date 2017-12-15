@@ -1,4 +1,3 @@
-
 package eu.rafaelaznar.dao.specificimplementation;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
