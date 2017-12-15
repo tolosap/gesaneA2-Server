@@ -45,6 +45,7 @@ import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanI
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipodependenciaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TiposervicioSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -88,11 +89,15 @@ public class BeanFactory {
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
                 break;
+            case "tiposervicio":
+                oBean = new TiposervicioSpecificBeanImplementation();
+                break;
             case "modalidadepisodio":
                 oBean = new ModalidadepisodioSpecificBeanImplementation();
                 break;
             case "tipodependencia":
                 oBean = new TipodependenciaSpecificBeanImplementation();
+
                 break;
             default:
 
