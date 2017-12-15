@@ -508,7 +508,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-case "tiposervicio":
+            case "tiposervicio":
                 TiposervicioSpecificServiceImplementation oTiposervicioService = new TiposervicioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
