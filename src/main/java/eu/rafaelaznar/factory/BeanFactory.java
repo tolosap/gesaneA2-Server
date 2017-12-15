@@ -90,6 +90,7 @@ public class BeanFactory {
                 break;
             case "modalidadepisodio":
                 oBean = new ModalidadepisodioSpecificBeanImplementation();
+                break;
             case "tipodependencia":
                 oBean = new TipodependenciaSpecificBeanImplementation();
                 break;
