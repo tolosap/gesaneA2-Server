@@ -37,6 +37,7 @@ import eu.rafaelaznar.service.specificimplementation.CircunstanciasaltaSpecificS
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.FacturaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipopagoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.SexoSpecificServiceImplementation;
@@ -496,6 +497,44 @@ public class ServiceFactory {
                         break;
                     case "getcount":
                         oReplyBean = oTipoepisodioService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+                case "factura":
+                FacturaSpecificServiceImplementation oFacturaService = new FacturaSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oFacturaService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oFacturaService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oFacturaService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oFacturaService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oFacturaService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oFacturaService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oFacturaService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oFacturaService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oFacturaService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oFacturaService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
