@@ -18,9 +18,9 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
  */
 
 @MetaObjectBeanInterface(
-        TableName = "tipodependencia",
-        SingularDescription = "Tipodependencia",
-        PluralDescription = "Tipodependencias",
+        TableName = "Tipodependencia",
+        SingularDescription = "Tipo de depependencia",
+        PluralDescription = "Tipo de dependencias",
         Icon = "fa fa-yelp",
         Type = EnumHelper.SourceType.Table
 )
@@ -30,8 +30,8 @@ public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanI
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Tipodep.desc.",
-            LongName = "Descripcion de tipodependencia",
-            Description = "Descripcion de la tabla tipodependencia",
+            LongName = "Descripcion de tipo dependencia",
+            Description = "Descripcion de la tabla tipo dependencia",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
