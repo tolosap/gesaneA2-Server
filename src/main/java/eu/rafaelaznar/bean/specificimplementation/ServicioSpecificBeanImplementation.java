@@ -74,9 +74,8 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private String codigo;
     
-     @Expose(serialize = false)
+    @Expose(serialize = false)
     private Integer id_tiposervicio = 0;
-
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo",

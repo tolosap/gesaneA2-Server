@@ -99,6 +99,7 @@ public class DaoFactory {
                 break;                
             case "tipodependencia":
                 oDao = (MetaDaoInterface) new TipodependenciaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             case "factura":
                 oDao = (MetaDaoInterface) new FacturaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;

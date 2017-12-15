@@ -34,7 +34,7 @@ public class TiposervicioSpecificBeanImplementation extends TableGenericBeanImpl
     )
     private String descripcion = "";
     
-    //    @Expose(deserialize = false)
+//    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Tipo de servicio en función del servicio",
 //            LongName = "Tipo de servicio en función del servicio",
