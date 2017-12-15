@@ -39,11 +39,13 @@ import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementatio
 import eu.rafaelaznar.factory.ConnectionFactory;
 import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
+import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.factory.DaoFactory;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.helper.RandomHelper;
+import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -257,12 +259,10 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
     }
 
     public ReplyBeanHelper setalumno() throws Exception {
-
         Connection oConnection = null;
         ConnectionInterface oPooledConnection = null;
         ReplyBeanHelper oReplyBean = null;
         UsuarioSpecificBeanImplementation oPuser = null;
-
         try {
             oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
             oConnection = oPooledConnection.newConnection();
@@ -300,63 +300,37 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         return oReplyBean;
     }
 
-//    public ReplyBeanHelper getidcurso() throws SQLException, Exception {
-//
-//        Connection oConnection = null;
-//        ConnectionInterface oPooledConnection = null;
-//        ReplyBeanHelper oReplyBean = null;
-//        UsuarioSpecificBeanImplementation oPuser = null;
-//
-//        try {
-//            oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
-//            oConnection = oPooledConnection.newConnection();
-//            String codigo = oRequest.getParameter("codigo");
-//            if (!codigo.isEmpty()) {
-//
-//                try {
-//
-//                    UsuarioSpecificDaoImplementation oUserDao = new UsuarioSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-//                    GrupoSpecificBeanImplementation oGrupo = new GrupoSpecificBeanImplementation();
-//                    oGrupo.setId(oUserDao.getIDfromCodigoGrupo(codigo));
-//                    
-//                    
-//                    
-//                    
-//                    
-//                    oGrupo=oGrupo.fill(oResultSet, oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), Integer.SIZE);
-//                    if (oGrupo.getId() > 0) {
-//                        oJSON.put("status", 200);
-//                        JSONObject jsonObj = new JSONObject(AppConfigurationHelper.getGson().toJson(oGrupo));
-//                        oJSON.put("message", jsonObj);
-//
-//                    } else {
-//                        oJSON.put("status", 403);
-//                        oJSON.put("message", "Bad authentication");
-//                    }
-//                } catch (Exception ex) {
-//                    Log4j.errorLog(this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName(), ex);
-//                    oJSON.put("status", 403);
-//                    oJSON.put("message", "Error in group operation");
-//                }
-//            }
-//
-//        } catch (Exception ex) {
-//            if (oConnection != null) {
-//                oConnection.rollback();
-//            }
-//            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
-//            Log4jHelper.errorLog(msg, ex);
-//            throw new Exception(msg, ex);
-//        } finally {
-//            if (oConnection != null) {
-//                oConnection.close();
-//            }
-//            if (oPooledConnection != null) {
-//                oPooledConnection.disposeConnection();
-//            }
-//        }
-//
-//        return ReplyBeanHelper;
-//    }
+    public ReplyBeanHelper getidcurso() throws SQLException, Exception {
+        Connection oConnection = null;
+        ConnectionInterface oPooledConnection = null;
+        ReplyBeanHelper oReplyBean = null;
+        UsuarioSpecificBeanImplementation oPuser = null;
+        try {
+            oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
+            oConnection = oPooledConnection.newConnection();
+            String codigo = oRequest.getParameter("codigo");
+            if (!codigo.isEmpty()) {
+                UsuarioSpecificDaoImplementation oUserDao = new UsuarioSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                GrupoSpecificDaoImplementation oGrupoDao = new GrupoSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                MetaBeanHelper oGrupoMBH = oGrupoDao.get(oUserDao.getIDfromCodigoGrupo(codigo), 2);
+                oReplyBean = new ReplyBeanHelper(200, GsonHelper.getGson().toJson(oGrupoMBH));
+            }
+        } catch (Exception ex) {
+            if (oConnection != null) {
+                oConnection.rollback();
+            }
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oConnection != null) {
+                oConnection.close();
+            }
+            if (oPooledConnection != null) {
+                oPooledConnection.disposeConnection();
+            }
+        }
+        return oReplyBean;
+    }
 
 }
