@@ -32,12 +32,7 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.dao.specificimplementation.CentroSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipoepisodioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
-import java.sql.Connection;
 import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
@@ -45,6 +40,7 @@ import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplement
 import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ModalidadepisodioSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.ServicioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipodependenciaSpecificDaoImplementation;
@@ -105,6 +101,9 @@ public class DaoFactory {
                 oDao = (MetaDaoInterface) new TipodependenciaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
             case "factura":
                 oDao = (MetaDaoInterface) new FacturaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "servicio":
+                oDao = (MetaDaoInterface) new ServicioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
