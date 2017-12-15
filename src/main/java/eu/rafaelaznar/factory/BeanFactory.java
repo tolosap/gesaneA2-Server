@@ -41,6 +41,7 @@ import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementatio
 import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipodependenciaSpecificBeanImplementation;
@@ -87,6 +88,8 @@ public class BeanFactory {
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
                 break;
+            case "modalidadepisodio":
+                oBean = new ModalidadepisodioSpecificBeanImplementation();
             case "tipodependencia":
                 oBean = new TipodependenciaSpecificBeanImplementation();
                 break;
