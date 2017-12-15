@@ -42,6 +42,7 @@ import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoIm
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
@@ -75,13 +76,13 @@ public class DaoFactory {
                 break;
             case "especialidad":
                 oDao = (MetaDaoInterface) new EspecialidadSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "destinoalta":
                 oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "tipopago":
                 oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "circunstanciasalta":
                 oDao = (MetaDaoInterface) new CircunstanciasaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
@@ -90,7 +91,10 @@ public class DaoFactory {
                 break;
             case "tipoepisodio":
                 oDao = (MetaDaoInterface) new TipoepisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;                
+                break;
+            case "factura":
+                oDao = (MetaDaoInterface) new FacturaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
