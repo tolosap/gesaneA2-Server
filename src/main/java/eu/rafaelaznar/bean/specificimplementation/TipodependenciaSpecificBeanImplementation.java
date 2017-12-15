@@ -12,50 +12,59 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
 
+/**
+ *
+ * @author a0y3770325h
+ */
+
 @MetaObjectBeanInterface(
-        TableName = "destinoalta",
-        SingularDescription = "Destino de Alta",
-        PluralDescription = "Destinos de Alta",
-        Icon = "fa fa-ellipsis-v",
+        TableName = "Tipodependencia",
+        SingularDescription = "Tipo de depependencia",
+        PluralDescription = "Tipo de dependencias",
+        Icon = "fa fa-yelp",
         Type = EnumHelper.SourceType.Table
 )
-public class DestinoaltaSpecificBeanImplementation extends TableGenericBeanImplementation {
-
+        
+public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanImplementation {
+    
     @Expose
     @MetaPropertyBeanInterface(
-            ShortName = "Alta",
-            LongName = "Destino de Alta",
-            Description = "Destino al que se va a dar de alta",
+            ShortName = "Tipodep.desc.",
+            LongName = "Descripcion de tipo dependencia",
+            Description = "Descripcion de la tabla tipo dependencia",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
-            RegexHelp = RegexConstants.capitalizedSentence_Help,
+            // RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
-
+    
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
-//            ShortName = "Destino de alta en funcion del episodio",
-//            LongName = "Destino de alta en funcion del episodio",
-//            Description = "Destino de alta en funcion del episodio",
+//            ShortName = "Tipo dep.",
+//            LongName = "Tipo de Dependencia",
+//            Description = "Tipo de DEPENDENCIA",
 //            Type = EnumHelper.FieldType.Link,
-//            References = "episodio"
+//            References = "dependencia"
 //    )
-//    private Integer link_episodio = null;
-        
-    public DestinoaltaSpecificBeanImplementation() {
+//    private Integer link_dependencia = null;
+
+    public TipodependenciaSpecificBeanImplementation() {
     }
 
-    public DestinoaltaSpecificBeanImplementation(Integer id) {
+    TipodependenciaSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
-    public String getDescription() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescription(String descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 }
+    
+

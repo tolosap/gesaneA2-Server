@@ -44,6 +44,7 @@ import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementatio
 import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TipodependenciaSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -69,7 +70,6 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
-
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
                 break;
@@ -91,9 +91,12 @@ public class BeanFactory {
             case "modalidadepisodio":
                 oBean = new ModalidadepisodioSpecificBeanImplementation();
                 break;
+            case "tipodependencia":
+                oBean = new TipodependenciaSpecificBeanImplementation();
+                break;
             default:
 
-                //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+                //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
         }
         return oBean;

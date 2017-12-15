@@ -6,25 +6,23 @@
 package eu.rafaelaznar.service.specificimplementation;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
-
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author a022583952e
+ * @author a0y3770325h
  */
-public class CircunstanciasaltaSpecificServiceImplementation extends TableGenericServiceImplementation {
+public class TipodependenciaSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public CircunstanciasaltaSpecificServiceImplementation(HttpServletRequest request) {
+    public TipodependenciaSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
-
+    
     @Override
-    protected Boolean checkPermission(String strMethodName) {
+     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
             UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oUsuarioBean.getBean();
