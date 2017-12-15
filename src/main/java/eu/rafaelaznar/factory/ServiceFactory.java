@@ -506,7 +506,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                 case "tipodependencia":
+            case "tipodependencia":
                 TipodependenciaSpecificServiceImplementation oTipodependenciaService = new TipodependenciaSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":

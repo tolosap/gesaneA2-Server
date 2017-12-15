@@ -53,8 +53,8 @@ public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanI
     public TipodependenciaSpecificBeanImplementation() {
     }
 
-    TipodependenciaSpecificBeanImplementation(Integer id_especialidad) {
-        id = id_especialidad;
+    TipodependenciaSpecificBeanImplementation(Integer id) {
+        this.id = id;
     }
 
     public String getDescripcion() {

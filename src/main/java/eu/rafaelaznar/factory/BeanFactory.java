@@ -86,6 +86,9 @@ public class BeanFactory {
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
                 break;
+            case "tipodependencia":
+                oBean = new TipoepisodioSpecificBeanImplementation();
+                break;
             default:
 
                 //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
