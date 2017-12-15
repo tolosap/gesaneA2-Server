@@ -35,7 +35,7 @@ import java.sql.Connection;
 public class CentroSpecificDaoImplementation extends TableGenericDaoImplementation {
 
     public CentroSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
-        super("centro", oPooledConnection, oPuserBean_security, strWhere);        
+        super("centro", oPooledConnection, oPuserBean_security, strWhere);
     }
 
 }

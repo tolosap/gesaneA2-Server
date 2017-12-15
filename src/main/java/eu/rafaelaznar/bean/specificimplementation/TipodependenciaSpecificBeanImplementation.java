@@ -16,20 +16,22 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
  *
  * @author a0y3770325h
  */
+
 @MetaObjectBeanInterface(
-        TableName = "especialidad",
-        SingularDescription = "Especialidad",
-        PluralDescription = "Especialidades",
-        Icon = "fa fa-stethoscope",
+        TableName = "Tipodependencia",
+        SingularDescription = "Tipo de depependencia",
+        PluralDescription = "Tipo de dependencias",
+        Icon = "fa fa-yelp",
         Type = EnumHelper.SourceType.Table
 )
-public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImplementation {
-
+        
+public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanImplementation {
+    
     @Expose
     @MetaPropertyBeanInterface(
-            ShortName = "Esp.desc.",
-            LongName = "Descripcion de especialidad",
-            Description = "Descripcion de la tabla especialidad",
+            ShortName = "Tipodep.desc.",
+            LongName = "Descripcion de tipo dependencia",
+            Description = "Descripcion de la tabla tipo dependencia",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
@@ -40,19 +42,19 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
-//            ShortName = "Tipo especialidad del médico",
-//            LongName = "Tipo especialidad del médico",
-//            Description = "Tipo especialidad del médico",
+//            ShortName = "Tipo dep.",
+//            LongName = "Tipo de Dependencia",
+//            Description = "Tipo de DEPENDENCIA",
 //            Type = EnumHelper.FieldType.Link,
-//            References = "medico"
+//            References = "dependencia"
 //    )
-//    private Integer link_medico = null;
+//    private Integer link_dependencia = null;
 
-    public EspecialidadSpecificBeanImplementation() {
+    public TipodependenciaSpecificBeanImplementation() {
     }
 
-    EspecialidadSpecificBeanImplementation(Integer id_especialidad) {
-        id = id_especialidad;
+    TipodependenciaSpecificBeanImplementation(Integer id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -64,3 +66,5 @@ public class EspecialidadSpecificBeanImplementation extends TableGenericBeanImpl
     }
 
 }
+    
+

@@ -61,7 +61,6 @@ public class MetaObjectGenericBeanHelper {
         this.Icon = Icon;
     }
 
-   
     public String getSingularDescription() {
         return SingularDescription;
     }
@@ -93,6 +92,5 @@ public class MetaObjectGenericBeanHelper {
     public void setTableName(String TableName) {
         this.TableName = TableName;
     }
-
 
 }
