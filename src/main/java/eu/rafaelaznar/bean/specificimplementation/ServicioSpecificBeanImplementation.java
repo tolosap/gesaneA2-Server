@@ -45,20 +45,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
 )
 public class ServicioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
-    @Expose(serialize = false)
-    private Integer id_tiposervicio = 0;
-
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Tipo",
-            LongName = "Tipo servicio",
-            Description = "Tipo de servicio",
-            Type = EnumHelper.FieldType.ForeignObject,
-            IsRequired = true,
-            References = "tiposervicio",
-            Wide = 4
-    )
-    private MetaBeanHelper obj_tiposervicio = null;
+   
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -86,6 +73,21 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 50
     )
     private String codigo;
+    
+     @Expose(serialize = false)
+    private Integer id_tiposervicio = 0;
+
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Tipo",
+            LongName = "Tipo servicio",
+            Description = "Tipo de servicio",
+            Type = EnumHelper.FieldType.ForeignObject,
+            IsRequired = true,
+            References = "tiposervicio",
+            Wide = 4
+    )
+    private MetaBeanHelper obj_tiposervicio = null;
 
     //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
@@ -105,6 +107,15 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "medico"
 //    )
 //    private Integer link_medico = null;
+    
+    
+     public ServicioSpecificBeanImplementation() {
+    }
+    
+     public ServicioSpecificBeanImplementation(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId_tiposervicio() {
         return id_tiposervicio;
     }
@@ -137,8 +148,7 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
         this.codigo = codigo;
     }
 
-    public ServicioSpecificBeanImplementation() {
-    }
+   
     
     
 

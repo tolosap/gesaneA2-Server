@@ -92,6 +92,8 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         hmObjectsMetaData.put("modalidadepisodio", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("tipodependencia", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("tipodependencia", oDao.getObjectMetaData());
+        oDao = DaoFactory.getDao("tiposervicio", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+        hmObjectsMetaData.put("tiposervicio", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("servicio", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("servicio", oDao.getObjectMetaData());
 
