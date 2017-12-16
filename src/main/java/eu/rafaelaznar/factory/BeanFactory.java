@@ -99,7 +99,7 @@ public class BeanFactory {
                 break;
             case "tipodependencia":
                 oBean = new TipodependenciaSpecificBeanImplementation();
-
+                break;
             case "factura":
                 oBean = new FacturaSpecificBeanImplementation();
                 break;
