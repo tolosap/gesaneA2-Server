@@ -34,6 +34,8 @@ import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.helper.RandomHelper;
+import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import java.lang.reflect.Field;
 import java.util.Date;
 
@@ -72,10 +74,12 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
             TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) Class.forName(this.getClass().getName()).newInstance();
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
-                if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Calculated) {
-                    if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.ForeignObject) {
-                        if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Link) {
-                            strColumns += x.getName() + ",";
+                if (getTypeFromPropertyMetaData(x) != null) {
+                    if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Calculated) {
+                        if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.ForeignObject) {
+                            if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Link) {
+                                strColumns += x.getName() + ",";
+                            }
                         }
                     }
                 }
@@ -97,37 +101,46 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
             Field[] oFields = oBean.getClass().getDeclaredFields();
             for (Field x : oFields) {
                 if (getTypeFromPropertyMetaData(x) != null) {
+                    x.setAccessible(true);
                     if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Calculated) {
                         if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.ForeignObject) {
                             if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Link) {
-                                if (x.getName().equals("password")) {
-                                    strColumns += EncodingHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ", ";
+                                if (getTypeFromPropertyMetaData(x) == EnumHelper.FieldType.ForeignId) {
+                                    strColumns += (Integer) x.get(this) + ",";
                                 } else {
-                                    x.setAccessible(true);
-                                    if (x.getType() == String.class) {
-                                        strColumns += EncodingHelper.quotate((String) x.get(this)) + ",";
+                                    if (getTypeFromPropertyMetaData(x) == EnumHelper.FieldType.Password) {
+                                        strColumns += EncodingHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ", ";
                                     } else {
-                                        if (x.getType() == Date.class) {
-                                            strColumns += EncodingHelper.stringifyAndQuotate((Date) x.get(this)) + ",";
+                                        if (getTypeFromPropertyMetaData(x) == EnumHelper.FieldType.Token) {
+                                            strColumns += EncodingHelper.quotate(RandomHelper.getToken(ConfigurationConstants.tokenSize)) + ", ";
                                         } else {
-                                            if (x.getType() == Integer.class) {
-                                                strColumns += (Integer) x.get(this) + ",";
+
+                                            if (x.getType() == String.class) {
+                                                strColumns += EncodingHelper.quotate((String) x.get(this)) + ",";
                                             } else {
-                                                if (x.getType() == Double.class) {
-                                                    strColumns += (Double) x.get(this) + ",";
+                                                if (x.getType() == Date.class) {
+                                                    strColumns += EncodingHelper.stringifyAndQuotate((Date) x.get(this)) + ",";
                                                 } else {
-                                                    if (x.getType() == Boolean.class) {
-                                                        strColumns += (int) x.get(this) + ",";
+                                                    if (x.getType() == Integer.class) {
+                                                        strColumns += (Integer) x.get(this) + ",";
+                                                    } else {
+                                                        if (x.getType() == Double.class) {
+                                                            strColumns += (Double) x.get(this) + ",";
+                                                        } else {
+                                                            if (x.getType() == Boolean.class) {
+                                                                strColumns += (int) x.get(this) + ",";
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
-                                    x.setAccessible(false);
                                 }
                             }
                         }
                     }
+                    x.setAccessible(false);
                 }
             }
             strColumns = strColumns.substring(0, strColumns.length() - 1);
@@ -150,9 +163,9 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
                     if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Calculated) {
                         if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.ForeignObject) {
                             if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Link) {
-                                if (!x.getName().equals("password")) {
-                                    strColumns += x.getName() + "=";
+                                if (getTypeFromPropertyMetaData(x) != EnumHelper.FieldType.Password) {
                                     x.setAccessible(true);
+                                    strColumns += x.getName() + "=";
                                     if (x.getType() == String.class) {
                                         strColumns += EncodingHelper.quotate((String) x.get(this)) + ",";
                                     } else {

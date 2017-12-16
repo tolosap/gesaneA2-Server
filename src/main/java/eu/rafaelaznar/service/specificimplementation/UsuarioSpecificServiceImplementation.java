@@ -28,12 +28,11 @@
  */
 package eu.rafaelaznar.service.specificimplementation;
 
+import com.google.gson.Gson;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
-import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;
@@ -278,24 +277,21 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
             oConnection = oPooledConnection.newConnection();
             UsuarioSpecificBeanImplementation oUser = new UsuarioSpecificBeanImplementation();
             UsuarioSpecificDaoImplementation oUserDao = new UsuarioSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-            oUser.setLogin(ob);
+            Gson oGson = GsonHelper.getGson();
+            oUser = oGson.fromJson(oRequest.getParameter("json"), oUser.getClass());
             oUser.setId_tipousuario(4);
-            oUser.setActivo(1);
-            oUser.setValidado(1);
+            oUser.setActivo(0);
+            oUser.setValidado(0);
             java.util.Date dt = new java.util.Date();
             oUser.setFecha_alta(dt);
-            oUser.setToken(RandomHelper.getRandomHexString(20));
+            oUser.setToken(RandomHelper.getToken(ConfigurationConstants.tokenSize));
             Integer iResult = oUserDao.set(oUser);
             if (iResult >= 1) {
                 oReplyBean = new ReplyBeanHelper(200, EncodingHelper.quotate(iResult.toString()));
             } else {
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Server error during new setalumno operation"));
             }
-            oConnection.commit();
         } catch (Exception ex) {
-            if (oConnection != null) {
-                oConnection.rollback();
-            }
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);

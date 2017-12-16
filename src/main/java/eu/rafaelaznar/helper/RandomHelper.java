@@ -28,16 +28,21 @@
  */
 package eu.rafaelaznar.helper;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class RandomHelper {
+    
+    protected static SecureRandom random = new SecureRandom();
 
-    public static String getRandomHexString(int numchars) {
-        Random r = new Random();
+    public static synchronized String getRandomHexString(int size) {
         StringBuffer sb = new StringBuffer();
-        while (sb.length() < numchars) {
-            sb.append(Integer.toHexString(r.nextInt()));
+        while (sb.length() < size) {
+            sb.append(Integer.toHexString(random.nextInt()));
         }
-        return sb.toString().substring(0, numchars);
+        return sb.toString().substring(0, size);
+    }
+
+    public static synchronized String getToken(int size) {
+        return Long.toString(Math.abs(random.nextLong()), size);
     }
 }
