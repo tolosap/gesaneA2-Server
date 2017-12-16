@@ -35,6 +35,7 @@ import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.helper.RandomHelper;
+import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import java.lang.reflect.Field;
 import java.util.Date;
 
@@ -111,7 +112,7 @@ public abstract class TableGenericBeanImplementation extends ViewGenericBeanImpl
                                         strColumns += EncodingHelper.quotate("da8ab09ab4889c6208116a675cad0b13e335943bd7fc418782d054b32fdfba04") + ", ";
                                     } else {
                                         if (getTypeFromPropertyMetaData(x) == EnumHelper.FieldType.Token) {
-                                            strColumns += EncodingHelper.quotate(RandomHelper.getToken()) + ", ";
+                                            strColumns += EncodingHelper.quotate(RandomHelper.getToken(ConfigurationConstants.tokenSize)) + ", ";
                                         } else {
 
                                             if (x.getType() == String.class) {
