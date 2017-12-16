@@ -31,9 +31,7 @@ package eu.rafaelaznar.service.specificimplementation;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
-import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import eu.rafaelaznar.factory.ConnectionFactory;
@@ -45,7 +43,6 @@ import eu.rafaelaznar.helper.EncodingHelper;
 import eu.rafaelaznar.helper.GsonHelper;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.helper.RandomHelper;
-import eu.rafaelaznar.helper.constant.ConfigurationConstants;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -291,11 +288,7 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
             } else {
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Server error during new setalumno operation"));
             }
-            oConnection.commit();
         } catch (Exception ex) {
-            if (oConnection != null) {
-                oConnection.rollback();
-            }
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
             throw new Exception(msg, ex);

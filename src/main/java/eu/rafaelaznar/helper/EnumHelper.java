@@ -46,7 +46,9 @@ public class EnumHelper {
         ForeignId,
         ForeignObject,
         Link,
-        Calculated
+        Calculated,
+        Password,
+        Token
     };
 
     public static enum SourceType {

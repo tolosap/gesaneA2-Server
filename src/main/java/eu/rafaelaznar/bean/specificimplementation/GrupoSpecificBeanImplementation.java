@@ -36,6 +36,9 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
     private String codigo;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_curso = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -50,6 +53,9 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
     private MetaBeanHelper obj_curso = null;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_usuario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(

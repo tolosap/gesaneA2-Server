@@ -45,8 +45,6 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
 )
 public class ServicioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
-   
-
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Serv.",
@@ -73,10 +71,12 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 50
     )
     private String codigo;
-    
-     @Expose(serialize = false)
-    private Integer id_tiposervicio = 0;
 
+    @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
+    private Integer id_tiposervicio = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo",
@@ -107,12 +107,10 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "medico"
 //    )
 //    private Integer link_medico = null;
-    
-    
-     public ServicioSpecificBeanImplementation() {
+    public ServicioSpecificBeanImplementation() {
     }
-    
-     public ServicioSpecificBeanImplementation(Integer id) {
+
+    public ServicioSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
@@ -147,9 +145,5 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
-   
-    
-    
 
 }

@@ -111,6 +111,9 @@ public class ServiceFactory {
                     case "checklogin":
                         oReplyBean = oUsuarioService.checklogin();
                         break;
+                    case "setalumno":
+                        oReplyBean = oUsuarioService.setalumno();
+                        break;
                     case "getidcurso":
                         oReplyBean = oUsuarioService.getidcurso();
                         break;

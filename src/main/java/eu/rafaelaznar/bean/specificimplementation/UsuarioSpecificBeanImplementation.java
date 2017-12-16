@@ -126,6 +126,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private String login;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.Password
+    )
     private String password;
 
     @Expose
@@ -143,6 +146,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private String email;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.Token
+    )    
     private String token;
 
     @Expose
@@ -180,6 +186,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private Integer validado;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_tipousuario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -194,6 +203,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private MetaBeanHelper obj_tipousuario = null;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_grupo = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -211,6 +223,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private ArrayList<MetaBeanHelper> grupos;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_centro = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -225,6 +240,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private MetaBeanHelper obj_centro = null;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_centrosanitario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(

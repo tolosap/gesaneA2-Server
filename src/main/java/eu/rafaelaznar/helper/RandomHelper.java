@@ -28,9 +28,12 @@
  */
 package eu.rafaelaznar.helper;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class RandomHelper {
+
+    protected static SecureRandom random = new SecureRandom();
 
     public static String getRandomHexString(int numchars) {
         Random r = new Random();
@@ -39,5 +42,9 @@ public class RandomHelper {
             sb.append(Integer.toHexString(r.nextInt()));
         }
         return sb.toString().substring(0, numchars);
+    }
+
+    public static synchronized String getToken() {
+        return Long.toString(Math.abs(random.nextLong()), 16);
     }
 }
