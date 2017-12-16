@@ -607,9 +607,12 @@ public class ServiceFactory {
                     case "getcount":
                         oReplyBean = oTipodependenciaService.getCount();
                         break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
                 }
                 break;
-                 case "servicio":
+            case "servicio":
                 ServicioSpecificServiceImplementation oServicioService = new ServicioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -641,7 +644,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                case "factura":
+            case "factura":
                 FacturaSpecificServiceImplementation oFacturaService = new FacturaSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
