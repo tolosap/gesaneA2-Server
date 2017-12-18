@@ -1,12 +1,16 @@
 /*
- * Copyright (c) 2016 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * sisane-server: Helps you to develop easily AJAX web applications
- *                   by copying and modifying this Java Server.
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
  *
- * Sources at https://github.com/rafaelaznar/sisane-server
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
  *
- * sisane-server is distributed under the MIT License (MIT)
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -126,6 +130,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private String login;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.Password
+    )
     private String password;
 
     @Expose
@@ -143,6 +150,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private String email;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.Token
+    )
     private String token;
 
     @Expose
@@ -180,6 +190,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private Integer validado;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_tipousuario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -194,6 +207,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private MetaBeanHelper obj_tipousuario = null;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_grupo = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -211,6 +227,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private ArrayList<MetaBeanHelper> grupos;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_centro = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -225,6 +244,9 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     private MetaBeanHelper obj_centro = null;
 
     @Expose(serialize = false)
+    @MetaPropertyBeanInterface(
+            Type = EnumHelper.FieldType.ForeignId
+    )
     private Integer id_centrosanitario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(

@@ -1,12 +1,16 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * trolleyes-server3: Helps you to develop easily AJAX web applications
- *               by copying and modifying this Java Server.
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server3
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
  *
- * trolleyes-server3 is distributed under the MIT License (MIT)
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -58,15 +62,15 @@ public abstract class TableGenericDaoImplementation extends ViewGenericDaoImplem
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
+            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
             if (oResultSet.next()) {
-                oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
-                ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
-                MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
-                oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
             } else {
-                oBean = null;
+                oBean.setId(0);
             }
+            ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
+            MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
+            oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);

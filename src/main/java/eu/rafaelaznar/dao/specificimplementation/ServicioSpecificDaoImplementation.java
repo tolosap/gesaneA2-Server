@@ -30,15 +30,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.dao.publicinterface;
+package eu.rafaelaznar.dao.specificimplementation;
 
-import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
-import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
-import java.util.ArrayList;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
+import java.sql.Connection;
 
-public interface MetaDaoInterface {
+public class ServicioSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public MetaObjectGenericBeanHelper getObjectMetaData() throws Exception;
-
-    public ArrayList<MetaPropertyGenericBeanHelper> getPropertiesMetaData() throws Exception;
+    public ServicioSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+        super("servicio", oPooledConnection, oPuserBean_security, strWhere);
+    }
 }

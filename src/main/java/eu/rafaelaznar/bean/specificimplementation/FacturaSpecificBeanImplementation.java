@@ -38,44 +38,62 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
+import java.util.Date;
 
 @MetaObjectBeanInterface(
-        TableName = "Tipodependencia",
-        SingularDescription = "Tipo de dependencia",
-        PluralDescription = "Tipo de dependencias",
-        Icon = "fa fa-yelp",
+        TableName = "factura",
+        SingularDescription = "Factura",
+        PluralDescription = "Facturas",
+        Icon = "fa fa-file-archive-o",
         Type = EnumHelper.SourceType.Table
 )
-
-public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanImplementation {
+public class FacturaSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
     @MetaPropertyBeanInterface(
-            ShortName = "Tipodep.desc.",
-            LongName = "Descripcion de tipo dependencia",
-            Description = "Descripcion de la tabla tipo dependencia",
+            ShortName = "Descripción",
+            LongName = "Descripción",
+            Description = "Descripción de la factura",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexConstants.capitalizedSentence,
-            // RegexHelp = RegexConstants.capitalizedSentence_Help,
-            IsForeignKeyDescriptor = true
+            RegexPattern = RegexConstants.capitalizedName,
+            RegexHelp = RegexConstants.capitalizedName_Help,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 100
     )
-    private String descripcion = "";
+    private String descripcion;
 
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
-//            ShortName = "Tipo dep.",
-//            LongName = "Tipo de Dependencia",
-//            Description = "Tipo de DEPENDENCIA",
+//            ShortName = "Factura",
+//            LongName = "Factura del episodio",
+//            Description = "Factura del episodio",
 //            Type = EnumHelper.FieldType.Link,
-//            References = "dependencia"
+//            References = "episodio"
 //    )
-//    private Integer link_dependencia = null;
-    public TipodependenciaSpecificBeanImplementation() {
+//    private Integer link_episodio = null;
+    @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "Fecha",
+            LongName = "Fecha",
+            Description = "Fecha de la factura",
+            Type = EnumHelper.FieldType.Date,
+            IsRequired = true,
+            RegexPattern = RegexConstants.capitalizedName,
+            RegexHelp = RegexConstants.capitalizedName_Help,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 100
+    )
+    private Date fecha;
+
+    public Date getFecha() {
+        return fecha;
     }
 
-    TipodependenciaSpecificBeanImplementation(Integer id) {
-        this.id = id;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getDescripcion() {

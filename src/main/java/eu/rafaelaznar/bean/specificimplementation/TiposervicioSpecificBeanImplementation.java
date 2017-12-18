@@ -40,41 +40,40 @@ import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
-        TableName = "Tipodependencia",
-        SingularDescription = "Tipo de dependencia",
-        PluralDescription = "Tipo de dependencias",
-        Icon = "fa fa-yelp",
+        TableName = "tiposervicio",
+        SingularDescription = "Tipo de Servicio",
+        PluralDescription = "Tipos de Servicio",
+        Icon = "fa fa-stack-exchange",
         Type = EnumHelper.SourceType.Table
 )
-
-public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanImplementation {
+public class TiposervicioSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
     @MetaPropertyBeanInterface(
-            ShortName = "Tipodep.desc.",
-            LongName = "Descripcion de tipo dependencia",
-            Description = "Descripcion de la tabla tipo dependencia",
+            ShortName = "Tipo",
+            LongName = "Tipo de Servicio",
+            Description = "Servicio a suministrar",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
-            // RegexHelp = RegexConstants.capitalizedSentence_Help,
+            RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
 
-//    @Expose(deserialize = false)
+    //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
-//            ShortName = "Tipo dep.",
-//            LongName = "Tipo de Dependencia",
-//            Description = "Tipo de DEPENDENCIA",
+//            ShortName = "Tipo de servicio en función del servicio",
+//            LongName = "Tipo de servicio en función del servicio",
+//            Description = "Tipo de servicio en función del servicio",
 //            Type = EnumHelper.FieldType.Link,
-//            References = "dependencia"
+//            References = "servicio"
 //    )
-//    private Integer link_dependencia = null;
-    public TipodependenciaSpecificBeanImplementation() {
+//    private Integer link_servicio = null;
+    public TiposervicioSpecificBeanImplementation() {
     }
 
-    TipodependenciaSpecificBeanImplementation(Integer id) {
+    public TiposervicioSpecificBeanImplementation(Integer id) {
         this.id = id;
     }
 
@@ -85,5 +84,4 @@ public class TipodependenciaSpecificBeanImplementation extends TableGenericBeanI
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
 }

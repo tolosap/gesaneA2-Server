@@ -38,21 +38,35 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
+import eu.rafaelaznar.helper.constant.RegexConstants;
 
 @MetaObjectBeanInterface(
-        TableName = "grupo",
-        SingularDescription = "Grupo",
-        PluralDescription = "Grupos",
-        Icon = "fa fa-users",
+        TableName = "servicio",
+        SingularDescription = "Servicio",
+        PluralDescription = "Servicios",
+        Icon = "fa fa-strikethrough",
         Type = EnumHelper.SourceType.Table
 )
-public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementation {
+public class ServicioSpecificBeanImplementation extends TableGenericBeanImplementation {
+
+    @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "Serv.",
+            LongName = "Servicio",
+            Description = "Servicios del hospital",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexConstants.capitalizedSentence,
+            RegexHelp = RegexConstants.capitalizedSentence_Help,
+            IsForeignKeyDescriptor = true
+    )
+    private String descripcion = "";
 
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Cod.",
             LongName = "Código",
-            Description = "Código del grupo",
+            Description = "Código del servicio",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = "[^a-z0-9-]",
@@ -66,49 +80,66 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
     @MetaPropertyBeanInterface(
             Type = EnumHelper.FieldType.ForeignId
     )
-    private Integer id_curso = 0;
+    private Integer id_tiposervicio = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
-            ShortName = "Curso",
-            LongName = "Curso",
-            Description = "Curso",
+            ShortName = "Tipo",
+            LongName = "Tipo servicio",
+            Description = "Tipo de servicio",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
-            References = "curso",
+            References = "tiposervicio",
             Wide = 4
     )
-    private MetaBeanHelper obj_curso = null;
+    private MetaBeanHelper obj_tiposervicio = null;
 
-    @Expose(serialize = false)
-    @MetaPropertyBeanInterface(
-            Type = EnumHelper.FieldType.ForeignId
-    )
-    private Integer id_usuario = 0;
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Profesor",
-            LongName = "Profesor",
-            Description = "Profesor del curso",
-            Type = EnumHelper.FieldType.ForeignObject,
-            IsRequired = true,
-            References = "usuario",
-            Wide = 4
-    )
-    private MetaBeanHelper obj_usuario = null;
-
-    public GrupoSpecificBeanImplementation() {
+    //    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Es servicio de los episodios",
+//            LongName = "Es servicio de los episodios",
+//            Description = "Es servicio de los episodios",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "episodio"
+//    )
+//    private Integer link_episodio = null;
+//    @Expose(deserialize = false)
+//    @MetaPropertyBeanInterface(
+//            ShortName = "Es servicio de los medicos",
+//            LongName = "Es servicio de los medicos",
+//            Description = "Es servicio de los medicos",
+//            Type = EnumHelper.FieldType.Link,
+//            References = "medico"
+//    )
+//    private Integer link_medico = null;
+    public ServicioSpecificBeanImplementation() {
     }
 
-    public GrupoSpecificBeanImplementation(Integer id_grupo) {
-        this.id = id_grupo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public ServicioSpecificBeanImplementation(Integer id) {
         this.id = id;
+    }
+
+    public Integer getId_tiposervicio() {
+        return id_tiposervicio;
+    }
+
+    public void setId_tiposervicio(Integer id_tiposervicio) {
+        this.id_tiposervicio = id_tiposervicio;
+    }
+
+    public MetaBeanHelper getObj_tiposervicio() {
+        return obj_tiposervicio;
+    }
+
+    public void setObj_tiposervicio(MetaBeanHelper obj_tiposervicio) {
+        this.obj_tiposervicio = obj_tiposervicio;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getCodigo() {
@@ -117,38 +148,6 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public Integer getId_curso() {
-        return id_curso;
-    }
-
-    public void setId_curso(Integer id_curso) {
-        this.id_curso = id_curso;
-    }
-
-    public MetaBeanHelper getObj_curso() {
-        return obj_curso;
-    }
-
-    public void setObj_curso(MetaBeanHelper obj_curso) {
-        this.obj_curso = obj_curso;
-    }
-
-    public Integer getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public MetaBeanHelper getObj_usuario() {
-        return obj_usuario;
-    }
-
-    public void setObj_usuario(MetaBeanHelper obj_usuario) {
-        this.obj_usuario = obj_usuario;
     }
 
 }
