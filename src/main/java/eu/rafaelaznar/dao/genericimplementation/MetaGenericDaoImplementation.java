@@ -1,10 +1,16 @@
 /*
- * Copyright (c) 2015 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * traxmol: The stunning micro-library that helps you to develop easily
- *             AJAX web applications by using Java and jQuery
- * traxmol is distributed under the MIT License (MIT)
- * Sources at https://github.com/rafaelaznar/traxmol
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
+ *
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
+ *
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
