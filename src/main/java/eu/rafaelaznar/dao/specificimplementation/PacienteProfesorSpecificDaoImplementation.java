@@ -44,9 +44,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class PacienteSpecificDaoImplementation extends TableGenericDaoImplementation {
+public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-    public PacienteSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+    public PacienteProfesorSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
     }
 
@@ -54,7 +54,7 @@ public class PacienteSpecificDaoImplementation extends TableGenericDaoImplementa
     public MetaBeanHelper get(int id, int intExpand) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
-        strSQL += " AND id=? ";
+        strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_centrousuario = ?";
         TableGenericBeanImplementation oBean = null;
         MetaBeanHelper oMetaBeanHelper = null;
         try {
