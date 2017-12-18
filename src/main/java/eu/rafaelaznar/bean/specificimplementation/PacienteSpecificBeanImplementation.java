@@ -40,7 +40,6 @@ import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
 import java.util.Date;
 
-
 @MetaObjectBeanInterface(
         TableName = "paciente",
         SingularDescription = "Paciente",
@@ -92,7 +91,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String primerApellido;
+    private String primer_apellido;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -108,7 +107,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String segundoApellido;
+    private String segundo_apellido;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -154,7 +153,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 5,
             IsVisible = false
     )
-    private String codigoPostal;
+    private String codigo_postal;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -244,7 +243,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String nombrePadre;
+    private String nombre_padre;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -260,7 +259,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String nombreMadre;
+    private String nombre_madre;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -272,7 +271,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             IsRequired = true,
             IsVisible = false
     )
-    private Date fechaNacimiento;
+    private Date fecha_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -288,7 +287,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String ciudadNacimiento;
+    private String ciudad_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -304,7 +303,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String paisNacimiento;
+    private String pais_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -320,7 +319,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String sipAseguradora;
+    private String sip_aseguradora;
 
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
@@ -383,14 +382,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.id = id;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getDni() {
         return dni;
     }
@@ -407,20 +398,20 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.nombre = nombre;
     }
 
-    public String getPrimerApellido() {
-        return primerApellido;
+    public String getPrimer_apellido() {
+        return primer_apellido;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPrimer_apellido(String primer_apellido) {
+        this.primer_apellido = primer_apellido;
     }
 
-    public String getSegundoApellido() {
-        return segundoApellido;
+    public String getSegundo_apellido() {
+        return segundo_apellido;
     }
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setSegundo_apellido(String segundo_apellido) {
+        this.segundo_apellido = segundo_apellido;
     }
 
     public String getDireccion() {
@@ -439,12 +430,12 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.ciudad = ciudad;
     }
 
-    public String getCodigoPostal() {
-        return codigoPostal;
+    public String getCodigo_postal() {
+        return codigo_postal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setCodigo_postal(String codigo_postal) {
+        this.codigo_postal = codigo_postal;
     }
 
     public String getProvincia() {
@@ -487,52 +478,52 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.telefono2 = telefono2;
     }
 
-    public String getNombrePadre() {
-        return nombrePadre;
+    public String getNombre_padre() {
+        return nombre_padre;
     }
 
-    public void setNombrePadre(String nombrePadre) {
-        this.nombrePadre = nombrePadre;
+    public void setNombre_padre(String nombre_padre) {
+        this.nombre_padre = nombre_padre;
     }
 
-    public String getNombreMadre() {
-        return nombreMadre;
+    public String getNombre_madre() {
+        return nombre_madre;
     }
 
-    public void setNombreMadre(String nombreMadre) {
-        this.nombreMadre = nombreMadre;
+    public void setNombre_madre(String nombre_madre) {
+        this.nombre_madre = nombre_madre;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public String getCiudadNacimiento() {
-        return ciudadNacimiento;
+    public String getCiudad_nacimiento() {
+        return ciudad_nacimiento;
     }
 
-    public void setCiudadNacimiento(String ciudadNacimiento) {
-        this.ciudadNacimiento = ciudadNacimiento;
+    public void setCiudad_nacimiento(String ciudad_nacimiento) {
+        this.ciudad_nacimiento = ciudad_nacimiento;
     }
 
-    public String getPaisNacimiento() {
-        return paisNacimiento;
+    public String getPais_nacimiento() {
+        return pais_nacimiento;
     }
 
-    public void setPaisNacimiento(String paisNacimiento) {
-        this.paisNacimiento = paisNacimiento;
+    public void setPais_nacimiento(String pais_nacimiento) {
+        this.pais_nacimiento = pais_nacimiento;
     }
 
-    public String getSipAseguradora() {
-        return sipAseguradora;
+    public String getSip_aseguradora() {
+        return sip_aseguradora;
     }
 
-    public void setSipAseguradora(String sipAseguradora) {
-        this.sipAseguradora = sipAseguradora;
+    public void setSip_aseguradora(String sip_aseguradora) {
+        this.sip_aseguradora = sip_aseguradora;
     }
 
     public Integer getId_tipopago() {
