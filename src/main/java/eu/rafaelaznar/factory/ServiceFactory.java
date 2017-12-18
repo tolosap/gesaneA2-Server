@@ -687,6 +687,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
+                
                 case "paciente":
                 PacienteSpecificServiceImplementation oPacienteService = new PacienteSpecificServiceImplementation(oRequest);
                 switch (op) {
@@ -713,6 +714,12 @@ public class ServiceFactory {
                         break;
                     case "getcount":
                         oReplyBean = oPacienteService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oPacienteService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oPacienteService.getPageX();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
