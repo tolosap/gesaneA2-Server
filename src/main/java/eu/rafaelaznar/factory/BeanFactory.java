@@ -108,17 +108,14 @@ public class BeanFactory {
                 oBean = new FacturaSpecificBeanImplementation();
                 break;
             case "servicio":
-                oBean = new PacienteSpecificBeanImplementation();
+                oBean = new ServicioSpecificBeanImplementation();
                 break;
             case "paciente":
                 oBean = new PacienteSpecificBeanImplementation();
                 break;
             case "episodio":
                 oBean = new EpisodioSpecificBeanImplementation();
-                break;
-            case "paciente":
-                oBean = new PacienteSpecificBeanImplementation();
-                break;
+                break;     
             default:
 
                 //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
