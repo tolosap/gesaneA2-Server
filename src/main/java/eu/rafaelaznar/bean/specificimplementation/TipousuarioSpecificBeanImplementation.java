@@ -1,12 +1,16 @@
 /*
- * Copyright (c) 2016 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * sisane-server: Helps you to develop easily AJAX web applications
- *                   by copying and modifying this Java Server.
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
  *
- * Sources at https://github.com/rafaelaznar/sisane-server
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
  *
- * sisane-server is distributed under the MIT License (MIT)
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -56,8 +60,7 @@ public class TipousuarioSpecificBeanImplementation extends TableGenericBeanImple
             IsForeignKeyDescriptor = true
     )
     private String descripcion = "";
-    
-    
+
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Usuarios del tipo",

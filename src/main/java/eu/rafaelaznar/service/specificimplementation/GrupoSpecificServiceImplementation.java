@@ -1,23 +1,27 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server3: Helps you to develop easily AJAX web applications 
- *               by copying and modifying this Java Server.
+ * Copyright (c) 2017-2018 
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server3
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
  * 
- * trolleyes-server3 is distributed under the MIT License (MIT)
- * 
+ * GESANE: Free Open Source Health Management System
+ *
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
+ *
+ * GESANE is distributed under the MIT License (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -61,9 +65,9 @@ public class GrupoSpecificServiceImplementation extends TableGenericServiceImple
                 oGrupo.setCodigo(codigo);
                 oGrupo = (GrupoSpecificBeanImplementation) oGrupoDao.getFromCodigo(oGrupo).getBean();
                 if (oGrupo.getId() > 0) {
-                    oReplyBean = new ReplyBeanHelper(200,  EncodingHelper.quotate("OK"));
+                    oReplyBean = new ReplyBeanHelper(200, EncodingHelper.quotate("OK"));
                 } else {
-                    oReplyBean = new ReplyBeanHelper(403,  EncodingHelper.quotate("Bad authentication"));
+                    oReplyBean = new ReplyBeanHelper(403, EncodingHelper.quotate("Bad authentication"));
                 }
             } catch (Exception ex) {
                 if (oConnection != null) {

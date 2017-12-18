@@ -1,23 +1,27 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server3: Helps you to develop easily AJAX web applications 
- *               by copying and modifying this Java Server.
+ * Copyright (c) 2017-2018 
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server3
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
  * 
- * trolleyes-server3 is distributed under the MIT License (MIT)
- * 
+ * GESANE: Free Open Source Health Management System
+ *
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
+ *
+ * GESANE is distributed under the MIT License (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -32,19 +36,20 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.dao.specificimplementation.CentroSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipoepisodioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
-import java.sql.Connection;
 import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.ModalidadepisodioSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.ServicioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.SexoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TipodependenciaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.TiposervicioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipousuarioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.UsuarioSpecificDaoImplementation;
 import java.sql.Connection;
@@ -75,13 +80,13 @@ public class DaoFactory {
                 break;
             case "especialidad":
                 oDao = (MetaDaoInterface) new EspecialidadSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "destinoalta":
                 oDao = (MetaDaoInterface) new DestinoaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "tipopago":
                 oDao = (MetaDaoInterface) new TipopagoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                 break;
+                break;
             case "circunstanciasalta":
                 oDao = (MetaDaoInterface) new CircunstanciasaltaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
@@ -90,7 +95,25 @@ public class DaoFactory {
                 break;
             case "tipoepisodio":
                 oDao = (MetaDaoInterface) new TipoepisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
-                break;                
+                break;
+            case "tiposervicio":
+                oDao = (MetaDaoInterface) new TiposervicioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "modalidadepisodio":
+                oDao = (MetaDaoInterface) new ModalidadepisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "tipodependencia":
+                oDao = (MetaDaoInterface) new TipodependenciaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "factura":
+                oDao = (MetaDaoInterface) new FacturaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "servicio":
+                oDao = (MetaDaoInterface) new ServicioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "paciente":
+                oDao = (MetaDaoInterface) new PacienteProfesorSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;

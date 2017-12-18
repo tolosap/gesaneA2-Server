@@ -1,23 +1,27 @@
 /*
- * Copyright (c) 2017 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
- * 
- * trolleyes-server3: Helps you to develop easily AJAX web applications 
- *               by copying and modifying this Java Server.
+ * Copyright (c) 2017-2018 
  *
- * Sources at https://github.com/rafaelaznar/trolleyes-server3
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
  * 
- * trolleyes-server3 is distributed under the MIT License (MIT)
- * 
+ * GESANE: Free Open Source Health Management System
+ *
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
+ *
+ * GESANE is distributed under the MIT License (MIT)
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,16 +37,20 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
 import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
-import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
-import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipoepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.FacturaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.ServicioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TipodependenciaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.TiposervicioSpecificBeanImplementation;
 
 public class BeanFactory {
 
@@ -68,11 +76,10 @@ public class BeanFactory {
             case "centro":
                 oBean = new CentroSpecificBeanImplementation();
                 break;
-
             case "circunstanciasalta":
                 oBean = new CircunstanciasaltaSpecificBeanImplementation();
                 break;
-           case "especialidad":
+            case "especialidad":
                 oBean = new EspecialidadSpecificBeanImplementation();
                 break;
             case "destinoalta":
@@ -87,9 +94,27 @@ public class BeanFactory {
             case "tipoepisodio":
                 oBean = new TipoepisodioSpecificBeanImplementation();
                 break;
+            case "tiposervicio":
+                oBean = new TiposervicioSpecificBeanImplementation();
+                break;
+            case "modalidadepisodio":
+                oBean = new ModalidadepisodioSpecificBeanImplementation();
+                break;
+            case "tipodependencia":
+                oBean = new TipodependenciaSpecificBeanImplementation();
+                break;
+            case "factura":
+                oBean = new FacturaSpecificBeanImplementation();
+                break;
+            case "servicio":
+                oBean = new ServicioSpecificBeanImplementation();
+                break;
+            case "paciente":
+                oBean = new PacienteSpecificBeanImplementation();
+                break;
             default:
 
-                //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
+                //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
                 break;
         }
         return oBean;

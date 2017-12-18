@@ -1,10 +1,16 @@
 /*
- * Copyright (c) 2015 by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com)
+ * Copyright (c) 2017-2018 
  *
- * traxmol: The stunning micro-library that helps you to develop easily
- *             AJAX web applications by using Java and jQuery
- * traxmol is distributed under the MIT License (MIT)
- * Sources at https://github.com/rafaelaznar/traxmol
+ * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
+ * 
+ * GESANE: Free Open Source Health Management System
+ *
+ * Sources at:
+ *                            https://github.com/rafaelaznar/gesane-server
+ *                            https://github.com/rafaelaznar/gesane-client
+ *                            https://github.com/rafaelaznar/gesane-database
+ *
+ * GESANE is distributed under the MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,6 +41,7 @@ import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.factory.BeanFactory;
+import eu.rafaelaznar.helper.EnumHelper;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
@@ -73,25 +80,29 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
             for (Integer i = 0; i < fieldAnnotations.length; i++) {
                 if (fieldAnnotations[i].annotationType().equals(MetaPropertyBeanInterface.class)) {
                     MetaPropertyBeanInterface fieldAnnotation = (MetaPropertyBeanInterface) fieldAnnotations[i];
-                    MetaPropertyGenericBeanHelper oMeta = new MetaPropertyGenericBeanHelper();
-                    oMeta.setName(field.getName());
-                    oMeta.setShortName(fieldAnnotation.ShortName());
-                    oMeta.setLongName(fieldAnnotation.LongName());
-                    oMeta.setDescription(fieldAnnotation.Description());
-                    oMeta.setIsId(field.getName() == "id");
-                    oMeta.setIsIdForeignKey(field.getName().startsWith("id_"));
-                    oMeta.setIsObjForeignKey(field.getName().startsWith("obj_"));
-                    oMeta.setReferences(fieldAnnotation.References());
-                    oMeta.setIsForeignKeyDescriptor(fieldAnnotation.IsForeignKeyDescriptor());
-                    oMeta.setType(fieldAnnotation.Type());
-                    oMeta.setIsRequired(fieldAnnotation.IsRequired());
-                    oMeta.setRegexPattern(fieldAnnotation.RegexPattern());
-                    oMeta.setRegexHelp(fieldAnnotation.RegexHelp());
-                    oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
-                    oMeta.setIsVisible(fieldAnnotation.IsVisible());
-                    oMeta.setWide(fieldAnnotation.Wide());
-                    oMeta.setMaxLength(fieldAnnotation.MaxLength());
-                    alVector.add(oMeta);
+                    if (fieldAnnotation.Type() != EnumHelper.FieldType.Password
+                            && fieldAnnotation.Type() != EnumHelper.FieldType.Token
+                            && fieldAnnotation.Type() != EnumHelper.FieldType.ForeignId) {
+                        MetaPropertyGenericBeanHelper oMeta = new MetaPropertyGenericBeanHelper();
+                        oMeta.setName(field.getName());
+                        oMeta.setShortName(fieldAnnotation.ShortName());
+                        oMeta.setLongName(fieldAnnotation.LongName());
+                        oMeta.setDescription(fieldAnnotation.Description());
+                        oMeta.setIsId(field.getName() == "id");
+                        oMeta.setIsIdForeignKey(field.getName().startsWith("id_"));
+                        oMeta.setIsObjForeignKey(field.getName().startsWith("obj_"));
+                        oMeta.setReferences(fieldAnnotation.References());
+                        oMeta.setIsForeignKeyDescriptor(fieldAnnotation.IsForeignKeyDescriptor());
+                        oMeta.setType(fieldAnnotation.Type());
+                        oMeta.setIsRequired(fieldAnnotation.IsRequired());
+                        oMeta.setRegexPattern(fieldAnnotation.RegexPattern());
+                        oMeta.setRegexHelp(fieldAnnotation.RegexHelp());
+                        oMeta.setDefaultValue(fieldAnnotation.DefaultValue());
+                        oMeta.setIsVisible(fieldAnnotation.IsVisible());
+                        oMeta.setWide(fieldAnnotation.Wide());
+                        oMeta.setMaxLength(fieldAnnotation.MaxLength());
+                        alVector.add(oMeta);
+                    }
                 }
             }
         }
