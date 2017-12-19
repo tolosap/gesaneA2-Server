@@ -61,9 +61,10 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             ShortName = "Dni",
             LongName = "Dni Completo",
             Description = "Documento Nacional de Identidad",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
             RegexPattern = RegexConstants.dni,
             RegexHelp = RegexConstants.dni_Help,
-            Type = EnumHelper.FieldType.String,
             IsForeignKeyDescriptor = true,
             Wide = 3,
             MaxLength = 9
@@ -78,7 +79,9 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
             Wide = 3,
+             
             MaxLength = 100
+            
     )
     private String nombrecompleto;
 
@@ -94,6 +97,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             IsForeignKeyDescriptor = false,
             Wide = 3,
             MaxLength = 100,
+            
             IsVisible = false
     )
     private String nombre;
