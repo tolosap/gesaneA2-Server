@@ -36,6 +36,8 @@ import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
+import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import eu.rafaelaznar.factory.BeanFactory;
 import eu.rafaelaznar.helper.Log4jHelper;
@@ -49,42 +51,14 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
 
     public PacienteProfesorSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
-    }
 
-    @Override
-    public MetaBeanHelper get(int id, int intExpand) throws Exception {
-        PreparedStatement oPreparedStatement = null;
-        ResultSet oResultSet = null;
-        strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_tipousuario = ? AND u.id_centrosanitario = ?";
-        TableGenericBeanImplementation oBean = null;
-        MetaBeanHelper oMetaBeanHelper = null;
-        try {
-            oPreparedStatement = oConnection.prepareStatement(strSQL);
-            oPreparedStatement.setInt(1, id);
-            oResultSet = oPreparedStatement.executeQuery();
-            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
-            if (oResultSet.next()) {
-                oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
-            } else {
-                oBean.setId(0);
-            }
-            ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
-            MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
-            oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
-        } catch (Exception ex) {
-            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
-            Log4jHelper.errorLog(msg, ex);
-            throw new Exception(msg, ex);
-        } finally {
-            if (oResultSet != null) {
-                oResultSet.close();
-            }
-            if (oPreparedStatement != null) {
-                oPreparedStatement.close();
-            }
+        UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oPuserBean_security.getBean();
+        MetaBeanHelper oMetaBeanHelper = oUsuario.getObj_tipousuario();
+        CentrosanitarioSpecificBeanImplementation oCentrosanitario = (CentrosanitarioSpecificBeanImplementation) oMetaBeanHelper.getBean();
+        Integer idCentrosanitario = oCentrosanitario.getId();
+        Integer idUsuario = oUsuario.getId();
 
-        }
-        return oMetaBeanHelper;
+        strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_centrosanitario = " + idCentrosanitario;
     }
 
     @Override
@@ -101,12 +75,21 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 strSQL += "(" + oBean.getValues() + ")";
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 iResult = oPreparedStatement.executeUpdate();
+
+                // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
             } else {
+
                 insert = false;
                 strSQL = "UPDATE " + ob;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-                strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_tipousuario = ? AND u.id_centrosanitario = ?";
+
+//                strSQL += "SELECT COUNT(*) FROM " + ob + ""
+//                (*) from usuario u
+//                ,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u
+//                .id = p.id_usuario and p
+//                .id =  ? (IDPACIENTEAMODIFICAR);
+                
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.setInt(1, oBean.getId());
                 iResult = oPreparedStatement.executeUpdate();
