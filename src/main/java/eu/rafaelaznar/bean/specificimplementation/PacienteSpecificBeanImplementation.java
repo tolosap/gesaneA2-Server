@@ -331,11 +331,9 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Sip del paciente",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
-            RegexPattern = RegexConstants.capitalizedName,
-            RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100,
+            MaxLength = 20,
             IsVisible = false
     )
     private String sip_aseguradora;

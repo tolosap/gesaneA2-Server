@@ -49,14 +49,17 @@ import java.util.ArrayList;
 
 public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoImplementation {
 
+    private Integer idCentrosanitario = null;
+    private Integer idUsuario = null;
+    
     public PacienteProfesorSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
 
         UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oPuserBean_security.getBean();
         MetaBeanHelper oMetaBeanHelper = oUsuario.getObj_tipousuario();
         CentrosanitarioSpecificBeanImplementation oCentrosanitario = (CentrosanitarioSpecificBeanImplementation) oMetaBeanHelper.getBean();
-        Integer idCentrosanitario = oCentrosanitario.getId();
-        Integer idUsuario = oUsuario.getId();
+        idCentrosanitario = oCentrosanitario.getId();
+        idUsuario = oUsuario.getId();
 
         strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_centrosanitario = " + idCentrosanitario;
     }
@@ -75,7 +78,9 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 strSQL += "(" + oBean.getValues() + ")";
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 iResult = oPreparedStatement.executeUpdate();
-
+                strSQL = "UPDATE "+ob+" SET id_usuario="+idUsuario+" WHERE id="+iResult;
+                oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
+                oPreparedStatement.executeUpdate();
                 // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
             } else {
 
