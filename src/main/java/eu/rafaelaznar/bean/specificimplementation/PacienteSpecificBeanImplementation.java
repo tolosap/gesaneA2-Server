@@ -37,14 +37,8 @@ import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
-import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.helper.EnumHelper;
-import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Date;
 
 @MetaObjectBeanInterface(
@@ -55,21 +49,6 @@ import java.util.Date;
         Type = EnumHelper.SourceType.Table
 )
 public class PacienteSpecificBeanImplementation extends TableGenericBeanImplementation {
-
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Dni",
-            LongName = "Dni Completo",
-            Description = "Documento Nacional de Identidad",
-            Type = EnumHelper.FieldType.String,
-            IsRequired = true,
-            RegexPattern = RegexConstants.dni,
-            RegexHelp = RegexConstants.dni_Help,
-            IsForeignKeyDescriptor = true,
-            Wide = 3,
-            MaxLength = 9
-    )
-    private String dni;
 
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -84,6 +63,21 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             
     )
     private String nombrecompleto;
+    
+    @Expose
+    @MetaPropertyBeanInterface(
+            ShortName = "Dni",
+            LongName = "Dni Completo",
+            Description = "Documento Nacional de Identidad",
+            Type = EnumHelper.FieldType.String,
+            IsRequired = true,
+            RegexPattern = RegexConstants.dni,
+            RegexHelp = RegexConstants.dni_Help,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 9
+    )
+    private String dni;
 
     @Expose
     @MetaPropertyBeanInterface(
