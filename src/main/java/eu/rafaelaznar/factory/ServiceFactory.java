@@ -721,44 +721,49 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oPacienteService.getPageX();
-                    case "categoriaprofesional":
-                        CategoriaprofesionalSpecificServiceImplementation oCategoriaService = new CategoriaprofesionalSpecificServiceImplementation(oRequest);
-                        switch (op) {
-                            case "getmetadata":
-                                oReplyBean = oCategoriaService.getMetaData();
-                                break;
-                            case "getobjectmetadata":
-                                oReplyBean = oCategoriaService.getObjectMetaData();
-                                break;
-                            case "getpropertiesmetadata":
-                                oReplyBean = oCategoriaService.getPropertiesMetaData();
-                                break;
-                            case "get":
-                                oReplyBean = oCategoriaService.get();
-                                break;
-                            case "set":
-                                oReplyBean = oCategoriaService.set();
-                                break;
-                            case "remove":
-                                oReplyBean = oCategoriaService.remove();
-                                break;
-                            case "getpage":
-                                oReplyBean = oCategoriaService.getPage();
-                                break;
-                            case "getcount":
-                                oReplyBean = oCategoriaService.getCount();
-                                break;
-                            default:
-                                oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
-                                break;
-                        }
-                        break;
-
                     default:
-                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
                 }
+                break;
+
+            case "categoriaprofesional":
+                CategoriaprofesionalSpecificServiceImplementation oCategoriaService = new CategoriaprofesionalSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oCategoriaService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oCategoriaService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oCategoriaService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oCategoriaService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oCategoriaService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oCategoriaService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oCategoriaService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oCategoriaService.getCount();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+
+            default:
+                oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
+                break;
         }
-        return oReplyBean;
+        return oReplyBean ;
     }
-}
+   }
