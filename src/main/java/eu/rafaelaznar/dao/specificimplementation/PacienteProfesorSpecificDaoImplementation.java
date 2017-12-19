@@ -42,6 +42,7 @@ import eu.rafaelaznar.helper.Log4jHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoImplementation {
@@ -84,6 +85,57 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
 
         }
         return oMetaBeanHelper;
+    }
+
+    @Override
+    public Integer set(TableGenericBeanImplementation oBean) throws Exception {
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        Integer iResult = 0;
+        Boolean insert = true;
+        try {
+            if (oBean.getId() == null || oBean.getId() == 0) {
+                strSQL = "INSERT INTO " + ob;
+                strSQL += "(" + oBean.getColumns() + ")";
+                strSQL += " VALUES ";
+                strSQL += "(" + oBean.getValues() + ")";
+                oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
+                iResult = oPreparedStatement.executeUpdate();
+            } else {
+                insert = false;
+                strSQL = "UPDATE " + ob;
+                strSQL += " SET ";
+                strSQL += oBean.toPairs();
+                strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_tipousuario = ? AND u.id_centrosanitario = ?";
+                oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
+                oPreparedStatement.setInt(1, oBean.getId());
+                iResult = oPreparedStatement.executeUpdate();
+            }
+            if (iResult < 1) {
+                String msg = this.getClass().getName() + ": set";
+                Log4jHelper.errorLog(msg);
+                throw new Exception(msg);
+            }
+            if (insert) {
+                oResultSet = oPreparedStatement.getGeneratedKeys();
+                oResultSet.next();
+                iResult = oResultSet.getInt(1);
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (insert) {
+                if (oResultSet != null) {
+                    oResultSet.close();
+                }
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
     }
 
 }
