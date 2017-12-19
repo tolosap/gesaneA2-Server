@@ -34,6 +34,7 @@ package eu.rafaelaznar.factory;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
+import eu.rafaelaznar.dao.specificimplementation.CategoriaprofesionalSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentroSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipoepisodioSpecificDaoImplementation;
@@ -114,6 +115,9 @@ public class DaoFactory {
                 break;
             case "paciente":
                 oDao = (MetaDaoInterface) new PacienteSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "categoriaprofesional":
+                oDao = (MetaDaoInterface) new CategoriaprofesionalSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             case "episodio":
                 oDao = (MetaDaoInterface) new EpisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
