@@ -35,6 +35,7 @@ package eu.rafaelaznar.factory;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.bean.specificimplementation.CategoriaprofesionalSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipoepisodioSpecificBeanImplementation;
@@ -111,6 +112,8 @@ public class BeanFactory {
                 break;
             case "paciente":
                 oBean = new PacienteSpecificBeanImplementation();
+            case "categoriaprofesional":
+                oBean = new CategoriaprofesionalSpecificBeanImplementation();
                 break;
             default:
 
