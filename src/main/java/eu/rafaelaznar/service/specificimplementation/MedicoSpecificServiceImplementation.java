@@ -22,7 +22,7 @@ public class MedicoSpecificServiceImplementation extends TableGenericServiceImpl
         super(request);
     }
 
-    @Override
+     @Override
     protected Boolean checkPermission(String strMethodName) {
         MetaBeanHelper oUsuarioBean = (MetaBeanHelper) oRequest.getSession().getAttribute("user");
         if (oUsuarioBean != null) {
@@ -34,13 +34,9 @@ public class MedicoSpecificServiceImplementation extends TableGenericServiceImpl
             String strMethod = strMethodName.toLowerCase();
             if (idTipousuario == 1) {
                 return true;
-            }
-            if (idTipousuario == 3) {
-                MedicoProfesorSpecificDaoImplementation oMedico = new MedicoProfesorSpecificDaoImplementation();
-                
-                return true;
             } else {
-                if (idTipousuario == 4
+                if (idTipousuario == 3
+                        || idTipousuario == 4
                         || idTipousuario == 5) {
 
                     switch (strMethod) {
