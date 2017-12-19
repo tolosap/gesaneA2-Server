@@ -34,12 +34,18 @@ package eu.rafaelaznar.bean.specificimplementation;
 
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
+import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
 import eu.rafaelaznar.helper.EnumHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
-
 
 @MetaObjectBeanInterface(
         TableName = "paciente",
@@ -62,11 +68,23 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private String dni;
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Nombre completo",
+            LongName = "Nombre completo",
+            Description = "Nombre completo del usuario",
+            Type = EnumHelper.FieldType.Calculated,
+            IsForeignKeyDescriptor = true,
+            Wide = 3,
+            MaxLength = 100
+    )
+    private String nombrecompleto;
+
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Nombre",
             LongName = "Nombre",
-            Description = "Nombre del paciente",
+            Description = "Nombre del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
@@ -82,7 +100,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     @MetaPropertyBeanInterface(
             ShortName = "1er. Ap.",
             LongName = "Primer Apellido",
-            Description = "Primer Apellido del paciente",
+            Description = "Primer Apellido del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
@@ -92,13 +110,13 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String primerApellido;
+    private String primer_apellido;
 
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "2º Ap.",
             LongName = "Segundo Apellido",
-            Description = "Segundo Apellido del paciente",
+            Description = "Segundo Apellido del usuario",
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
@@ -108,7 +126,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String segundoApellido;
+    private String segundo_apellido;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -154,7 +172,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 5,
             IsVisible = false
     )
-    private String codigoPostal;
+    private String codigo_postal;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -244,7 +262,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String nombrePadre;
+    private String nombre_padre;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -260,7 +278,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String nombreMadre;
+    private String nombre_madre;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -272,7 +290,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             IsRequired = true,
             IsVisible = false
     )
-    private Date fechaNacimiento;
+    private Date fecha_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -288,7 +306,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String ciudadNacimiento;
+    private String ciudad_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -304,7 +322,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String paisNacimiento;
+    private String pais_nacimiento;
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -320,14 +338,13 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100,
             IsVisible = false
     )
-    private String sipAseguradora;
+    private String sip_aseguradora;
 
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
             Type = EnumHelper.FieldType.ForeignId
     )
     private Integer id_tipopago = 0;
-
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Tipo",
@@ -335,60 +352,56 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Tipo de pago",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
-            References = "id_tipopago",
+            References = "tipopago",
             Wide = 4
     )
-    private Integer obj_tipopago = null;
+    private MetaBeanHelper obj_tipopago = null;
 
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
             Type = EnumHelper.FieldType.ForeignId
     )
     private Integer id_sexo = 0;
-
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
             ShortName = "Sexo",
-            LongName = "Sexo",
+            LongName = "Sexo del paciente",
             Description = "Sexo del paciente",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
-            References = "id_sexo",
+            References = "sexo",
             Wide = 4
     )
-    private Integer obj_sexo = null;
+    private MetaBeanHelper obj_sexo = null;
+
+    
 
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
             Type = EnumHelper.FieldType.ForeignId
     )
     private Integer id_usuario = 0;
-
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
-            ShortName = "Id. Usuario",
-            LongName = "Id. Usuario del paciente",
-            Description = "Identificación de usuario para el paciente",
+            ShortName = "Usuario",
+            LongName = "Usuario",
+            Description = "Usuario del paciente",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
-            References = "id_usuario",
+            References = "usuario",
             Wide = 4
     )
-    private Integer obj_usuario = null;
+    private MetaBeanHelper obj_usuario = null;
 
-    public PacienteSpecificBeanImplementation() {
+    
+
+    @Override
+    public void ComputeCalculatedFields() {
+        this.nombrecompleto = this.nombre + " " + this.primer_apellido + " " + this.segundo_apellido;
     }
 
-    public PacienteSpecificBeanImplementation(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public String getNombrecompleto() {
+        return nombrecompleto;
     }
 
     public String getDni() {
@@ -407,20 +420,20 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.nombre = nombre;
     }
 
-    public String getPrimerApellido() {
-        return primerApellido;
+    public String getPrimer_apellido() {
+        return primer_apellido;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPrimer_apellido(String primer_apellido) {
+        this.primer_apellido = primer_apellido;
     }
 
-    public String getSegundoApellido() {
-        return segundoApellido;
+    public String getSegundo_apellido() {
+        return segundo_apellido;
     }
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setSegundo_apellido(String segundo_apellido) {
+        this.segundo_apellido = segundo_apellido;
     }
 
     public String getDireccion() {
@@ -439,12 +452,12 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.ciudad = ciudad;
     }
 
-    public String getCodigoPostal() {
-        return codigoPostal;
+    public String getCodigo_postal() {
+        return codigo_postal;
     }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
+    public void setCodigo_postal(String codigo_postal) {
+        this.codigo_postal = codigo_postal;
     }
 
     public String getProvincia() {
@@ -487,52 +500,52 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.telefono2 = telefono2;
     }
 
-    public String getNombrePadre() {
-        return nombrePadre;
+    public String getNombre_padre() {
+        return nombre_padre;
     }
 
-    public void setNombrePadre(String nombrePadre) {
-        this.nombrePadre = nombrePadre;
+    public void setNombre_padre(String nombre_padre) {
+        this.nombre_padre = nombre_padre;
     }
 
-    public String getNombreMadre() {
-        return nombreMadre;
+    public String getNombre_madre() {
+        return nombre_madre;
     }
 
-    public void setNombreMadre(String nombreMadre) {
-        this.nombreMadre = nombreMadre;
+    public void setNombre_madre(String nombre_madre) {
+        this.nombre_madre = nombre_madre;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public String getCiudadNacimiento() {
-        return ciudadNacimiento;
+    public String getCiudad_nacimiento() {
+        return ciudad_nacimiento;
     }
 
-    public void setCiudadNacimiento(String ciudadNacimiento) {
-        this.ciudadNacimiento = ciudadNacimiento;
+    public void setCiudad_nacimiento(String ciudad_nacimiento) {
+        this.ciudad_nacimiento = ciudad_nacimiento;
     }
 
-    public String getPaisNacimiento() {
-        return paisNacimiento;
+    public String getPais_nacimiento() {
+        return pais_nacimiento;
     }
 
-    public void setPaisNacimiento(String paisNacimiento) {
-        this.paisNacimiento = paisNacimiento;
+    public void setPais_nacimiento(String pais_nacimiento) {
+        this.pais_nacimiento = pais_nacimiento;
     }
 
-    public String getSipAseguradora() {
-        return sipAseguradora;
+    public String getSip_aseguradora() {
+        return sip_aseguradora;
     }
 
-    public void setSipAseguradora(String sipAseguradora) {
-        this.sipAseguradora = sipAseguradora;
+    public void setSip_aseguradora(String sip_aseguradora) {
+        this.sip_aseguradora = sip_aseguradora;
     }
 
     public Integer getId_tipopago() {
@@ -543,11 +556,11 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.id_tipopago = id_tipopago;
     }
 
-    public Integer getObj_tipopago() {
+    public MetaBeanHelper getObj_tipopago() {
         return obj_tipopago;
     }
 
-    public void setObj_tipopago(Integer obj_tipopago) {
+    public void setObj_tipopago(MetaBeanHelper obj_tipopago) {
         this.obj_tipopago = obj_tipopago;
     }
 
@@ -559,11 +572,11 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.id_sexo = id_sexo;
     }
 
-    public Integer getObj_sexo() {
+    public MetaBeanHelper getObj_sexo() {
         return obj_sexo;
     }
 
-    public void setObj_sexo(Integer obj_sexo) {
+    public void setObj_sexo(MetaBeanHelper obj_sexo) {
         this.obj_sexo = obj_sexo;
     }
 
@@ -575,12 +588,14 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
         this.id_usuario = id_usuario;
     }
 
-    public Integer getObj_usuario() {
+    public MetaBeanHelper getObj_usuario() {
         return obj_usuario;
     }
 
-    public void setObj_usuario(Integer obj_usuario) {
+    public void setObj_usuario(MetaBeanHelper obj_usuario) {
         this.obj_usuario = obj_usuario;
     }
+
+    
 
 }
