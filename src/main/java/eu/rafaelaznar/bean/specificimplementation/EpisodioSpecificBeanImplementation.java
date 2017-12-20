@@ -61,7 +61,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Fecha de la firma",
             Type = EnumHelper.FieldType.Date,
             RegexHelp = "una fecha correcta",
-            IsRequired = true,
+            //IsRequired = true,
             IsVisible = false
     )
     private Date fecha_firma;
@@ -85,7 +85,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Fecha alta del episodio",
             Type = EnumHelper.FieldType.Date,
             RegexHelp = "una fecha correcta",
-            IsRequired = true
+            IsRequired = false
     )
     private Date fecha_alta;
 
@@ -94,9 +94,9 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             ShortName = "Importe",
             LongName = "Importe",
             Description = "Importe del episodio",
-            Type = EnumHelper.FieldType.Decimal,
+            Type = EnumHelper.FieldType.Decimal
             // RegexHelp = "un numero correcto",
-            IsRequired = true
+            //IsRequired = true
     )
     private Double importe;
 
@@ -106,9 +106,10 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Finalizado",
             Description = "Episodio finalizado",
             Type = EnumHelper.FieldType.Boolean,
-            IsRequired = true
+            //IsRequired = true
+            IsVisible = false
     )
-    private Boolean finalizado;
+    private Integer finalizado;
 
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -119,7 +120,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             IsRequired = true,
             IsVisible = false
     )
-    private Boolean bloqueado;
+    private Integer bloqueado;
 
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
@@ -246,7 +247,8 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "episodio",
-            Width = 4
+            Width = 4,
+            IsVisible = false
     )
     private MetaBeanHelper obj_episodio = null;
 
@@ -264,7 +266,8 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "circunstanciasalta",
-            Width = 4
+            Width = 4,
+            IsVisible = false
     )
     private MetaBeanHelper obj_circunstanciasalta = null;
 
@@ -346,7 +349,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Antecedentes",
             Description = "Antecedentes",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
@@ -362,7 +365,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Historia Actual",
             Description = "Historia Actual",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
@@ -378,7 +381,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Exploracion Fisica",
             Description = "Exploración Física",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
@@ -410,7 +413,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Diagnóstico Principal",
             Description = "Diasnóstico Principal",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true,
@@ -425,7 +428,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Diagnóstico Secundario",
             Description = "Diagnóstico Secundario",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
@@ -457,7 +460,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Tratamiento recomendaciones",
             Description = "Recomendaciones del tratamiento",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
@@ -472,12 +475,13 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Tratamiento farmacos",
             Description = "Farmacos del tratamiento",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
+            //IsRequired = true,
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
             Width = 3,
-            MaxLength = 100
+            MaxLength = 100,
+            IsVisible = false
     )
     private String tratamiento_farmacos;
 
@@ -597,19 +601,19 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
         this.importe = importe;
     }
 
-    public Boolean getFinalizado() {
+    public Integer getFinalizado() {
         return finalizado;
     }
 
-    public void setFinalizado(Boolean finalizado) {
+    public void setFinalizado(Integer finalizado) {
         this.finalizado = finalizado;
     }
 
-    public Boolean getBloqueado() {
+    public Integer getBloqueado() {
         return bloqueado;
     }
 
-    public void setBloqueado(Boolean bloqueado) {
+    public void setBloqueado(Integer bloqueado) {
         this.bloqueado = bloqueado;
     }
 
