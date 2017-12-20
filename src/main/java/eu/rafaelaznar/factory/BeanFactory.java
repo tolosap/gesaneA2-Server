@@ -43,8 +43,10 @@ import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBean
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.EpisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.FacturaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.MedicoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ServicioSpecificBeanImplementation;
@@ -115,6 +117,12 @@ public class BeanFactory {
                 break;
             case "categoriaprofesional":
                 oBean = new CategoriaprofesionalSpecificBeanImplementation();
+                break;
+            case "episodio":
+                oBean = new EpisodioSpecificBeanImplementation();
+                break;
+            case "medico":
+                oBean = new MedicoSpecificBeanImplementation();
                 break;
             default:
 

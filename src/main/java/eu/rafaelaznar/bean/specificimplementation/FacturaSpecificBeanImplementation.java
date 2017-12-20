@@ -59,7 +59,7 @@ public class FacturaSpecificBeanImplementation extends TableGenericBeanImplement
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String descripcion;
@@ -83,7 +83,7 @@ public class FacturaSpecificBeanImplementation extends TableGenericBeanImplement
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private Date fecha;
