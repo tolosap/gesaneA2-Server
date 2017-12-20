@@ -34,6 +34,7 @@ package eu.rafaelaznar.factory;
 
 import eu.rafaelaznar.bean.helper.ReplyBeanHelper;
 import eu.rafaelaznar.helper.EncodingHelper;
+import eu.rafaelaznar.service.specificimplementation.CategoriaprofesionalSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CentroSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.TipoepisodioSpecificServiceImplementation;
@@ -687,8 +688,8 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                
-                case "paciente":
+
+            case "paciente":
                 PacienteSpecificServiceImplementation oPacienteService = new PacienteSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -720,6 +721,38 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oPacienteService.getPageX();
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+
+            case "categoriaprofesional":
+                CategoriaprofesionalSpecificServiceImplementation oCategoriaService = new CategoriaprofesionalSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oCategoriaService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oCategoriaService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oCategoriaService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oCategoriaService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oCategoriaService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oCategoriaService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oCategoriaService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oCategoriaService.getCount();
                         break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
@@ -731,6 +764,6 @@ public class ServiceFactory {
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;
         }
-        return oReplyBean;
+        return oReplyBean ;
     }
-}
+   }
