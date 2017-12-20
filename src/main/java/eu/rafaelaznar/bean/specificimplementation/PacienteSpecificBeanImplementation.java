@@ -58,12 +58,10 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
             Width = 3,
-             
             MaxLength = 100
-            
     )
     private String nombrecompleto;
-    
+
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Dni",
@@ -75,10 +73,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             MaxLength = 100
     )
     private String dni;
-
-    
-    
-
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -92,7 +86,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             IsForeignKeyDescriptor = false,
             Width = 3,
             MaxLength = 100,
-            
             IsVisible = false
     )
     private String nombre;
@@ -377,8 +370,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private MetaBeanHelper obj_sexo = null;
 
-    
-
     @Expose(serialize = false)
     @MetaPropertyBeanInterface(
             Type = EnumHelper.FieldType.ForeignId
@@ -396,7 +387,15 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private MetaBeanHelper obj_usuario = null;
 
-    
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Episodios",
+            LongName = "Episodios del paciente",
+            Description = "Episodios del paciente",
+            Type = EnumHelper.FieldType.Link,
+            References = "episodio"
+    )
+    private Integer link_episodio = null;
 
     @Override
     public void ComputeCalculatedFields() {
@@ -598,7 +597,5 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     public void setObj_usuario(MetaBeanHelper obj_usuario) {
         this.obj_usuario = obj_usuario;
     }
-
-    
 
 }
