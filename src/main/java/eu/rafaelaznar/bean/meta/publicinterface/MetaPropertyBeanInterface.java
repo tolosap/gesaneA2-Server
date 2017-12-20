@@ -65,7 +65,7 @@ public @interface MetaPropertyBeanInterface {
 
     public boolean IsVisible() default true;
 
-    public int Wide() default 2;
+    public int Width() default 2;
 
     public int MaxLength() default 255;
 

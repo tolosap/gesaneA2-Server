@@ -89,7 +89,7 @@ public class ServicioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tiposervicio",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_tiposervicio = null;
 
