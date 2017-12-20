@@ -46,6 +46,7 @@ import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplement
 import eu.rafaelaznar.dao.specificimplementation.EpisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.MedicoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ModalidadepisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ServicioSpecificDaoImplementation;
@@ -122,6 +123,9 @@ public class DaoFactory {
                 break;
             case "episodio":
                 oDao = (MetaDaoInterface) new EpisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "medico":
+                oDao = (MetaDaoInterface) new MedicoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             case "dependencia":
                 oDao = (MetaDaoInterface) new DependenciaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);

@@ -68,7 +68,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "servicio",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_servicio = null;
 
@@ -86,7 +86,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "especialidad",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_especialidad = null;
 
@@ -111,7 +111,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Description = "Nombre completo del médico",
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String nombrecompleto;
@@ -126,7 +126,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -142,7 +142,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -158,7 +158,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -183,7 +183,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.String,
             IsRequired = true,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -217,7 +217,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "categoriaprofesional",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_categoriaprofesional = null;
 
@@ -235,7 +235,7 @@ public class MedicoSpecificBeanImplementation extends TableGenericBeanImplementa
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "centrosanitario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_centrosanitario = null;
 

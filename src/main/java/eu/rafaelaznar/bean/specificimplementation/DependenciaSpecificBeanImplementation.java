@@ -94,7 +94,7 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tipodependencia",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_tipodependencia = null;
 
@@ -112,7 +112,7 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "centrosanitario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_centrosanitario = null;
 

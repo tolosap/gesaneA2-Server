@@ -57,7 +57,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Nombre completo del usuario",
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
              
             MaxLength = 100
             
@@ -70,14 +70,15 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Dni Completo",
             Description = "Documento Nacional de Identidad",
             Type = EnumHelper.FieldType.String,
-            IsRequired = true,
-            RegexPattern = RegexConstants.dni,
-            RegexHelp = RegexConstants.dni_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
-            MaxLength = 9
+            Width = 3,
+            MaxLength = 100
     )
     private String dni;
+
+    
+    
+
 
     @Expose
     @MetaPropertyBeanInterface(
@@ -89,7 +90,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             
             IsVisible = false
@@ -106,7 +107,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -122,7 +123,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -138,7 +139,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -154,7 +155,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -170,7 +171,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexHelp = "5 dígitos",
             IsRequired = false,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 5,
             IsVisible = false
     )
@@ -186,7 +187,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -202,7 +203,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -230,7 +231,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.String,
             IsRequired = false,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 20,
             IsVisible = false
     )
@@ -244,7 +245,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.String,
             IsRequired = false,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 20,
             IsVisible = false
     )
@@ -260,7 +261,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -276,7 +277,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -304,7 +305,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -320,7 +321,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -336,8 +337,8 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexHelp = "10 dígitos",
             IsRequired = true,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
-            MaxLength = 10,
+            Width = 3,
+            MaxLength = 100,
             IsVisible = false
     )
     private String sip_aseguradora;
@@ -355,7 +356,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tipopago",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_tipopago = null;
 
@@ -372,7 +373,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "sexo",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_sexo = null;
 
@@ -391,7 +392,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "usuario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_usuario = null;
 

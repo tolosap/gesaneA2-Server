@@ -30,44 +30,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package eu.rafaelaznar.bean.meta.publicinterface;
+package eu.rafaelaznar.dao.specificimplementation;
 
-import eu.rafaelaznar.helper.EnumHelper;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
+import java.sql.Connection;
 
-@Retention(RetentionPolicy.RUNTIME) //tells compiler and JVM that annotation should be accessible at runtime
-@Target(ElementType.FIELD) // tells Java compiler that annotation can be used only on fields
+public class MedicoSpecificDaoImplementation extends TableGenericDaoImplementation {
 
-public @interface MetaPropertyBeanInterface {
-
-    public String ShortName() default "";
-
-    public String LongName() default "";
-
-    public String Description() default "";
-
-    public String References() default "";
-
-    public boolean IsForeignKeyDescriptor() default false;
-
-    public EnumHelper.FieldType Type() default EnumHelper.FieldType.String;
-
-    public boolean IsRequired() default false;
-
-    public String RegexPattern() default "";
-
-    public String RegexHelp() default "";
-
-    public String DefaultValue() default "";
-
-    public boolean IsVisible() default true;
-
-    public int Width() default 2;
-
-    public int MaxLength() default 255;
-
+    public MedicoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
+        super("medico", oPooledConnection, oPuserBean_security, strWhere);
+    }
 
 }

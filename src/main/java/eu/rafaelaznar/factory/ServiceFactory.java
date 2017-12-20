@@ -46,6 +46,7 @@ import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceI
 import eu.rafaelaznar.service.specificimplementation.EpisodioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.FacturaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.GrupoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.MedicoSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.ModalidadepisodioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.PacienteSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.ServicioSpecificServiceImplementation;
@@ -765,8 +766,8 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                
-                case "episodio":
+
+            case "episodio":
                 EpisodioSpecificServiceImplementation oEpisodioService = new EpisodioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -804,8 +805,45 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                
-                case "dependencia":
+            case "medico":
+                MedicoSpecificServiceImplementation oMedicoService = new MedicoSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oMedicoService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oMedicoService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oMedicoService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oMedicoService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oMedicoService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oMedicoService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oMedicoService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oMedicoService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oMedicoService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oMedicoService.getPageX();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "dependencia":
                 DependenciaSpecificServiceImplementation oDependenciaService = new DependenciaSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -848,6 +886,6 @@ public class ServiceFactory {
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;
         }
-        return oReplyBean ;
+        return oReplyBean;
     }
-   }
+}

@@ -47,6 +47,7 @@ import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImpleme
 import eu.rafaelaznar.bean.specificimplementation.EpisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.FacturaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.MedicoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ServicioSpecificBeanImplementation;
@@ -120,6 +121,9 @@ public class BeanFactory {
                 break;
             case "episodio":
                 oBean = new EpisodioSpecificBeanImplementation();
+                break;
+            case "medico":
+                oBean = new MedicoSpecificBeanImplementation();
                 break;
             case "dependencia":
                 oBean = new DependenciaSpecificBeanImplementation();
