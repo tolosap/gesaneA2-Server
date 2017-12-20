@@ -42,8 +42,10 @@ import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoIm
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.EpisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.MedicoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ModalidadepisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ServicioSpecificDaoImplementation;
@@ -117,6 +119,11 @@ public class DaoFactory {
                 break;
             case "categoriaprofesional":
                 oDao = (MetaDaoInterface) new CategoriaprofesionalSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+            case "episodio":
+                oDao = (MetaDaoInterface) new EpisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "medico":
+                oDao = (MetaDaoInterface) new MedicoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
