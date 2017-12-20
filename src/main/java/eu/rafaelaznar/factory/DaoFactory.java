@@ -114,6 +114,7 @@ public class DaoFactory {
                 break;
             case "paciente":
                 oDao = (MetaDaoInterface) new PacienteSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
             case "categoriaprofesional":
                 oDao = (MetaDaoInterface) new CategoriaprofesionalSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;

@@ -112,6 +112,7 @@ public class BeanFactory {
                 break;
             case "paciente":
                 oBean = new PacienteSpecificBeanImplementation();
+                break;
             case "categoriaprofesional":
                 oBean = new CategoriaprofesionalSpecificBeanImplementation();
                 break;
