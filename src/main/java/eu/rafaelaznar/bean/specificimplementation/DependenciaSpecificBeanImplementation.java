@@ -35,6 +35,7 @@ package eu.rafaelaznar.bean.specificimplementation;
 import com.google.gson.annotations.Expose;
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.meta.publicinterface.MetaObjectBeanInterface;
 import eu.rafaelaznar.bean.meta.publicinterface.MetaPropertyBeanInterface;
 import eu.rafaelaznar.helper.EnumHelper;
 import eu.rafaelaznar.helper.constant.RegexConstants;
@@ -43,6 +44,13 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
  *
  * @author a022583952e
  */
+@MetaObjectBeanInterface(
+        TableName = "dependencia",
+        SingularDescription = "Dependencia",
+        PluralDescription = "Dependencias",
+        Icon = "fa fa-square",
+        Type = EnumHelper.SourceType.Table
+)
 public class DependenciaSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose
@@ -107,7 +115,7 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
             Wide = 4
     )
     private MetaBeanHelper obj_centrosanitario = null;
-    
+
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Es dependencia de los procedimientos",
@@ -117,7 +125,6 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
 //            References = "procedimiento"
 //    )
 //    private Integer link_procedimiento = null;
-    
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Es dependencia de la analitica",
@@ -127,7 +134,6 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
 //            References = "analitica"
 //    )
 //    private Integer link_analitica = null;
-    
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Es dependencia de la imagen",
@@ -137,7 +143,6 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
 //            References = "imagen"
 //    )
 //    private Integer link_imagen = null;  
-    
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Es dependencia del episodio",
@@ -147,7 +152,6 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
 //            References = "episodio"
 //    )
 //    private Integer link_episodio = null;
-
     public DependenciaSpecificBeanImplementation() {
     }
 
@@ -202,7 +206,5 @@ public class DependenciaSpecificBeanImplementation extends TableGenericBeanImple
     public void setObj_centrosanitario(MetaBeanHelper obj_centrosanitario) {
         this.obj_centrosanitario = obj_centrosanitario;
     }
-    
-    
 
 }
