@@ -32,10 +32,24 @@
  */
 package eu.rafaelaznar.service.specificimplementation;
 
+import com.google.gson.Gson;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
+import eu.rafaelaznar.factory.BeanFactory;
+import eu.rafaelaznar.factory.ConnectionFactory;
+import eu.rafaelaznar.helper.GsonHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 public class PacienteSpecificServiceImplementation extends TableGenericServiceImplementation {
@@ -69,7 +83,43 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                             return true;
                         case "get":
                             return true;
-                        case "set":
+                        case "setnew":
+                            return true;
+                        case "setedit":
+                            Connection oConnection = null;
+                            ConnectionInterface oPooledConnection = null;
+                             {
+                                try {
+                                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
+                                    oConnection = oPooledConnection.newConnection();
+                                    PacienteProfesorSpecificDaoImplementation oDao = new PacienteProfesorSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
+                                    String jason = oRequest.getParameter("json");
+                                    TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
+                                    Gson oGson = GsonHelper.getGson();
+                                    oBean = oGson.fromJson(jason, oBean.getClass());
+                                    oDao.checkUpdate(oBean.getId());
+                                } catch (Exception ex) {
+                                    String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+                                    Log4jHelper.errorLog(msg, ex);
+                                } finally {
+                                    if (oConnection != null) {
+                                        try {
+                                            oConnection.close();
+                                        } catch (SQLException ex) {
+                                            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+                                            Log4jHelper.errorLog(msg, ex);
+                                        }
+                                    }
+                                    if (oPooledConnection != null) {
+                                        try {
+                                            oPooledConnection.disposeConnection();
+                                        } catch (Exception ex) {
+                                            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+                                            Log4jHelper.errorLog(msg, ex);
+                                        }
+                                    }
+                                }
+                            }
                             return true;
                         case "remove":
                             return true;

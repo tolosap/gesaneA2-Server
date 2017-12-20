@@ -38,8 +38,8 @@ import java.sql.Connection;
 
 public class PacienteSpecificDaoImplementation extends TableGenericDaoImplementation {
 
+
     public PacienteSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
     }
-
 }
