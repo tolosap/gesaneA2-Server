@@ -726,6 +726,7 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oPacienteService.getPageX();
+                        break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
