@@ -123,7 +123,6 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 strSQL = "UPDATE " + ob + " SET id_usuario=" + idUsuario + " WHERE id=" + idResult;
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.executeUpdate();
-                // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
             } else {
                 // check permission if ok edit else unauthorized
                 insert = false;
@@ -135,7 +134,6 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                         + "WHERE g.id_usuario = ? AND u.id_grupo = g.id AND "
                         + "u.id = p.id_usuario AND p.id = ?";
 //                () from usuario u,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u.id = p.id_usuario and p.id =  ? (IDPACIENTEAMODIFICAR);
-
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.setInt(1, idUsuario);
                 oPreparedStatement.setInt(2, oBean.getId());
