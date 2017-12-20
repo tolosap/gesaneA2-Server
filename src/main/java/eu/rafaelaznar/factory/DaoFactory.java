@@ -40,6 +40,7 @@ import eu.rafaelaznar.dao.specificimplementation.CentrosanitarioSpecificDaoImple
 import eu.rafaelaznar.dao.specificimplementation.TipoepisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.DependenciaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EpisodioSpecificDaoImplementation;
@@ -121,6 +122,9 @@ public class DaoFactory {
                 break;
             case "episodio":
                 oDao = (MetaDaoInterface) new EpisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "dependencia":
+                oDao = (MetaDaoInterface) new DependenciaSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");
