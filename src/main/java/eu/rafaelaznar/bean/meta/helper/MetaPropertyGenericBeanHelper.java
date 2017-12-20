@@ -68,7 +68,7 @@ public class MetaPropertyGenericBeanHelper {
     @Expose
     private boolean IsVisible = true;
     @Expose
-    private Integer Wide = 2;
+    private Integer Width = 2;
     @Expose
     private Integer MaxLength = 255;
 
@@ -192,12 +192,12 @@ public class MetaPropertyGenericBeanHelper {
         this.IsVisible = isVisible;
     }
 
-    public Integer getWide() {
-        return Wide;
+    public Integer getWidth() {
+        return Width;
     }
 
-    public void setWide(Integer Wide) {
-        this.Wide = Wide;
+    public void setWidth(Integer Width) {
+        this.Width = Width;
     }
 
     public Integer getMaxLength() {

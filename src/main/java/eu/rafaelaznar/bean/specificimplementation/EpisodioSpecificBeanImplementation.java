@@ -135,7 +135,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "servicio",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_servicio = null;
 
@@ -153,7 +153,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "paciente",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_paciente = null;
 
@@ -171,7 +171,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "factura",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_factura = null;
@@ -190,7 +190,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "dependencia",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_dependencia = null;
@@ -209,7 +209,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "medico",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_medico = null;
 
@@ -227,7 +227,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tipoepisodio",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_tipoepisodio = null;
@@ -246,7 +246,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "episodio",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_episodio = null;
 
@@ -264,7 +264,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "circunstanciasalta",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_circunstanciasalta = null;
 
@@ -282,7 +282,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "destinoalta",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_destinoalta = null;
@@ -301,7 +301,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "modalidadepisodio",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_modalidadepisodio = null;
@@ -320,7 +320,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "usuario",
-            Wide = 4,
+            Width = 4,
             IsVisible = false
     )
     private MetaBeanHelper obj_usuario = null;
@@ -335,7 +335,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String motivo_ingreso;
@@ -350,7 +350,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -366,7 +366,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -382,7 +382,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -398,7 +398,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -414,7 +414,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String diagnostico_principal;
@@ -429,7 +429,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -445,7 +445,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -461,7 +461,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String tratamiento_recomendaciones;
@@ -476,7 +476,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String tratamiento_farmacos;
@@ -491,7 +491,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             RegexPattern = RegexConstants.capitalizedSentence,
             RegexHelp = RegexConstants.capitalizedSentence_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
