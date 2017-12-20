@@ -75,7 +75,7 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "curso",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_curso = null;
 
@@ -92,7 +92,7 @@ public class GrupoSpecificBeanImplementation extends TableGenericBeanImplementat
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "usuario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_usuario = null;
 

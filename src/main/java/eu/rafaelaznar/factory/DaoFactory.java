@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2017-2018 
+ * Copyright (c) 2017-2018
  *
  * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
- * 
+ *
  * GESANE: Free Open Source Health Management System
  *
  * Sources at:
@@ -33,6 +33,8 @@
 package eu.rafaelaznar.factory;
 
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
+import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.publicinterface.MetaDaoInterface;
 import eu.rafaelaznar.dao.specificimplementation.CategoriaprofesionalSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.CentroSpecificDaoImplementation;
@@ -42,9 +44,13 @@ import eu.rafaelaznar.dao.specificimplementation.CircunstanciasaltaSpecificDaoIm
 import eu.rafaelaznar.dao.specificimplementation.CursoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.EspecialidadSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.DestinoaltaSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.EpisodioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.FacturaSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.GrupoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.MedicoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ModalidadepisodioSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.PacienteAlumnoSpecificDaoImplementation;
+import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.ServicioSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.TipopagoSpecificDaoImplementation;
@@ -59,7 +65,6 @@ public class DaoFactory {
 
     public static MetaDaoInterface getDao(String ob, Connection oConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         MetaDaoInterface oDao = null;
-
         switch (ob) {
             case "usuario":
                 oDao = (MetaDaoInterface) new UsuarioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
@@ -113,10 +118,32 @@ public class DaoFactory {
                 oDao = (MetaDaoInterface) new ServicioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             case "paciente":
-                oDao = (MetaDaoInterface) new PacienteSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oPuserBean_security.getBean();
+                MetaBeanHelper oMetaBeanHelper = oUsuario.getObj_tipousuario();
+                TipousuarioSpecificBeanImplementation oTipoUsuario = (TipousuarioSpecificBeanImplementation) oMetaBeanHelper.getBean();
+                Integer idTipousuario = oTipoUsuario.getId();
+                switch (idTipousuario) {
+                    case 1:
+                        oDao = (MetaDaoInterface) new PacienteSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                        break;
+                    case 3:
+                        oDao = (MetaDaoInterface) new PacienteProfesorSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                        break;
+                    case 4:
+                        oDao = (MetaDaoInterface) new PacienteAlumnoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                        break;
+                    case 5:
+                        oDao = (MetaDaoInterface) new PacienteSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                        break;
+                }
                 break;
             case "categoriaprofesional":
                 oDao = (MetaDaoInterface) new CategoriaprofesionalSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+            case "episodio":
+                oDao = (MetaDaoInterface) new EpisodioSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
+                break;
+            case "medico":
+                oDao = (MetaDaoInterface) new MedicoSpecificDaoImplementation(oConnection, oPuserBean_security, strWhere);
                 break;
             default:
                 //oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");

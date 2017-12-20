@@ -31,7 +31,7 @@ public class CentroSpecificBeanImplementation extends TableGenericBeanImplementa
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String nombre;
@@ -59,7 +59,7 @@ public class CentroSpecificBeanImplementation extends TableGenericBeanImplementa
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String poblacion;
@@ -73,7 +73,7 @@ public class CentroSpecificBeanImplementation extends TableGenericBeanImplementa
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String provincia;
@@ -87,7 +87,7 @@ public class CentroSpecificBeanImplementation extends TableGenericBeanImplementa
             IsRequired = true,
             RegexPattern = "(\\+34|0034|34)?[6|7|9][0-9]{8}",
             RegexHelp = "introduzca un teléfono válido",
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String telefono;
@@ -138,7 +138,7 @@ public class CentroSpecificBeanImplementation extends TableGenericBeanImplementa
             IsRequired = true,
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String pais;
