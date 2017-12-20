@@ -69,6 +69,7 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
         Integer iResult = 0;
+        Integer idResult = 0;
         Boolean insert = true;
         try {
             if (oBean.getId() == null || oBean.getId() == 0) {
@@ -78,10 +79,13 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
                 strSQL += "(" + oBean.getValues() + ")";
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 iResult = oPreparedStatement.executeUpdate();
-                strSQL = "UPDATE "+ob+" SET id_usuario="+idUsuario+" WHERE id="+iResult;
+                oResultSet = oPreparedStatement.getGeneratedKeys();
+                oResultSet.next();
+                idResult = oResultSet.getInt(1);
+                strSQL = "UPDATE "+ob+" SET id_usuario="+idUsuario+" WHERE id="+idResult;
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.executeUpdate();
-                // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
+                
             } else {
 
                 insert = false;
@@ -104,11 +108,11 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
                 Log4jHelper.errorLog(msg);
                 throw new Exception(msg);
             }
-            if (insert) {
-                oResultSet = oPreparedStatement.getGeneratedKeys();
-                oResultSet.next();
-                iResult = oResultSet.getInt(1);
-            }
+//            if (insert) {
+//                oResultSet = oPreparedStatement.getGeneratedKeys();
+//                oResultSet.next();
+//                iResult = oResultSet.getInt(1);
+//            }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);
@@ -123,7 +127,7 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
                 oPreparedStatement.close();
             }
         }
-        return iResult;
+        return idResult;
     }
 
 }
