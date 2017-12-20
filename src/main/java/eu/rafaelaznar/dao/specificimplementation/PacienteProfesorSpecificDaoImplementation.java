@@ -36,7 +36,7 @@ import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
-import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import eu.rafaelaznar.factory.BeanFactory;
@@ -49,65 +49,107 @@ import java.util.ArrayList;
 
 public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoImplementation {
 
+    private Integer idUsuario;
     private Integer idCentrosanitario = null;
-    private Integer idUsuario = null;
-    
+
     public PacienteProfesorSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
 
         UsuarioSpecificBeanImplementation oUsuario = (UsuarioSpecificBeanImplementation) oPuserBean_security.getBean();
-        MetaBeanHelper oMetaBeanHelper = oUsuario.getObj_tipousuario();
-        CentrosanitarioSpecificBeanImplementation oCentrosanitario = (CentrosanitarioSpecificBeanImplementation) oMetaBeanHelper.getBean();
-        idCentrosanitario = oCentrosanitario.getId();
+        idCentrosanitario = oUsuario.getId_centrosanitario();
         idUsuario = oUsuario.getId();
 
         strSQL = "SELECT * FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_centrosanitario = " + idCentrosanitario;
     }
 
     @Override
+    public MetaBeanHelper get(int id, int intExpand) throws Exception {
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        strSQL += " AND p.id=? ";
+        TableGenericBeanImplementation oBean = null;
+        MetaBeanHelper oMetaBeanHelper = null;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oPreparedStatement.setInt(1, id);
+            oResultSet = oPreparedStatement.executeQuery();
+            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
+            if (oResultSet.next()) {
+                oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
+            } else {
+                oBean.setId(0);
+            }
+            ArrayList<MetaPropertyGenericBeanHelper> alMetaProperties = this.getPropertiesMetaData();
+            MetaObjectGenericBeanHelper oMetaObject = this.getObjectMetaData();
+            oMetaBeanHelper = new MetaBeanHelper(oMetaObject, alMetaProperties, oBean);
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+
+        }
+        return oMetaBeanHelper;
+    }
+
+    public Boolean checkUpdate(int id) {
+        if (id != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public Integer set(TableGenericBeanImplementation oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
         ResultSet oResultSet = null;
+        Integer idResult = 0;
         Integer iResult = 0;
         Boolean insert = true;
+        PacienteSpecificBeanImplementation oPaciente = (PacienteSpecificBeanImplementation) oBean;
         try {
             if (oBean.getId() == null || oBean.getId() == 0) {
                 strSQL = "INSERT INTO " + ob;
                 strSQL += "(" + oBean.getColumns() + ")";
                 strSQL += " VALUES ";
                 strSQL += "(" + oBean.getValues() + ")";
+
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 iResult = oPreparedStatement.executeUpdate();
-                strSQL = "UPDATE "+ob+" SET id_usuario="+idUsuario+" WHERE id="+iResult;
+                if (insert) {
+                    oResultSet = oPreparedStatement.getGeneratedKeys();
+                    oResultSet.next();
+                    idResult = oResultSet.getInt(1);
+                }
+                strSQL = "UPDATE " + ob + " SET id_usuario=" + idUsuario + " WHERE id=" + idResult;
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.executeUpdate();
-                // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
             } else {
-
+                // check permission if ok edit else unauthorized
                 insert = false;
                 strSQL = "UPDATE " + ob;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-
-//                strSQL += "SELECT COUNT(*) FROM " + ob + ""
-//                (*) from usuario u
-//                ,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u
-//                .id = p.id_usuario and p
-//                .id =  ? (IDPACIENTEAMODIFICAR);
-                
+                strSQL += "SELECT COUNT(*) FROM " + ob + " p, usuario u, grupo g "
+                        + "WHERE g.id_usuario = ? AND u.id_grupo = g.id AND "
+                        + "u.id = p.id_usuario AND p.id = ?";
+//                () from usuario u,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u.id = p.id_usuario and p.id =  ? (IDPACIENTEAMODIFICAR);
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
-                oPreparedStatement.setInt(1, oBean.getId());
+                oPreparedStatement.setInt(1, idUsuario);
+                oPreparedStatement.setInt(2, oBean.getId());
                 iResult = oPreparedStatement.executeUpdate();
             }
             if (iResult < 1) {
                 String msg = this.getClass().getName() + ": set";
                 Log4jHelper.errorLog(msg);
                 throw new Exception(msg);
-            }
-            if (insert) {
-                oResultSet = oPreparedStatement.getGeneratedKeys();
-                oResultSet.next();
-                iResult = oResultSet.getInt(1);
             }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
@@ -123,7 +165,7 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 oPreparedStatement.close();
             }
         }
-        return iResult;
+        return idResult;
     }
 
 }
