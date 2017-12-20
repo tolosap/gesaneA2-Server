@@ -270,6 +270,16 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
     )
     private Integer link_grupo = null;
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Pacientes",
+            LongName = "Pacientes",
+            Description = "Pacientes del usuario",
+            Type = EnumHelper.FieldType.Link,
+            References = "paciente"
+    )
+    private Integer link_paciente = null;
+
     public UsuarioSpecificBeanImplementation() {
         this.grupos = new ArrayList<>();
     }

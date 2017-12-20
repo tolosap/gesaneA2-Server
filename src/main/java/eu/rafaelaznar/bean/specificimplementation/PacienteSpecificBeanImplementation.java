@@ -349,7 +349,8 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tipopago",
-            Width = 4
+            Width = 4,
+            IsVisible = false
     )
     private MetaBeanHelper obj_tipopago = null;
 
@@ -377,8 +378,8 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     private Integer id_usuario = 0;
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
-            ShortName = "Usuario",
-            LongName = "Usuario",
+            ShortName = "Usuario asociado",
+            LongName = "Usuario asociado",
             Description = "Usuario del paciente",
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,

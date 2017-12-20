@@ -114,7 +114,11 @@ public abstract class ViewGenericBeanImplementation implements GenericBeanInterf
                             if (getTypeFromPropertyMetaData(x) == FieldType.Link) {
                                 String ob = getReferencesFromPropertyMetaData(x);
                                 TableDaoInterface oObDao = (TableDaoInterface) DaoFactory.getDao(ob, oConnection, oPuserBean_security, " and id_" + getOwnNameFromObjectMetaData() + "=" + oResultSet.getInt("id"));
-                                x.set(this, oObDao.getCount(null).intValue());
+                                if (oObDao != null) { //en el proceso de login puede ser nulo!!
+                                    x.set(this, oObDao.getCount(null).intValue());
+                                } else {
+                                    x.set(this, 0);
+                                }
                             } else {
                                 if (getTypeFromPropertyMetaData(x) == FieldType.ForeignId) {
                                     x.set(this, oResultSet.getInt(x.getName()));

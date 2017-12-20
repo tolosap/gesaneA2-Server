@@ -95,8 +95,8 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             LongName = "Importe",
             Description = "Importe del episodio",
             Type = EnumHelper.FieldType.Decimal
-            // RegexHelp = "un numero correcto",
-            //IsRequired = true
+    // RegexHelp = "un numero correcto",
+    //IsRequired = true
     )
     private Double importe;
 
@@ -510,7 +510,6 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "procedimiento"
 //    )
 //    private Integer link_procedimiento = null;
-    
 //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Episodio de la analitica",
@@ -520,7 +519,6 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "analitica"
 //    )
 //    private Integer link_analitica = null;
-    
     //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Episodio de la prueba informada",
@@ -530,19 +528,17 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "prueba_informada"
 //    )
 //    private Integer link_prueba_informada = null;
-    
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Subepisodios",
+            LongName = "Subepisodios del episodio",
+            Description = "Subepisodios del episodio",
+            Type = EnumHelper.FieldType.Link,
+            References = "episodio"
+    )
+    private Integer link_episodio = null;
 
     //    @Expose(deserialize = false)
-//    @MetaPropertyBeanInterface(
-//            ShortName = "Episodio del episodio",
-//            LongName = "Episodio del episodio",
-//            Description = "Episodio del episodio",
-//            Type = EnumHelper.FieldType.Link,
-//            References = "episodio"
-//    )
-//    private Integer link_episodio = null;
-    
-        //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Episodio del tratamiento",
 //            LongName = "Episodio del tratamiento",
@@ -551,8 +547,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "tratamiento"
 //    )
 //    private Integer link_tratamiento = null;
-    
-        //    @Expose(deserialize = false)
+    //    @Expose(deserialize = false)
 //    @MetaPropertyBeanInterface(
 //            ShortName = "Episodio del episodio diagnóstico",
 //            LongName = "Episodio del episodio diagnóstico",
@@ -561,7 +556,6 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
 //            References = "episodiodiagnostico"
 //    )
 //    private Integer link_episodiodiagnostico = null;
-    
     public EpisodioSpecificBeanImplementation() {
     }
 
