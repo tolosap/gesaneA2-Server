@@ -35,6 +35,7 @@ package eu.rafaelaznar.factory;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
+import eu.rafaelaznar.bean.specificimplementation.CategoriaprofesionalSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentroSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipoepisodioSpecificBeanImplementation;
@@ -45,6 +46,7 @@ import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImpleme
 import eu.rafaelaznar.bean.specificimplementation.EpisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.FacturaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.MedicoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ServicioSpecificBeanImplementation;
@@ -113,9 +115,15 @@ public class BeanFactory {
             case "paciente":
                 oBean = new PacienteSpecificBeanImplementation();
                 break;
+            case "categoriaprofesional":
+                oBean = new CategoriaprofesionalSpecificBeanImplementation();
+                break;
             case "episodio":
                 oBean = new EpisodioSpecificBeanImplementation();
-                break;     
+                break;
+            case "medico":
+                oBean = new MedicoSpecificBeanImplementation();
+                break;
             default:
 
                 //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");

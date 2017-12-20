@@ -72,7 +72,9 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
             Wide = 3,
+             
             MaxLength = 100
+            
     )
     private String nombrecompleto;
 
@@ -88,6 +90,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             IsForeignKeyDescriptor = false,
             Wide = 3,
             MaxLength = 100,
+            
             IsVisible = false
     )
     private String nombre;
@@ -161,7 +164,9 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             ShortName = "Cod. Postal",
             LongName = "Código Postal",
             Description = "Código Postal del paciente",
-            Type = EnumHelper.FieldType.String,
+            Type = EnumHelper.FieldType.Integer,
+            RegexPattern = "[0-9]{5,5}",
+            RegexHelp = "5 dígitos",
             IsRequired = false,
             IsForeignKeyDescriptor = false,
             Wide = 3,
@@ -325,13 +330,13 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             ShortName = "Sip",
             LongName = "Sip aseguradora",
             Description = "Sip del paciente",
-            Type = EnumHelper.FieldType.String,
+            Type = EnumHelper.FieldType.Integer,
+            RegexPattern = "[0-9]{10,10}",
+            RegexHelp = "10 dígitos",
             IsRequired = true,
-            RegexPattern = RegexConstants.capitalizedName,
-            RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
             Wide = 3,
-            MaxLength = 100,
+            MaxLength = 10,
             IsVisible = false
     )
     private String sip_aseguradora;
