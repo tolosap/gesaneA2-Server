@@ -97,8 +97,6 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
 
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 iResult = oPreparedStatement.executeUpdate();
-
-                // modificar campo de usuario | añadir variable idUsuario (id_usuario=idUsuario);
             } else {
 
                 insert = false;
@@ -106,7 +104,7 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
 
-                strSQL += "SELECT COUNT() FROM " + ob + " p, usuario u, grupo g "
+                strSQL += "SELECT COUNT(*) FROM " + ob + " p, usuario u, grupo g "
                         + "WHERE g.id_usuario = ? AND u.id_grupo = g.id AND "
                         + "u.id = p.id_usuario AND p.id = ?";
 //                () from usuario u,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u
