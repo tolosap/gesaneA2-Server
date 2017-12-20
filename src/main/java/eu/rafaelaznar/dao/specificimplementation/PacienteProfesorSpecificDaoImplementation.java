@@ -98,6 +98,13 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
         return oMetaBeanHelper;
     }
 
+    
+    public Boolean checkUpdate(int id){
+        return null;
+        
+    }
+    
+    
     @Override
     public Integer set(TableGenericBeanImplementation oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
