@@ -58,7 +58,7 @@ public class SexoSpecificBeanImplementation extends TableGenericBeanImplementati
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 1,
             MaxLength = 100
     )
     private String descripcion;

@@ -63,7 +63,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Description = "Nombre completo del usuario",
             Type = EnumHelper.FieldType.Calculated,
             IsForeignKeyDescriptor = true,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100
     )
     private String nombrecompleto;
@@ -78,7 +78,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -94,7 +94,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -110,7 +110,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             RegexPattern = RegexConstants.capitalizedName,
             RegexHelp = RegexConstants.capitalizedName_Help,
             IsForeignKeyDescriptor = false,
-            Wide = 3,
+            Width = 3,
             MaxLength = 100,
             IsVisible = false
     )
@@ -202,7 +202,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "tipousuario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_tipousuario = null;
 
@@ -219,7 +219,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "grupo",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_grupo = null;
 
@@ -239,7 +239,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "centro",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_centro = null;
 
@@ -256,7 +256,7 @@ public class UsuarioSpecificBeanImplementation extends TableGenericBeanImplement
             Type = EnumHelper.FieldType.ForeignObject,
             IsRequired = true,
             References = "centrosanitario",
-            Wide = 4
+            Width = 4
     )
     private MetaBeanHelper obj_centrosanitario = null;
 
