@@ -50,6 +50,20 @@ import java.util.Date;
 )
 public class PacienteSpecificBeanImplementation extends TableGenericBeanImplementation {
 
+    @Expose(deserialize = false)
+    @MetaPropertyBeanInterface(
+            ShortName = "Nombre completo",
+            LongName = "Nombre completo",
+            Description = "Nombre completo del usuario",
+            Type = EnumHelper.FieldType.Calculated,
+            IsForeignKeyDescriptor = true,
+            Width = 3,
+             
+            MaxLength = 100
+            
+    )
+    private String nombrecompleto;
+    
     @Expose
     @MetaPropertyBeanInterface(
             ShortName = "Dni",
@@ -62,18 +76,8 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
     )
     private String dni;
 
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Nombre completo",
-            LongName = "Nombre completo",
-            Description = "Nombre completo del usuario",
-            Type = EnumHelper.FieldType.Calculated,
-            IsForeignKeyDescriptor = true,
-            Width = 3,
-            MaxLength = 100
-            
-    )
-    private String nombrecompleto;
+    
+    
 
 
     @Expose

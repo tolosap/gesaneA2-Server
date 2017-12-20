@@ -40,6 +40,7 @@ import eu.rafaelaznar.service.specificimplementation.CentrosanitarioSpecificServ
 import eu.rafaelaznar.service.specificimplementation.TipoepisodioSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CircunstanciasaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.CursoSpecificServiceImplementation;
+import eu.rafaelaznar.service.specificimplementation.DependenciaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.EspecialidadSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.DestinoaltaSpecificServiceImplementation;
 import eu.rafaelaznar.service.specificimplementation.EpisodioSpecificServiceImplementation;
@@ -765,8 +766,8 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                
-                case "episodio":
+
+            case "episodio":
                 EpisodioSpecificServiceImplementation oEpisodioService = new EpisodioSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -804,7 +805,7 @@ public class ServiceFactory {
                         break;
                 }
                 break;
-                case "medico":
+            case "medico":
                 MedicoSpecificServiceImplementation oMedicoService = new MedicoSpecificServiceImplementation(oRequest);
                 switch (op) {
                     case "getmetadata":
@@ -836,6 +837,45 @@ public class ServiceFactory {
                         break;
                     case "getpagex":
                         oReplyBean = oMedicoService.getPageX();
+                        break;
+                    default:
+                        oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
+                        break;
+                }
+                break;
+            case "dependencia":
+                DependenciaSpecificServiceImplementation oDependenciaService = new DependenciaSpecificServiceImplementation(oRequest);
+                switch (op) {
+                    case "getmetadata":
+                        oReplyBean = oDependenciaService.getMetaData();
+                        break;
+                    case "getobjectmetadata":
+                        oReplyBean = oDependenciaService.getObjectMetaData();
+                        break;
+                    case "getpropertiesmetadata":
+                        oReplyBean = oDependenciaService.getPropertiesMetaData();
+                        break;
+                    case "get":
+                        oReplyBean = oDependenciaService.get();
+                        break;
+                    case "set":
+                        oReplyBean = oDependenciaService.set();
+                        break;
+                    case "remove":
+                        oReplyBean = oDependenciaService.remove();
+                        break;
+                    case "getpage":
+                        oReplyBean = oDependenciaService.getPage();
+                        break;
+                    case "getcount":
+                        oReplyBean = oDependenciaService.getCount();
+                        break;
+                    case "getcountx":
+                        oReplyBean = oDependenciaService.getCountX();
+                        break;
+                    case "getpagex":
+                        oReplyBean = oDependenciaService.getPageX();
+                        break;
                     default:
                         oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Operation not found : Please contact your administrator"));
                         break;
@@ -846,6 +886,6 @@ public class ServiceFactory {
                 oReplyBean = new ReplyBeanHelper(500, EncodingHelper.quotate("Object not found : Please contact your administrator"));
                 break;
         }
-        return oReplyBean ;
+        return oReplyBean;
     }
-   }
+}

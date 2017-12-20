@@ -41,6 +41,7 @@ import eu.rafaelaznar.bean.specificimplementation.CentrosanitarioSpecificBeanImp
 import eu.rafaelaznar.bean.specificimplementation.TipoepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CircunstanciasaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.CursoSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.DependenciaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.EspecialidadSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.DestinoaltaSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.EpisodioSpecificBeanImplementation;
@@ -124,6 +125,9 @@ public class BeanFactory {
             case "medico":
                 oBean = new MedicoSpecificBeanImplementation();
                 break;
+            case "dependencia":
+                oBean = new DependenciaSpecificBeanImplementation();
+                break; 
             default:
 
                 //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");

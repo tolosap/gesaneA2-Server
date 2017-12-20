@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2017-2018
+ * Copyright (c) 2017-2018 
  *
  * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
- *
+ * 
  * GESANE: Free Open Source Health Management System
  *
  * Sources at:
@@ -38,9 +38,13 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import javax.servlet.http.HttpServletRequest;
 
-public class MedicoSpecificServiceImplementation extends TableGenericServiceImplementation {
+/**
+ *
+ * @author a022583952e
+ */
+public class DependenciaSpecificServiceImplementation extends TableGenericServiceImplementation {
 
-    public MedicoSpecificServiceImplementation(HttpServletRequest request) {
+    public DependenciaSpecificServiceImplementation(HttpServletRequest request) {
         super(request);
     }
 
@@ -54,77 +58,38 @@ public class MedicoSpecificServiceImplementation extends TableGenericServiceImpl
             Integer idTipousuario = oTipousuario.getId();
 
             String strMethod = strMethodName.toLowerCase();
-            switch (idTipousuario) {
-                case 1:
-                    return true;
-                case 2:
-                    return false;
-                case 3:
-                    switch (strMethod) {
-                        case "getmetadata":
-                            return true;
-                        case "getobjectmetadata":
-                            return true;
-                        case "getpropertiesmetadata":
-                            return true;
-                        case "get":
-                            return true;
-                        case "set":
-                            return true;
-                        case "remove":
-                            return true;
-                        case "getpage":
-                            return true;
-                        case "getcount":
-                            return true;
-                    }
-                    break;
-                case 4:
-                    switch (strMethod) {
-                        case "getmetadata":
-                            return true;
-                        case "getobjectmetadata":
-                            return true;
-                        case "getpropertiesmetadata":
-                            return true;
-                        case "get":
-                            return true;
-                        case "set":
-                            return true;
-                        case "remove":
-                            return false;
-                        case "getpage":
-                            return true;
-                        case "getcount":
-                            return true;
-                    }
-                    break;
-                case 5:
-                    switch (strMethod) {
-                        case "getmetadata":
-                            return true;
-                        case "getobjectmetadata":
-                            return true;
-                        case "getpropertiesmetadata":
-                            return true;
-                        case "get":
-                            return true;
-                        case "set":
-                            return false;
-                        case "remove":
-                            return false;
-                        case "getpage":
-                            return true;
-                        case "getcount":
-                            return true;
-                    }
-                    break;
-                default:
-                    return false;
-            }
+            if (idTipousuario == 1) {
+                return true;
+            } else {
+                if (idTipousuario == 3
+                        || idTipousuario == 4
+                        || idTipousuario == 5) {
 
+                    switch (strMethod) {
+                        case "getmetadata":
+                            return true;
+                        case "getobjectmetadata":
+                            return true;
+                        case "getpropertiesmetadata":
+                            return true;
+                        case "get":
+                            return true;
+                        case "set":
+                            return false;
+                        case "remove":
+                            return false;
+                        case "getpage":
+                            return true;
+                        case "getcount":
+                            return true;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
         }
         return false;
     }
-
 }
