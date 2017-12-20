@@ -98,13 +98,14 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
         return oMetaBeanHelper;
     }
 
-    
-    public Boolean checkUpdate(int id){
-        return null;
-        
+    public Boolean checkUpdate(int id) {
+        if (id != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    
+
     @Override
     public Integer set(TableGenericBeanImplementation oBean) throws Exception {
         PreparedStatement oPreparedStatement = null;
@@ -136,7 +137,6 @@ public class PacienteProfesorSpecificDaoImplementation extends TableGenericDaoIm
                 strSQL = "UPDATE " + ob;
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-
                 strSQL += "SELECT COUNT(*) FROM " + ob + " p, usuario u, grupo g "
                         + "WHERE g.id_usuario = ? AND u.id_grupo = g.id AND "
                         + "u.id = p.id_usuario AND p.id = ?";
