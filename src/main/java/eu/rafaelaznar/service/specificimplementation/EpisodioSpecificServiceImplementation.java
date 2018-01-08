@@ -76,7 +76,11 @@ public class EpisodioSpecificServiceImplementation extends TableGenericServiceIm
                             return false;
                         case "getpage":
                             return true;
+                        case "getpagex":
+                            return true;
                         case "getcount":
+                            return true;
+                        case "getcountx":
                             return true;
                     }
                 } else {
