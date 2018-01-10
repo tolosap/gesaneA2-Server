@@ -38,9 +38,7 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.dao.specificimplementation.PacienteAlumnoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
-import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
 import eu.rafaelaznar.factory.BeanFactory;
 import eu.rafaelaznar.factory.ConnectionFactory;
 import eu.rafaelaznar.helper.GsonHelper;
@@ -49,8 +47,6 @@ import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 public class PacienteSpecificServiceImplementation extends TableGenericServiceImplementation {
@@ -129,6 +125,10 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                             return true;
                         case "getcount":
                             return true;
+                        case "getpagex":
+                            return true;
+                        case "getcountx":
+                            return true;
                     }
                     break;
                 case 4:
@@ -149,6 +149,10 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                             return true;
                         case "getcount":
                             return true;
+                        case "getcountx":
+                            return true;
+                        case "getpagex":
+                            return true;
                     }
                     break;
                 case 5:
@@ -168,6 +172,10 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                         case "getpage":
                             return true;
                         case "getcount":
+                            return true;
+                        case "getpagex":
+                            return true;
+                        case "getcountx":
                             return true;
                     }
                     break;
