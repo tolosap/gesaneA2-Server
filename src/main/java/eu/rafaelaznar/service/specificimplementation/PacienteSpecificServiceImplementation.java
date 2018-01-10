@@ -38,6 +38,7 @@ import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.dao.specificimplementation.PacienteAlumnoSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
 import eu.rafaelaznar.dao.specificimplementation.PacienteSpecificDaoImplementation;
 import eu.rafaelaznar.factory.BeanFactory;
@@ -88,6 +89,7 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                         case "setedit":
                             Connection oConnection = null;
                             ConnectionInterface oPooledConnection = null;
+                            Boolean oResult = true;
                              {
                                 try {
                                     oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
@@ -97,7 +99,7 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                                     TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
                                     Gson oGson = GsonHelper.getGson();
                                     oBean = oGson.fromJson(jason, oBean.getClass());
-                                    oDao.checkUpdate(oBean.getId());
+                                    oResult = oDao.checkUpdate(oBean.getId());
                                 } catch (Exception ex) {
                                     String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
                                     Log4jHelper.errorLog(msg, ex);
@@ -120,7 +122,7 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                                     }
                                 }
                             }
-                            return true;
+                            return oResult;
                         case "remove":
                             return true;
                         case "getpage":
@@ -140,7 +142,7 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                         case "get":
                             return true;
                         case "set":
-                            return true;
+                           return true;
                         case "remove":
                             return false;
                         case "getpage":

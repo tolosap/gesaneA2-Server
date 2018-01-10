@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2017-2018 
+ * Copyright (c) 2017-2018
  *
  * by Rafael Angel Aznar Aparici (rafaaznar at gmail dot com) & DAW students
- * 
+ *
  * GESANE: Free Open Source Health Management System
  *
  * Sources at:
@@ -50,7 +50,7 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
 
     private Integer idCentrosanitario = 0;
     private Integer idUsuario = 0;
-    
+
     public PacienteAlumnoSpecificDaoImplementation(Connection oPooledConnection, MetaBeanHelper oPuserBean_security, String strWhere) throws Exception {
         super("paciente", oPooledConnection, oPuserBean_security, strWhere);
 
@@ -81,23 +81,16 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
                 oResultSet = oPreparedStatement.getGeneratedKeys();
                 oResultSet.next();
                 idResult = oResultSet.getInt(1);
-                strSQL = "UPDATE "+ob+" SET id_usuario="+idUsuario+" WHERE id="+idResult;
+                strSQL = "UPDATE " + ob + " SET id_usuario=" + idUsuario + " WHERE id=" + idResult;
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.executeUpdate();
-                
-            } else {
 
+            } else {
                 insert = false;
-                strSQL = "UPDATE " + ob;
+                strSQL = "UPDATE " + ob + " p";
                 strSQL += " SET ";
                 strSQL += oBean.toPairs();
-
-//                strSQL += "SELECT COUNT(*) FROM " + ob + ""
-//                (*) from usuario u
-//                ,paciente p, grupo g where g.id_usuario =  ? (IDPROFESORENSESION) and  u.id_grupo = g.id and u
-//                .id = p.id_usuario and p
-//                .id =  ? (IDPACIENTEAMODIFICAR);
-                
+                strSQL += " WHERE p.id = ? AND p.id_usuario = " + idUsuario;
                 oPreparedStatement = oConnection.prepareStatement(strSQL, Statement.RETURN_GENERATED_KEYS);
                 oPreparedStatement.setInt(1, oBean.getId());
                 iResult = oPreparedStatement.executeUpdate();
@@ -107,11 +100,6 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
                 Log4jHelper.errorLog(msg);
                 throw new Exception(msg);
             }
-//            if (insert) {
-//                oResultSet = oPreparedStatement.getGeneratedKeys();
-//                oResultSet.next();
-//                iResult = oResultSet.getInt(1);
-//            }
         } catch (Exception ex) {
             String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
             Log4jHelper.errorLog(msg, ex);

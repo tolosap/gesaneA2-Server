@@ -132,13 +132,7 @@ public abstract class TableGenericServiceImplementation extends ViewGenericServi
             ReplyBeanHelper oReplyBean = null;
             if (oBean == null) {
                 throw new Exception("Bean null en service set");
-            } else if (oBean.getId() != null) {
-                if (oBean.getId() != 0) {
-                    if (this.checkPermission("setedit")) {
-                        oReplyBean = setoBean(oBean);
-                    }
-                }
-            } else if (this.checkPermission("setnew")) {
+            } else {
                 oReplyBean = setoBean(oBean);
             }
             return oReplyBean;
