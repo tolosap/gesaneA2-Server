@@ -61,7 +61,7 @@ public class EpisodioSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Fecha de la firma",
             Type = EnumHelper.FieldType.Date,
             RegexHelp = "una fecha correcta",
-            //IsRequired = true,
+            IsRequired = true,
             IsVisible = false
     )
     private Date fecha_firma;

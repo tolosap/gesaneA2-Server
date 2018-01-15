@@ -71,7 +71,7 @@ public class EpisodioSpecificServiceImplementation extends TableGenericServiceIm
                         case "get":
                             return true;
                         case "set":
-                            return false;
+                            return true;
                         case "remove":
                             return false;
                         case "getpage":
