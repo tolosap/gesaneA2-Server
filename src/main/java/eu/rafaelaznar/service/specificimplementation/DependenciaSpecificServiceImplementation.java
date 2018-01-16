@@ -32,10 +32,21 @@
  */
 package eu.rafaelaznar.service.specificimplementation;
 
+import com.google.gson.Gson;
+import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
+import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
+import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
+import eu.rafaelaznar.factory.BeanFactory;
+import eu.rafaelaznar.factory.ConnectionFactory;
+import eu.rafaelaznar.helper.GsonHelper;
+import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
+import java.sql.Connection;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -58,13 +69,52 @@ public class DependenciaSpecificServiceImplementation extends TableGenericServic
             Integer idTipousuario = oTipousuario.getId();
 
             String strMethod = strMethodName.toLowerCase();
-            if (idTipousuario == 1) {
-                return true;
-            } else {
-                if (idTipousuario == 3
-                        || idTipousuario == 4
-                        || idTipousuario == 5) {
-
+            switch (idTipousuario) {
+                case 1:
+                    return true;
+                case 2:
+                    return false;
+                case 3:
+                    switch (strMethod) {
+                        case "getmetadata":
+                            return true;
+                        case "getobjectmetadata":
+                            return true;
+                        case "getpropertiesmetadata":
+                            return true;
+                        case "get":
+                            return true;
+                        case "set":
+                            return true;
+                        case "remove":
+                            return true;
+                        case "getpage":
+                            return true;
+                        case "getcount":
+                            return true;
+                    }
+                    break;
+                case 4:
+                    switch (strMethod) {
+                        case "getmetadata":
+                            return true;
+                        case "getobjectmetadata":
+                            return true;
+                        case "getpropertiesmetadata":
+                            return true;
+                        case "get":
+                            return true;
+                        case "set":
+                           return true;
+                        case "remove":
+                            return false;
+                        case "getpage":
+                            return true;
+                        case "getcount":
+                            return true;
+                    }
+                    break;
+                case 5:
                     switch (strMethod) {
                         case "getmetadata":
                             return true;
@@ -83,12 +133,10 @@ public class DependenciaSpecificServiceImplementation extends TableGenericServic
                         case "getcount":
                             return true;
                     }
-                } else {
+                    break;
+                default:
                     return false;
-                }
             }
-        } else {
-            return false;
         }
         return false;
     }

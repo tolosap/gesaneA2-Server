@@ -109,7 +109,6 @@ public class UsuarioSpecificServiceImplementation extends TableGenericServiceImp
         hmObjectsMetaData.put("episodio", oDao.getObjectMetaData());
         oDao = DaoFactory.getDao("dependencia", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("dependencia", oDao.getObjectMetaData());
-
         oDao = DaoFactory.getDao("medico", null, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
         hmObjectsMetaData.put("medico", oDao.getObjectMetaData());
         String strJson = GsonHelper.getGson().toJson(hmObjectsMetaData);

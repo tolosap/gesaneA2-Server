@@ -132,7 +132,7 @@ public class SqlHelper {
         String strSQLOrder = "";
         if (hmOrder != null) {
             for (Map.Entry<String, String> entry : hmOrder.entrySet()) {
-                strSQLOrder += entry.getKey();
+                strSQLOrder += entry.getKey();                
                 strSQLOrder += " ";
                 strSQLOrder += entry.getValue();
                 strSQLOrder += ",";

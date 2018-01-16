@@ -99,7 +99,7 @@ public abstract class ViewGenericDaoImplementation extends MetaGenericDaoImpleme
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                GenericBeanInterface oBean = BeanFactory.getBean(ob);
+                GenericBeanInterface oBean = BeanFactory.getBean(ob,oPuserSecurity);
                 oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add((ViewGenericBeanImplementation) oBean);
             }
@@ -138,7 +138,7 @@ public abstract class ViewGenericDaoImplementation extends MetaGenericDaoImpleme
             oPreparedStatement = oConnection.prepareStatement(strSQL1);
             oResultSet = oPreparedStatement.executeQuery(strSQL1);
             while (oResultSet.next()) {
-                GenericBeanInterface oBean = BeanFactory.getBean(ob);
+                GenericBeanInterface oBean = BeanFactory.getBean(ob, oPuserSecurity);
                 oBean = (ViewGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, expand);
                 aloBean.add((ViewGenericBeanImplementation) oBean);
             }

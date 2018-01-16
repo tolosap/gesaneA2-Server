@@ -33,6 +33,7 @@
 package eu.rafaelaznar.dao.specificimplementation;
 
 import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
+import eu.rafaelaznar.bean.helper.FilterBeanHelper;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaObjectGenericBeanHelper;
 import eu.rafaelaznar.bean.meta.helper.MetaPropertyGenericBeanHelper;
@@ -40,6 +41,7 @@ import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementat
 import eu.rafaelaznar.dao.genericimplementation.TableGenericDaoImplementation;
 import eu.rafaelaznar.factory.BeanFactory;
 import eu.rafaelaznar.helper.Log4jHelper;
+import eu.rafaelaznar.helper.SqlHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,7 +130,7 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
             oPreparedStatement = oConnection.prepareStatement(strSQL);
             oPreparedStatement.setInt(1, id);
             oResultSet = oPreparedStatement.executeQuery();
-            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
+            oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob,oPuserSecurity);
             if (oResultSet.next()) {
                 oBean = (TableGenericBeanImplementation) oBean.fill(oResultSet, oConnection, oPuserSecurity, intExpand);
             } else {
@@ -151,5 +153,38 @@ public class PacienteAlumnoSpecificDaoImplementation extends TableGenericDaoImpl
 
         }
         return oMetaBeanHelper;
+    }
+    
+    
+    @Override
+    public Long getCount(ArrayList<FilterBeanHelper> alFilter) throws Exception {
+        strSQL = "SELECT count(*) FROM paciente p, usuario u WHERE p.id_usuario = u.id AND u.id_centrosanitario = " + idCentrosanitario;
+        PreparedStatement oPreparedStatement = null;
+        ResultSet oResultSet = null;
+        strSQL += SqlHelper.buildSqlFilter(alFilter);
+        Long iResult = 0L;
+        try {
+            oPreparedStatement = oConnection.prepareStatement(strSQL);
+            oResultSet = oPreparedStatement.executeQuery();
+            if (oResultSet.next()) {
+                iResult = oResultSet.getLong("COUNT(*)");
+            } else {
+                String msg = this.getClass().getName() + ": getcount";
+                Log4jHelper.errorLog(msg);
+                throw new Exception(msg);
+            }
+        } catch (Exception ex) {
+            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
+            Log4jHelper.errorLog(msg, ex);
+            throw new Exception(msg, ex);
+        } finally {
+            if (oResultSet != null) {
+                oResultSet.close();
+            }
+            if (oPreparedStatement != null) {
+                oPreparedStatement.close();
+            }
+        }
+        return iResult;
     }
 }

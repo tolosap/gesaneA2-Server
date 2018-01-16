@@ -32,6 +32,7 @@
  */
 package eu.rafaelaznar.factory;
 
+import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.publicinterface.GenericBeanInterface;
@@ -50,6 +51,7 @@ import eu.rafaelaznar.bean.specificimplementation.GrupoSpecificBeanImplementatio
 import eu.rafaelaznar.bean.specificimplementation.MedicoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ModalidadepisodioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.PacienteSpecificBeanImplementation;
+import eu.rafaelaznar.bean.specificimplementation.PacienteVisitanteSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.ServicioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.TipopagoSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.SexoSpecificBeanImplementation;
@@ -58,9 +60,9 @@ import eu.rafaelaznar.bean.specificimplementation.TiposervicioSpecificBeanImplem
 
 public class BeanFactory {
 
-    public static GenericBeanInterface getBean(String ob) {
+    public static GenericBeanInterface getBean(String ob, MetaBeanHelper oPuserBean_security) {
         GenericBeanInterface oBean = null;
-
+        MetaBeanHelper oPuserSecurity = oPuserBean_security;
         switch (ob) {
             case "usuario":
                 oBean = new UsuarioSpecificBeanImplementation();
@@ -114,7 +116,12 @@ public class BeanFactory {
                 oBean = new ServicioSpecificBeanImplementation();
                 break;
             case "paciente":
-                oBean = new PacienteSpecificBeanImplementation();
+                UsuarioSpecificBeanImplementation oUser = (UsuarioSpecificBeanImplementation) oPuserSecurity.getBean();
+                if (oUser.getId_tipousuario() == 5) {
+                    oBean = new PacienteVisitanteSpecificBeanImplementation();
+                } else {
+                    oBean = new PacienteSpecificBeanImplementation();
+                }
                 break;
             case "categoriaprofesional":
                 oBean = new CategoriaprofesionalSpecificBeanImplementation();
@@ -127,7 +134,7 @@ public class BeanFactory {
                 break;
             case "dependencia":
                 oBean = new DependenciaSpecificBeanImplementation();
-                break; 
+                break;
             default:
 
                 //  oReplyBean = new ReplyBean(500, "Object not found : Please contact your administrator");

@@ -43,7 +43,7 @@ import eu.rafaelaznar.helper.constant.RegexConstants;
         TableName = "tipopago",
         SingularDescription = "Tipo de pago",
         PluralDescription = "Tipos de pagos",
-        Icon = "fa  fa-money",
+        Icon = "fa fa-money",
         Type = EnumHelper.SourceType.Table
 )
 public class TipopagoSpecificBeanImplementation extends TableGenericBeanImplementation {

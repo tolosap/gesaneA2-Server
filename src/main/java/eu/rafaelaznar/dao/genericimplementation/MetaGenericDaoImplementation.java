@@ -129,7 +129,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
     public MetaObjectGenericBeanHelper getObjectMetaData() throws Exception {
         MetaObjectGenericBeanHelper oMetaObject;
         try {
-            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
+            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob, oPuserSecurity);
             Class oClassBEAN = oBean.getClass();
             oMetaObject = new MetaObjectGenericBeanHelper();
             oMetaObject = fillObjectMetaData(oClassBEAN, oMetaObject);
@@ -145,7 +145,7 @@ public abstract class MetaGenericDaoImplementation implements MetaDaoInterface {
     public ArrayList<MetaPropertyGenericBeanHelper> getPropertiesMetaData() throws Exception {
         ArrayList<MetaPropertyGenericBeanHelper> alVector = new ArrayList<>();
         try {
-            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob);
+            ViewGenericBeanImplementation oBean = (ViewGenericBeanImplementation) BeanFactory.getBean(ob, oPuserSecurity);
             Class classBean = oBean.getClass();
             Class superClassBean = oBean.getClass().getSuperclass();
             alVector = fillPropertiesMetaData(superClassBean, alVector);

@@ -32,21 +32,10 @@
  */
 package eu.rafaelaznar.service.specificimplementation;
 
-import com.google.gson.Gson;
-import eu.rafaelaznar.bean.genericimplementation.TableGenericBeanImplementation;
 import eu.rafaelaznar.bean.helper.MetaBeanHelper;
 import eu.rafaelaznar.bean.specificimplementation.TipousuarioSpecificBeanImplementation;
 import eu.rafaelaznar.bean.specificimplementation.UsuarioSpecificBeanImplementation;
-import eu.rafaelaznar.connection.publicinterface.ConnectionInterface;
-import eu.rafaelaznar.dao.specificimplementation.PacienteProfesorSpecificDaoImplementation;
-import eu.rafaelaznar.factory.BeanFactory;
-import eu.rafaelaznar.factory.ConnectionFactory;
-import eu.rafaelaznar.helper.GsonHelper;
-import eu.rafaelaznar.helper.Log4jHelper;
-import eu.rafaelaznar.helper.constant.ConnectionConstants;
 import eu.rafaelaznar.service.genericimplementation.TableGenericServiceImplementation;
-import java.sql.Connection;
-import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 public class PacienteSpecificServiceImplementation extends TableGenericServiceImplementation {
@@ -80,45 +69,8 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                             return true;
                         case "get":
                             return true;
-                        case "setnew":
+                        case "set":
                             return true;
-                        case "setedit":
-                            Connection oConnection = null;
-                            ConnectionInterface oPooledConnection = null;
-                            Boolean oResult = true;
-                             {
-                                try {
-                                    oPooledConnection = ConnectionFactory.getSourceConnection(ConnectionConstants.connectionName);
-                                    oConnection = oPooledConnection.newConnection();
-                                    PacienteProfesorSpecificDaoImplementation oDao = new PacienteProfesorSpecificDaoImplementation(oConnection, (MetaBeanHelper) oRequest.getSession().getAttribute("user"), null);
-                                    String jason = oRequest.getParameter("json");
-                                    TableGenericBeanImplementation oBean = (TableGenericBeanImplementation) BeanFactory.getBean(ob);
-                                    Gson oGson = GsonHelper.getGson();
-                                    oBean = oGson.fromJson(jason, oBean.getClass());
-                                    oResult = oDao.checkUpdate(oBean.getId());
-                                } catch (Exception ex) {
-                                    String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
-                                    Log4jHelper.errorLog(msg, ex);
-                                } finally {
-                                    if (oConnection != null) {
-                                        try {
-                                            oConnection.close();
-                                        } catch (SQLException ex) {
-                                            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
-                                            Log4jHelper.errorLog(msg, ex);
-                                        }
-                                    }
-                                    if (oPooledConnection != null) {
-                                        try {
-                                            oPooledConnection.disposeConnection();
-                                        } catch (Exception ex) {
-                                            String msg = this.getClass().getName() + ":" + (ex.getStackTrace()[0]).getMethodName() + " ob:" + ob;
-                                            Log4jHelper.errorLog(msg, ex);
-                                        }
-                                    }
-                                }
-                            }
-                            return oResult;
                         case "remove":
                             return true;
                         case "getpage":
@@ -142,7 +94,7 @@ public class PacienteSpecificServiceImplementation extends TableGenericServiceIm
                         case "get":
                             return true;
                         case "set":
-                           return true;
+                            return true;
                         case "remove":
                             return false;
                         case "getpage":

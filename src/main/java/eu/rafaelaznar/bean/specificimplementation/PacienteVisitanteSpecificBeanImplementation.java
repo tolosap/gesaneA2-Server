@@ -48,7 +48,7 @@ import java.util.Date;
         Icon = "fa fa-address-card-o",
         Type = EnumHelper.SourceType.Table
 )
-public class PacienteSpecificBeanImplementation extends TableGenericBeanImplementation {
+public class PacienteVisitanteSpecificBeanImplementation extends TableGenericBeanImplementation {
 
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -69,8 +69,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             Description = "Documento Nacional de Identidad",
             Type = EnumHelper.FieldType.String,
             IsForeignKeyDescriptor = true,
-            RegexPattern = RegexConstants.dni,
-            RegexHelp = RegexConstants.dni_Help,
             Width = 3,
             MaxLength = 100
     )
@@ -371,24 +369,7 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
             References = "sexo",
             Width = 4
     )
-    private MetaBeanHelper obj_sexo = null;
-
-    @Expose(serialize = false)
-    @MetaPropertyBeanInterface(
-            Type = EnumHelper.FieldType.ForeignId
-    )
-    private Integer id_usuario = 0;
-    @Expose(deserialize = false)
-    @MetaPropertyBeanInterface(
-            ShortName = "Usuario asociado",
-            LongName = "Usuario asociado",
-            Description = "Usuario del paciente",
-            Type = EnumHelper.FieldType.ForeignObject,
-            IsRequired = true,
-            References = "usuario",
-            Width = 4
-    )
-    private MetaBeanHelper obj_usuario = null;
+    private MetaBeanHelper obj_sexo = null; 
 
     @Expose(deserialize = false)
     @MetaPropertyBeanInterface(
@@ -583,22 +564,6 @@ public class PacienteSpecificBeanImplementation extends TableGenericBeanImplemen
 
     public void setObj_sexo(MetaBeanHelper obj_sexo) {
         this.obj_sexo = obj_sexo;
-    }
-
-    public Integer getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public MetaBeanHelper getObj_usuario() {
-        return obj_usuario;
-    }
-
-    public void setObj_usuario(MetaBeanHelper obj_usuario) {
-        this.obj_usuario = obj_usuario;
     }
 
 }
