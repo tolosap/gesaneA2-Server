@@ -44,6 +44,6 @@ public class RegexConstants {
     public static final String email_Help = "un email válido"; // see \\ is \    
     public static final String capitalizedSentence = "[A-Z]([^\\s]*\\s?)+";
     public static final String capitalizedSentence_Help = "una frase que comienza en mayúscula";
-    public static final String direction = "[A-Z]{1}[a-z0-9ºçñáéíóúàèò- ]*";
+    public static final String direction = "([A-Z]{1}[a-zçñáéíóúàèò ]+[\\s]*)+";
     public static final String directionSentence_Help = "una direccion que comienza en mayúscula";
 }
